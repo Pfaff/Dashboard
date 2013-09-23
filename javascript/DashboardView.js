@@ -10,17 +10,13 @@ function DashboardView() {
     };
 
     this.createContainers = function() {
+        var container = document.getElementById("container");
+
         var att = [];
         att.name = "container";
-        att.width = "400px";
-        att.height = "800px";
-        att.display = "inline-block";
 
-        att.border = "1px solid black";
-
-
-        createElement("article", document.body, { id: att.name + "Left", className: att.name, width: att.width, height: att.height, border: att.border, display: att.display });
-        createElement("article", document.body, { id: att.name + "Middle", className: att.name, width: att.width, height: att.height, border: att.border, display: att.display });
-        createElement("article", document.body, { id: att.name + "Right", className: att.name, width: att.width, height: att.height, border: att.border, display: att.display });
+        createElement("article", container, { id: att.name + "Left", className: att.name });
+        createElement("article", container, { id: att.name + "Middle", className: att.name });
+        createElement("article", container, { id: att.name + "Right", className: att.name });
     };
 }
