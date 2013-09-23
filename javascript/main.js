@@ -20,7 +20,11 @@ function createElement (elementName, parent, properties) {
     if (properties) {
         for (var property in properties) {
             if (properties.hasOwnProperty(property)) {
-                element[property] = properties[property];
+                if(property === "id" || property === "className" || property === "alt" || property === "src") {
+                    element[property] = properties[property];
+                } else {
+                    element.style[property] = properties[property];
+                }
             }
         }
     }
