@@ -33,7 +33,8 @@ function DashboardController() {
      */
     this.activatePIArticleClickListeners = function() {
         $(".piArticle").click(function() {
-            alert("Hoi");
+            var overlayController = new OverlayController();
+            overlayController.main(true);
         });
     };
 }

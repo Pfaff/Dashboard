@@ -8,6 +8,17 @@ body {
     font-size:13px;
 }
 
+#overlay {
+    opacity:0.75;
+    background:#000000;
+    width:100%;
+    height:100%;
+    z-index:10;
+    top:0;
+    left:0;
+    position:fixed;
+}
+
 .container {
     width:609px;
     height:901px;
