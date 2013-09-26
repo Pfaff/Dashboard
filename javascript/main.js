@@ -1,5 +1,6 @@
 /**
  * Runs once the document is loaded.
+ * @author - Jeffrey Pfaff
  */
 $(document).ready(function() {
     var dashCon = new DashboardController();

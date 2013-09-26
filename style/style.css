@@ -1,6 +1,80 @@
+body {
+    background-color:#3c4045;
+    font-family:'Open Sans', sans-serif;
+    color:#FFFFFF;
+}
+
+.title {
+    font-size:13px;
+}
+
 .container {
-    width:33%;
-    height:945px;
+    width:609px;
+    height:901px;
     display:inline-block;
-    border:1px solid black;
+}
+
+#container {
+    min-width:1827px;
+    text-align:center;
+}
+
+.containerLeftSection {
+    width:100%;
+}
+
+#containerLeftSectionTop {
+    height:490px;
+}
+
+#containerLeftSectionBottom {
+    height:411px;
+}
+
+.piArticle {
+    float:left;
+    background-color:#2d92a5;
+    position:relative;
+    width:127px;
+    height:105px;
+    margin-top:17px;
+    margin-right:22px;
+    text-align: center;
+}
+
+.piArticle:first-child {
+    width:574px;
+    height:307px;
+    margin-top:30px;
+    margin-right:0;
+}
+
+.piContentArticle {
+    width:100px;
+    height:60px;
+    margin:15px auto 0 auto;
+}
+
+#piContentArticle0 {
+    width:500px;
+    height:225px;
+    margin-top:35px;
+}
+
+.piContent {
+    font-family:'Open Sans Bold', sans-serif;
+    font-size: 19px;
+    line-height:68px;
+}
+
+.piTitleArticle {
+    text-align:left;
+    height:20px;
+    width:100%;
+    position:absolute;
+    bottom:0;
+}
+
+.piTitleArticle p {
+    margin-left:8px;
 }
