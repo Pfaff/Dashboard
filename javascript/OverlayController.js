@@ -5,7 +5,7 @@
 function OverlayController() {
 
     /**
-     * Builds the overlay.
+     * Builds or removes the overlay on the page.
      */
     this.main = function(trueForBuildFalseForRemove) {
         var overlayView = new OverlayView();

@@ -11,15 +11,6 @@ function DashboardView() {
     this.main = function() {
         dashView.createDashboardContainers();
         dashView.createLeftContainerSections();
-        dashView.startProjectInfoWidgetView();
-    };
-
-    /**
-     * Starts the project info widget view build.
-     */
-    this.startProjectInfoWidgetView = function() {
-        var piView = new WidgetProjectInfoView();
-        piView.main();
     };
 
     /**

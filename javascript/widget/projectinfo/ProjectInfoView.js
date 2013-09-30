@@ -54,7 +54,7 @@ function WidgetProjectInfoView() {
     this.createProjectInfoTitlesArticles = function() {
         for(var i = 0; i < 5; i++) {
             var piArticle = document.getElementById("piArticle" + i);
-            createElement("article", piArticle, { id: "piTitleArticle" + i, className: "piTitleArticle" });
+            createElement("article", piArticle, { id: "piTitleArticle" + i, className: "titleArticle" });
         }
     };
 

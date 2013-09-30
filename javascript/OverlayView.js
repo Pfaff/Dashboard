@@ -11,6 +11,8 @@ function OverlayView() {
     this.buildOverlay = function() {
         var overlay = createElement("section", document.body, { id: "overlay" });
         overlay.onclick = function() { overlayView.removeOverlay(); };
+
+        overlayView.createOverlayContainer();
     };
 
     /**
@@ -18,5 +20,9 @@ function OverlayView() {
      */
     this.removeOverlay = function() {
         document.body.removeChild(document.getElementById("overlay"));
+    };
+
+    this.createOverlayContainer = function() {
+        createElement("section", document.getElementById("overlay"), { id: "containerOverlay" });
     };
 }
