@@ -2,7 +2,7 @@
  * @author - Jeffrey Pfaff
  * @constructor
  */
-function WidgetProjectInfoView() {
+function ProjectInfoView() {
     var piView = this;
 
     /**
@@ -68,5 +68,15 @@ function WidgetProjectInfoView() {
             var piTitle = createElement("p", piTitleArticle, { id: "piTitle" + i, className: "title" });
             piTitle.appendChild(document.createTextNode(names[i]));
         }
+    };
+
+    this.updateContent = function(number, title, content) {
+        document.getElementById("piTitle" + number).firstChild.data = title;
+        document.getElementById("piContent" + number).firstChild.data = content;
+    };
+
+    this.updateBackgroundColor = function(number, color) {
+        var article = document.getElementById("piArticle" + number);
+        article.style.backgroundColor = color;
     };
 }

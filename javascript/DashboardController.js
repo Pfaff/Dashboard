@@ -10,7 +10,7 @@ function DashboardController() {
      */
     this.main = function() {
         dashCon.buildView();
-        dashCon.buildProjectInfoView();
+        dashCon.startProjectInfoController();
         dashCon.activateOnClickListeners();
     };
 
@@ -20,14 +20,6 @@ function DashboardController() {
     this.buildView = function() {
         var dashView = new DashboardView();
         dashView.main();
-    };
-
-    /**
-     * Builds the view for the project info widget.
-     */
-    this.buildProjectInfoView = function() {
-        var piView = new WidgetProjectInfoView();
-        piView.main();
     };
 
     /**
@@ -62,5 +54,13 @@ function DashboardController() {
     this.startProjectHistoryController = function() {
         var phController = new ProjectHistoryController();
         phController.main();
+    };
+
+    /**
+     * Starts the project info controller.
+     */
+    this.startProjectInfoController = function() {
+        var piController = new ProjectInfoController();
+        piController.main();
     };
 }
