@@ -47,8 +47,8 @@ function ProjectInfoController() {
         }
 
         piView.updateContent(1, "version", piModel.pi.getValue('version'));
-        piView.updateContent(2, "request time", piModel.pi.getRequestTime());
-        piView.updateContent(3, "request / min", piModel.pi.getRequestMin());
-        piView.updateContent(4, "uptime", piModel.pi.getUptime());
+        piView.updateContent(2, "request time", piModel.pi.getValue('requestTime'));
+        piView.updateContent(3, "request / min", piModel.pi.getValue('requestMin'));
+        piView.updateContent(4, "uptime", piModel.pi.getValue('uptime'));
     };
 }

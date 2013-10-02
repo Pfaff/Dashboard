@@ -27,24 +27,24 @@ function ProjectInfoModel() {
 
     this.fillProjectInfoObject = function(data) {
         piModel.pi.setValue('version', data['Versie']);
-        piModel.pi.setRequestTime(data['Gem. request duur']);
-        piModel.pi.setRequestMin(data['Requests per minuut']);
-        piModel.pi.setUptime(data['Starttijd']);
-        piModel.pi.setCapacityMax(data['Gebruikt geheugen']);
-        piModel.pi.setCapacityInUse(data['Maximum geheugen']);
-        piModel.pi.setLoadAverage(data['Load average']);
-        piModel.pi.setCpu(data["CPU's"]);
-        piModel.pi.setScheme(data['Schema']);
-        piModel.pi.setConnectionsOpen(data['Open connections']);
-        piModel.pi.setConnectionsBusy(data['Busy connections']);
-        piModel.pi.setConnectionsIdle(data['Idle connections']);
+        piModel.pi.setValue('requestTime', data['Gem. request duur']);
+        piModel.pi.setValue('requestMin', data['Requests per minuut']);
+        piModel.pi.setValue('uptime', data['Starttijd']);
+        piModel.pi.setValue('capacityMax', data['Gebruikt geheugen']);
+        piModel.pi.setValue('capacityInUse', data['Maximum geheugen']);
+        piModel.pi.setValue('loadAverage', data['Load average']);
+        piModel.pi.setValue('cpu', data["CPU's"]);
+        piModel.pi.setValue('scheme', data['Schema']);
+        piModel.pi.setValue('connectionsOpen', data['Open connections']);
+        piModel.pi.setValue('connectionsBusy', data['Busy connections']);
+        piModel.pi.setValue('connectionsIdle', data['Idle connections']);
 
         this.calculateUptime();
     };
 
     this.calculateUptime = function() {
-        var serverStart = new Date(piModel.pi.getUptime());
-        piModel.pi.setUptime(new Date().getHours() - serverStart.getHours() + " Hours");
+        var serverStart = new Date(piModel.pi.getValue('uptime'));
+        piModel.pi.setValue('uptime', new Date().getHours() - serverStart.getHours() + " Hours");
     };
 
     this.createValuesToGetArray = function() {
