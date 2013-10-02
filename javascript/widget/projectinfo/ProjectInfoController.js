@@ -6,7 +6,8 @@ function ProjectInfoController() {
     var piController = this;
     var piView = new ProjectInfoView();
     var piModel = new ProjectInfoModel();
-    var pi = new ProjectInfo("4.0.2", "4.051", "6.6 Hours", "53", "7");
+
+    var pi;
 
     this.main = function() {
         piController.startProjectInfoView();
@@ -30,12 +31,24 @@ function ProjectInfoController() {
 
     this.updateContent = function() {
         setInterval(function() {
-            piView.updateBackgroundColor(1, "#554d59");
+            for(var i = 1; i < 5; i++) {
+                piView.updateBackgroundColor(i, "#554d59");
+            }
 
             setTimeout(function() {
-                piView.updateBackgroundColor(1, "#2d92a5");
-                piView.updateContent(1, "users", pi.getUsers());
+                piController.updateFirstBlock();
             }, 1000 );
         }, 2000 );
+    };
+
+    this.updateFirstBlock = function() {
+        for(var i = 1; i < 5; i++) {
+            piView.updateBackgroundColor(i, "#2d92a5");
+        }
+
+        piView.updateContent(1, "version", piModel.pi.getValue('version'));
+        piView.updateContent(2, "request time", piModel.pi.getRequestTime());
+        piView.updateContent(3, "request / min", piModel.pi.getRequestMin());
+        piView.updateContent(4, "uptime", piModel.pi.getUptime());
     };
 }

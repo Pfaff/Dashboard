@@ -12,36 +12,6 @@ function DashboardController() {
         dashCon.buildView();
         dashCon.startProjectInfoController();
         dashCon.activateOnClickListeners();
-
-        $.ajax({
-            url: '../dashboard/php/proxy.php',
-            type: 'POST',
-            data: {
-                externalUrl: 'https://start1.mijnsom.nl/app/status',
-                value: JSON.stringify(dashCon.createValuesToGetArray())
-            },
-            success: function(data){
-                console.log(data);
-            }
-        });
-
-    };
-
-    this.createValuesToGetArray = function() {
-        return [
-            'Versie',
-            'Gem. request duur',
-            'Requests per minuut',
-            'Starttijd',
-            'Gebruikt geheugen',
-            'Maximum geheugen',
-            'Load average',
-            "CPU's",
-            'Schema',
-            'Open connections',
-            'Busy connections',
-            'Idle connections'
-        ];
     };
 
     /**
