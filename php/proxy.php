@@ -12,15 +12,12 @@ $data = json_decode($_POST["value"], true);
 
 $results = array();
 
-while($count < count($data)) {
+foreach ($data as &$value) {
+    $results[$value] = $value * 2;
+
     foreach($tds as $td){
-        if($td->plaintext == $data["value".$count]){
-            $results["value".$count] = $td->next_sibling()->plaintext;
-            if($count != count($data)) {
-                $count++;
-            } else {
-                break;
-            }
+        if($td->plaintext == $value){
+            $results[$value] = $td->next_sibling()->plaintext;
         }
     }
 }

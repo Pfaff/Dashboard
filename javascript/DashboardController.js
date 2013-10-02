@@ -28,20 +28,20 @@ function DashboardController() {
     };
 
     this.createValuesToGetArray = function() {
-        return {
-            'value1'    :   'Versie',
-            'value2'    :   'Gem. request duur',
-            'value3'    :   'Requests per minuut',
-            'value4'    :   'Starttijd',
-            'value5'    :   'Gebruikt geheugen',
-            'value6'    :   'Maximum geheugen',
-            'value7'    :   'Load average',
-            'value8'    :   "CPU's",
-            'value9'    :   'Schema',
-            'value10'   :   'Open connections',
-            'value11'   :   'Busy connections',
-            'value12'   :   'Idle connections'
-        };
+        return [
+            'Versie',
+            'Gem. request duur',
+            'Requests per minuut',
+            'Starttijd',
+            'Gebruikt geheugen',
+            'Maximum geheugen',
+            'Load average',
+            "CPU's",
+            'Schema',
+            'Open connections',
+            'Busy connections',
+            'Idle connections'
+        ];
     };
 
     /**
