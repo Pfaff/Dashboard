@@ -12,6 +12,20 @@ function DashboardController() {
         dashCon.buildView();
         dashCon.startProjectInfoController();
         dashCon.activateOnClickListeners();
+
+        // https://start1.mijnsom.nl/app/status
+
+        $.ajax({
+            url: '../dashboard/php/proxy.php',
+            type: 'POST',
+            data: {
+                address: 'https://start1.mijnsom.nl/app/status'
+            },
+            success: function(response) {
+                console.log(response);
+            }
+        });
+
     };
 
     /**
