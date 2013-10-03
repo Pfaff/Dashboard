@@ -4,12 +4,23 @@
  */
 function ProjectInfoModel() {
     var piModel = this;
-    this.pi = new ProjectInfo(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
 
+    /**
+     * Creates the object that saves all the information of the project info.
+     * @type {ProjectInfo}
+     */
+    this.pi = new ProjectInfo(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
+
+    /**
+     * Gathers the information for the project info widget.
+     */
     this.main = function() {
         piModel.getProjectInformation();
     };
 
+    /**
+     * The AJAX call which gathers the information.
+     */
     this.getProjectInformation = function() {
         $.ajax({
             url: '../dashboard/php/proxy.php',
@@ -25,6 +36,10 @@ function ProjectInfoModel() {
         });
     };
 
+    /**
+     * Handles the response data of the AJAX call, storing the data in the project info object.
+     * @param data
+     */
     this.fillProjectInfoObject = function(data) {
         piModel.pi.setValue('version', data['Versie']);
         piModel.pi.setValue('requestTime', data['Gem. request duur']);
@@ -43,11 +58,17 @@ function ProjectInfoModel() {
         this.fixSchemeVersion();
     };
 
+    /**
+     * Calculates the uptime of the server.
+     */
     this.calculateUptime = function() {
         var serverStart = new Date(piModel.pi.getValue('uptime'));
         piModel.pi.setValue('uptime', new Date().getHours() - serverStart.getHours() + " Hours");
     };
 
+    /**
+     * Removes the text part after the version number of the scheme.
+     */
     this.fixSchemeVersion = function() {
         var scheme = piModel.pi.getValue('scheme');
         var newScheme = scheme.substr(0, scheme.indexOf(' '));
@@ -55,6 +76,10 @@ function ProjectInfoModel() {
         piModel.pi.setValue('scheme', newScheme);
     };
 
+    /**
+     * A list of the values the project info widget wants to get.
+     * @returns {Array}
+     */
     this.createValuesToGetArray = function() {
         return [
             'Versie',
@@ -68,7 +93,8 @@ function ProjectInfoModel() {
             'Schema',
             'Open connections',
             'Busy connections',
-            'Idle connections'
+            'Idle connections',
+            'Live sessies'
         ];
     };
 }

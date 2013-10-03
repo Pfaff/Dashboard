@@ -1,4 +1,4 @@
-function ProjectInfo(version, requestTime, requestMin, uptime, capacityMax, capacityInUse, loadAverage, cpu, scheme, connectionsOpen, connectionsBusy, connectionsIdle) {
+function ProjectInfo(version, requestTime, requestMin, uptime, capacityMax, capacityInUse, loadAverage, cpu, scheme, connectionsOpen, connectionsBusy, connectionsIdle, users) {
     this.attribute = [];
     this.attribute["version"] = version;
     this.attribute["requestTime"] = requestTime;
@@ -12,6 +12,7 @@ function ProjectInfo(version, requestTime, requestMin, uptime, capacityMax, capa
     this.attribute["connectionsOpen"] = connectionsOpen;
     this.attribute["connectionsBusy"] = connectionsBusy;
     this.attribute["connectionsIdle"] = connectionsIdle;
+    this.attribute["users"] = users;
 
     this.getValue = function(value) { return this.attribute[value]; };
     this.setValue = function(attribute, newValue) { this.attribute[attribute] = newValue; };

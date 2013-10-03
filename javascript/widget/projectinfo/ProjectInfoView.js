@@ -70,13 +70,20 @@ function ProjectInfoView() {
         }
     };
 
+    /**
+     * Updates the content of the given pi element. Adds a new title and new content.
+     * @param number
+     * @param title
+     * @param content
+     */
     this.updateContent = function(number, title, content) {
         document.getElementById("piTitle" + number).firstChild.data = title;
         document.getElementById("piContent" + number).firstChild.data = content;
     };
 
-    this.updateBackgroundColor = function(number, color) {
-        var article = document.getElementById("piArticle" + number);
-        article.style.backgroundColor = color;
+    this.addSpanToParagraph = function(pid, value) {
+        var splitText = value.split(' ');
+        var p = document.getElementById(pid);
+        p.innerHTML = splitText[0]+ " <span>" + splitText[1] + "</span>";
     };
 }

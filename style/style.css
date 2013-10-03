@@ -61,9 +61,10 @@ body {
 }
 
 .piContentArticle {
-    width:100px;
-    height:60px;
-    margin:15px auto 0 auto;
+    width:45px;
+    height:40px;
+    margin:0 auto 0 auto;
+
 }
 
 #piContentArticle0 {
@@ -74,8 +75,18 @@ body {
 
 .piContent {
     font-family:'Open Sans Bold', sans-serif;
-    font-size: 19px;
-    line-height:68px;
+    font-size:19px;
+    margin-top:25px;
+}
+
+.piContent p {
+    float:left;
+}
+
+.piContent span {
+    clear:both;
+    font-family:'Open Sans', sans-serif;
+    font-size:13px;
 }
 
 .titleArticle {
