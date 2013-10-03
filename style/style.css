@@ -61,10 +61,9 @@ body {
 }
 
 .piContentArticle {
-    width:45px;
+    width:auto;
     height:40px;
     margin:0 auto 0 auto;
-
 }
 
 #piContentArticle0 {
@@ -76,15 +75,16 @@ body {
 .piContent {
     font-family:'Open Sans Bold', sans-serif;
     font-size:19px;
-    margin-top:25px;
+    margin-top:40px;
 }
 
 .piContent p {
-    float:left;
+    display:block;
 }
 
 .piContent span {
-    clear:both;
+    margin-top:2px;
+    display:block;
     font-family:'Open Sans', sans-serif;
     font-size:13px;
 }

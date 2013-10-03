@@ -63,7 +63,7 @@ function ProjectInfoModel() {
      */
     this.calculateUptime = function() {
         var serverStart = new Date(piModel.pi.getValue('uptime'));
-        piModel.pi.setValue('uptime', new Date().getHours() - serverStart.getHours() + " Hours");
+        piModel.pi.setValue('uptime', new Date().getHours() - serverStart.getHours() + " hours");
     };
 
     /**

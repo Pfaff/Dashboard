@@ -81,9 +81,34 @@ function ProjectInfoView() {
         document.getElementById("piContent" + number).firstChild.data = content;
     };
 
-    this.addSpanToParagraph = function(pid, value) {
+    /**
+     * Adds a span to the given piContent element.
+     * @param piContentElement
+     * @param value
+     */
+    this.addSpanToParagraph = function(piContentElement, value) {
         var splitText = value.split(' ');
-        var p = document.getElementById(pid);
-        p.innerHTML = splitText[0]+ " <span>" + splitText[1] + "</span>";
+        piContentElement.innerHTML = splitText[0]+ " <span>" + splitText[1] + "</span>";
+        piContentElement.style.marginTop = "30px";
+    };
+
+    /**
+     * Sets the margin of the given piContent element to normal again.
+     * It's made to keep the balance between the different sizes of the content.
+     * @param piContentElement
+     */
+    this.setNormalMarginToParagraph = function(piContentElement) {
+        piContentElement.style.marginTop = "38px";
+    };
+
+    /**
+     * Clears all paragraphs before adding new data.
+     * If this is not called the made <span> elements keep in place.
+     */
+    this.clearParagraphs = function() {
+        for(var i = 1; i < 5; i++) {
+            var myNode = document.getElementById("piContent" + i);
+            myNode.innerHTML = ' ';
+        }
     };
 }
