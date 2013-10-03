@@ -1,3 +1,0 @@
-Dashboard
-=========
-School project.
