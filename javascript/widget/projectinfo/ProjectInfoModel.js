@@ -30,8 +30,8 @@ function ProjectInfoModel() {
         piModel.pi.setValue('requestTime', data['Gem. request duur']);
         piModel.pi.setValue('requestMin', data['Requests per minuut']);
         piModel.pi.setValue('uptime', data['Starttijd']);
-        piModel.pi.setValue('capacityMax', data['Gebruikt geheugen']);
-        piModel.pi.setValue('capacityInUse', data['Maximum geheugen']);
+        piModel.pi.setValue('capacityMax', data['Maximum geheugen']);
+        piModel.pi.setValue('capacityInUse', data['Gebruikt geheugen']);
         piModel.pi.setValue('loadAverage', data['Load average']);
         piModel.pi.setValue('cpu', data["CPU's"]);
         piModel.pi.setValue('scheme', data['Schema']);
@@ -40,11 +40,19 @@ function ProjectInfoModel() {
         piModel.pi.setValue('connectionsIdle', data['Idle connections']);
 
         this.calculateUptime();
+        this.fixSchemeVersion();
     };
 
     this.calculateUptime = function() {
         var serverStart = new Date(piModel.pi.getValue('uptime'));
         piModel.pi.setValue('uptime', new Date().getHours() - serverStart.getHours() + " Hours");
+    };
+
+    this.fixSchemeVersion = function() {
+        var scheme = piModel.pi.getValue('scheme');
+        var newScheme = scheme.substr(0, scheme.indexOf(' '));
+
+        piModel.pi.setValue('scheme', newScheme);
     };
 
     this.createValuesToGetArray = function() {
