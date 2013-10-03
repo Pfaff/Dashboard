@@ -92,6 +92,11 @@ function ProjectInfoController() {
         }
     };
 
+    /**
+     * Returns the desired piContent element.
+     * @param index
+     * @returns {*}
+     */
     this.getPiContentElement = function(index) {
         if(index === 1) { return document.getElementById('piContent1'); }
         else if(index === 3) { return document.getElementById('piContent2'); }
