@@ -1,14 +1,9 @@
 <?php
 
-include('../connect.php');
+require_once("User.php");
 
-$result = pg_query($connection,"SELECT * FROM users");
+$user = new User();
+$result = $user->getUsers();
 
-$myarray = array();
-while ($row = pg_fetch_row($result)) {
-    $myarray[] = $row;
-}
+echo $result;
 
-echo json_encode($myarray);
-
-pg_close($connection);

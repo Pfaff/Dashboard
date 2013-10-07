@@ -116,9 +116,12 @@ function ProjectInfoModel() {
             type: 'POST',
             dataType: 'json',
             success: function(data){
-                console.log("Oelewapper!");
-                console.log(data);
+                piModel.handleUsersArray(data);
             }
         });
+    };
+
+    this.handleUsersArray = function(data) {
+        console.log(data);
     };
 }

@@ -1,3 +1,20 @@
+/**
+ * The project info object.
+ * @param version
+ * @param requestTime
+ * @param requestMin
+ * @param uptime
+ * @param capacityMax
+ * @param capacityInUse
+ * @param loadAverage
+ * @param cpu
+ * @param scheme
+ * @param connectionsOpen
+ * @param connectionsBusy
+ * @param connectionsIdle
+ * @param users
+ * @constructor
+ */
 function ProjectInfo(version, requestTime, requestMin, uptime, capacityMax, capacityInUse, loadAverage, cpu, scheme, connectionsOpen, connectionsBusy, connectionsIdle, users) {
     this.attribute = [];
     this.attribute["version"] = version;
