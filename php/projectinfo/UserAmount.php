@@ -2,24 +2,24 @@
 
 require_once("../dbconfig.php");
 
-class User {
+class UserAmount {
     public function __construct() {
         $this->DBH = new PDO("pgsql:dbname=".CON_DBNAME.";host=".CON_HOST."", CON_USER, CON_PASSWORD);
-        $this->users = Array();
+        $this->userAmounts = Array();
     }
 
     public function __destruct() {
         $this->DBH = null;
     }
 
-    public function getUsers() {
+    public function getUserAmounts() {
         try {
             $STH = $this->DBH->prepare("SELECT * FROM users");
             $STH->execute();
-            $this->users = $STH->fetchAll();
+            $this->userAmounts = $STH->fetchAll();
 
-            if($this->users) {
-                return json_encode($this->users);
+            if($this->userAmounts) {
+                return json_encode($this->userAmounts);
             } else {
                 return 0;
             }

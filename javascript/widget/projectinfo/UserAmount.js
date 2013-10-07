@@ -1,4 +1,4 @@
-function User(amount, datetime) {
+function UserAmount(amount, datetime) {
     this.attribute = [];
     this.attribute["amount"] = amount;
     this.attribute["datetime"] = datetime;

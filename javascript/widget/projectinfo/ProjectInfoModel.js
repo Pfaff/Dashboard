@@ -9,14 +9,14 @@ function ProjectInfoModel() {
      * Creates the object that saves all the information of the project info.
      * @type {ProjectInfo}
      */
-    this.pi = new ProjectInfo(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
+    this.pi = new ProjectInfo(" ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ", " ");
 
     /**
      * Gathers the information for the project info widget.
      */
     this.main = function() {
         piModel.getProjectInformation();
-        piModel.getUsers();
+        piModel.getUserAmount();
     };
 
     /**
@@ -105,23 +105,25 @@ function ProjectInfoModel() {
             'Schema',
             'Open connections',
             'Busy connections',
-            'Idle connections',
-            'Live sessies'
+            'Idle connections'
         ];
     };
 
-    this.getUsers = function() {
+    this.getUserAmount = function() {
         $.ajax({
-            url: '../dashboard/php/projectinfo/getUsers.php',
+            url: '../dashboard/php/projectinfo/getUserAmounts.php',
             type: 'POST',
             dataType: 'json',
             success: function(data){
-                piModel.handleUsersArray(data);
+                piModel.handleUserAmountArray(data);
             }
         });
     };
 
-    this.handleUsersArray = function(data) {
-        console.log(data);
+    this.handleUserAmountArray = function(data) {
+        for(var i = 0; i < data.length; i++) {
+            var user = new UserAmount(data[i].amount, data[i].datetime);
+            piModel.pi.pushNewUserAmount(user);
+        }
     };
 }
