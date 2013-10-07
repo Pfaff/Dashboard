@@ -62,7 +62,7 @@ function ProjectInfoController() {
         setTimeout(function() {
             piController.updateBlock(piController.block[blockToUse]);
             piModel.getProjectInformation();
-        }, 200 );
+        }, 500 );
 
         setInterval(function() {
             piController.updateBlock(piController.block[blockToUse]);

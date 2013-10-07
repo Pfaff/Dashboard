@@ -16,6 +16,7 @@ function ProjectInfoModel() {
      */
     this.main = function() {
         piModel.getProjectInformation();
+        piModel.getUsers();
     };
 
     /**
@@ -56,6 +57,7 @@ function ProjectInfoModel() {
 
         this.calculateUptime();
         this.fixSchemeVersion();
+        this.fixRequestTime();
     };
 
     /**
@@ -74,6 +76,16 @@ function ProjectInfoModel() {
         var newScheme = scheme.substr(0, scheme.indexOf(' '));
 
         piModel.pi.setValue('scheme', newScheme);
+    };
+
+    /**
+     * Removes the . after ms.
+     */
+    this.fixRequestTime = function() {
+        var requestTime = piModel.pi.getValue('requestTime');
+        var newRequestTime = requestTime.split('.').join("");
+
+        piModel.pi.setValue('requestTime', newRequestTime);
     };
 
     /**
@@ -96,5 +108,17 @@ function ProjectInfoModel() {
             'Idle connections',
             'Live sessies'
         ];
+    };
+
+    this.getUsers = function() {
+        $.ajax({
+            url: '../dashboard/php/projectinfo/getUsers.php',
+            type: 'POST',
+            dataType: 'json',
+            success: function(data){
+                console.log("Oelewapper!");
+                console.log(data);
+            }
+        });
     };
 }
