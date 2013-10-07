@@ -6,6 +6,24 @@ function ProjectInfoModel() {
     var piModel = this;
 
     /**
+     * Defines the maximum difference in hours to show in the graph.
+     * @type {number}
+     */
+    var maxHoursDiff = 12;
+
+    /**
+     * Defines the maximum amount of different amounts to show in the graph.
+     * @type {number}
+     */
+    var maxAmountOfUserAmountsToShow = 8;
+
+    /**
+     * Array which contains the most recent user amounts.
+     * @type {Array}
+     */
+    this.recentUserAmounts = [];
+
+    /**
      * Creates the object that saves all the information of the project info.
      * @type {ProjectInfo}
      */
@@ -16,7 +34,7 @@ function ProjectInfoModel() {
      */
     this.main = function() {
         piModel.getProjectInformation();
-        piModel.getUserAmount();
+        piModel.getUserAmounts();
     };
 
     /**
@@ -109,7 +127,10 @@ function ProjectInfoModel() {
         ];
     };
 
-    this.getUserAmount = function() {
+    /**
+     * Gathers the user amounts from the database.
+     */
+    this.getUserAmounts = function() {
         $.ajax({
             url: '../dashboard/php/projectinfo/getUserAmounts.php',
             type: 'POST',
@@ -120,10 +141,35 @@ function ProjectInfoModel() {
         });
     };
 
+    /**
+     * Creates a user amount object per data row and pushes it into the desired project info array object.
+     * @param data
+     */
     this.handleUserAmountArray = function(data) {
         for(var i = 0; i < data.length; i++) {
-            var user = new UserAmount(data[i].amount, data[i].datetime);
+            var user = new UserAmount(data[i].amount, new Date(data[i].datetime));
             piModel.pi.pushNewUserAmount(user);
+        }
+
+        piModel.createArrayWithRecentUserAmounts();
+    };
+
+    /**
+     * Pushes the most recent user amounts into the array.
+     * Counting from the latest to the first one to get the most recent values.
+     */
+    this.createArrayWithRecentUserAmounts = function() {
+        var counter = 0;
+        var currentDateTime = new Date();
+        var userAmounts = piModel.pi.getValue('userAmount');
+
+        for(var i = userAmounts.length - 1; i > 0; i--) {
+            var userAmountDateTime = userAmounts[i].getValue('datetime');
+            var hoursDiff = Math.abs((currentDateTime - userAmountDateTime)) / 36e5;
+            if(hoursDiff < maxHoursDiff && counter < maxAmountOfUserAmountsToShow) {
+                piModel.recentUserAmounts.push(userAmounts[i]);
+                counter++;
+            }
         }
     };
 }
