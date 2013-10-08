@@ -72,6 +72,10 @@ body {
     margin-top:35px;
 }
 
+#piContentArticle0 svg {
+    margin-top:16px;
+}
+
 .piContent {
     font-family:'Open Sans Bold', sans-serif;
     font-size:19px;
@@ -127,7 +131,7 @@ body {
 }
 
 .phArticle:last-child {
-    margin: 17px 0 0 0;
+    margin:17px 0 0 0;
 }
 
 .phContentArticle {
@@ -138,10 +142,29 @@ body {
 
 #phContentArticle0 {
     width:340px;
-    height:210px;
-    margin-top:35px;
+    height:180px;
 }
 
 .phContent {
     margin-top:5px;
+}
+
+rect[fill='#FFFFFF'] {
+    fill:none;
+}
+
+.highcharts-legend {
+    visibility:hidden;
+}
+
+.highcharts-legend rect {
+    visibility:hidden;
+}
+
+tspan[x='490'] {
+    visibility:hidden;
+}
+
+text {
+    color:#FFFFFF;
 }

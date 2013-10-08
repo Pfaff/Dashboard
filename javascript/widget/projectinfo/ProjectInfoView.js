@@ -111,4 +111,29 @@ function ProjectInfoView() {
             myNode.innerHTML = ' ';
         }
     };
+
+    /**
+     * Builds the user amounts graph on the dashboard.
+     */
+    this.buildUserAmountsGraph = function() {
+        $('#piContentArticle0').highcharts({
+            title: {
+                text: ' ',
+                x: -20
+            },
+            xAxis: {
+                categories: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: ' '
+                }
+            },
+            series: [{
+                name: ' ',
+                data: [254, 0, 3, 413, 3687, 7921, 5098, 4316]
+            }]
+        });
+    };
 }

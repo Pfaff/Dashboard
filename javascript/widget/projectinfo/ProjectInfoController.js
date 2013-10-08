@@ -64,6 +64,10 @@ function ProjectInfoController() {
             piModel.getProjectInformation();
         }, 500 );
 
+        setTimeout(function() {
+            piView.buildUserAmountsGraph();
+        }, 350 );
+
         setInterval(function() {
             piController.updateBlock(piController.block[blockToUse]);
             piModel.getProjectInformation();
