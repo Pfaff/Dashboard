@@ -121,8 +121,15 @@ function ProjectInfoView() {
     /**
      * Builds the user amounts graph on the dashboard.
      */
-    this.buildUserAmountsGraph = function(hours, amounts) {
+    this.buildUserAmountsGraph = function(hours, amounts, functionToExecute) {
         piView.chart = $('#piContentArticle0').highcharts({
+            chart: {
+                events: {
+                    click: function () {
+                        functionToExecute()
+                    }
+                }
+            },
             title: {
                 text: ' ',
                 x: -20

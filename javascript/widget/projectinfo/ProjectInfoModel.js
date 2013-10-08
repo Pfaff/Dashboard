@@ -15,7 +15,7 @@ function ProjectInfoModel() {
      * Defines the maximum amount of different amounts to show in the graph.
      * @type {number}
      */
-    var maxAmountOfUserAmountsToShow = 8;
+    var maxAmountOfUserAmountsToShow = 10;
 
     /**
      * Array which contains the most recent user amounts.

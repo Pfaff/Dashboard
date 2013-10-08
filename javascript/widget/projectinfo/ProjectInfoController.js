@@ -9,10 +9,13 @@ function ProjectInfoController() {
 
     /**
      * The variables for the intervals.
+     * 5.000 = 5 seconds.
+     * 3.600.000 = 1 hour.
+     * 20.000 = 20 seconds.
      * @type {number}
      */
     var updateContentInterval = 5000;
-    var updateGraphInterval = 3500;
+    var updateGraphInterval = 3600000;
     var blockSwitchInterval = 20000;
 
     /**
@@ -41,6 +44,7 @@ function ProjectInfoController() {
         piController.startUpdateContent();
         piController.startUpdateGraph();
         piController.setTimerForBlockSwitch();
+        piController.activatePIArticleClickListeners();
     };
 
     /**
@@ -57,6 +61,42 @@ function ProjectInfoController() {
         piModel.main();
     };
 
+
+    /**
+     * Activates the click listeners.
+     */
+    this.activatePIArticleClickListeners = function() {
+        $(".piArticle").click(function() {
+            piController.startOverlayAndProjectHistoryController();
+        });
+    };
+
+    /**
+     * Calls the function which creates both of the controllers.
+     * Did this so I could give this function to the project view.
+     */
+    this.startOverlayAndProjectHistoryController = function() {
+        piController.startOverlayController(true);
+        piController.startProjectHistoryController();
+    };
+
+    /**
+     * Starts the overlay controller.
+     * @param trueForBuildFalseForRemove
+     */
+    this.startOverlayController = function(trueForBuildFalseForRemove) {
+        var overlayController = new OverlayController();
+        overlayController.main(trueForBuildFalseForRemove);
+    };
+
+    /**
+     * Starts the project history controller.
+     */
+    this.startProjectHistoryController = function() {
+        var phController = new ProjectHistoryController();
+        phController.main();
+    };
+
     /**
      * Starts the time outs.
      * It's being used for the build after loading the page, so it doesn't have to wait on the first interval.
@@ -68,7 +108,7 @@ function ProjectInfoController() {
         }, 500 );
 
         setTimeout(function() {
-            piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts);
+            piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
         }, 350 );
     };
 
@@ -87,7 +127,7 @@ function ProjectInfoController() {
         setInterval(function() {
             piModel.getUserAmounts();
             piView.removeUserAmountsGraph();
-            piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts);
+            piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
         }, updateGraphInterval );
     };
 
