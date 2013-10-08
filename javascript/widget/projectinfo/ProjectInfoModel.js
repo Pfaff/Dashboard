@@ -9,7 +9,7 @@ function ProjectInfoModel() {
      * Defines the maximum difference in hours to show in the graph.
      * @type {number}
      */
-    var maxHoursDiff = 12;
+    var maxHoursDiff = 24;
 
     /**
      * Defines the maximum amount of different amounts to show in the graph.
@@ -22,6 +22,18 @@ function ProjectInfoModel() {
      * @type {Array}
      */
     this.recentUserAmounts = [];
+
+    /**
+     * Array which contains the hours for the horizontal axis.
+     * @type {Array}
+     */
+    this.userAmountsGraphHours = [];
+
+    /**
+     * Array which contains the actual amounts.
+     * @type {Array}
+     */
+    this.userAmountsGraphAmounts = [];
 
     /**
      * Creates the object that saves all the information of the project info.
@@ -143,9 +155,12 @@ function ProjectInfoModel() {
 
     /**
      * Creates a user amount object per data row and pushes it into the desired project info array object.
+     * Clearing the array to avoid double data in the graph.
      * @param data
      */
     this.handleUserAmountArray = function(data) {
+        piModel.pi.setValue('userAmount', []);
+
         for(var i = 0; i < data.length; i++) {
             var user = new UserAmount(data[i].amount, new Date(data[i].datetime));
             piModel.pi.pushNewUserAmount(user);
@@ -157,8 +172,10 @@ function ProjectInfoModel() {
     /**
      * Pushes the most recent user amounts into the array.
      * Counting from the latest to the first one to get the most recent values.
+     * Clearing the array to avoid double data in the array.
      */
     this.createArrayWithRecentUserAmounts = function() {
+        piModel.recentUserAmounts.length = 0;
         var counter = 0;
         var currentDateTime = new Date();
         var userAmounts = piModel.pi.getValue('userAmount');
@@ -167,9 +184,42 @@ function ProjectInfoModel() {
             var userAmountDateTime = userAmounts[i].getValue('datetime');
             var hoursDiff = Math.abs((currentDateTime - userAmountDateTime)) / 36e5;
             if(hoursDiff < maxHoursDiff && counter < maxAmountOfUserAmountsToShow) {
-                piModel.recentUserAmounts.push(userAmounts[i]);
+                piModel.recentUserAmounts.unshift(userAmounts[i]);
                 counter++;
             }
+        }
+
+        piModel.fillArrayWithHours();
+        piModel.fillArrayWithAmounts();
+    };
+
+    /**
+     * Fills an array with hours for the graph.
+     */
+    this.fillArrayWithHours = function() {
+        piModel.userAmountsGraphHours.length = 0;
+
+        for(var i = 0; i < piModel.recentUserAmounts.length; i++) {
+            var hours = piModel.recentUserAmounts[i].getValue('datetime').getHours();
+
+            if(hours < 10) {
+                hours = "0" + hours + ":00";
+            } else {
+                hours = hours + ":00";
+            }
+
+            piModel.userAmountsGraphHours.push(hours);
+        }
+    };
+
+    /**
+     * Fills an array with the amounts for the graph.
+     */
+    this.fillArrayWithAmounts = function() {
+        piModel.userAmountsGraphAmounts.length = 0;
+
+        for(var i = 0; i < piModel.recentUserAmounts.length; i++) {
+            piModel.userAmountsGraphAmounts.push(piModel.recentUserAmounts[i].getValue('amount'));
         }
     };
 }

@@ -23,5 +23,5 @@ function ProjectInfo(version, requestTime, requestMin, uptime, capacityMax, capa
      */
     this.pushNewUserAmount = function(userAmount) {
         this.attribute['userAmount'].push(userAmount);
-    }
+    };
 }

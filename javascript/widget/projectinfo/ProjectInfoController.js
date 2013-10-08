@@ -11,7 +11,8 @@ function ProjectInfoController() {
      * The variables for the intervals.
      * @type {number}
      */
-    var updateInterval = 5000;
+    var updateContentInterval = 5000;
+    var updateGraphInterval = 3500;
     var blockSwitchInterval = 20000;
 
     /**
@@ -36,7 +37,9 @@ function ProjectInfoController() {
     this.main = function() {
         piController.startProjectInfoView();
         piController.startProjectInfoModel();
+        piController.startTimeOutsForContentAndGraph();
         piController.startUpdateContent();
+        piController.startUpdateGraph();
         piController.setTimerForBlockSwitch();
     };
 
@@ -55,23 +58,37 @@ function ProjectInfoController() {
     };
 
     /**
-     * Starts the timer which updates the content of the project info widget.
-     * The reason it starts with a time-out is made so the user doesn't have to wait on the interval to see the information at the start.
+     * Starts the time outs.
+     * It's being used for the build after loading the page, so it doesn't have to wait on the first interval.
      */
-    this.startUpdateContent = function() {
+    this.startTimeOutsForContentAndGraph = function() {
         setTimeout(function() {
             piController.updateBlock(piController.block[blockToUse]);
             piModel.getProjectInformation();
         }, 500 );
 
         setTimeout(function() {
-            piView.buildUserAmountsGraph();
+            piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts);
         }, 350 );
+    };
 
+    /**
+     * Starts the timer which updates the content of the project info widget.
+     * The reason it starts with a time-out is made so the user doesn't have to wait on the interval to see the information at the start.
+     */
+    this.startUpdateContent = function() {
         setInterval(function() {
             piController.updateBlock(piController.block[blockToUse]);
             piModel.getProjectInformation();
-        }, updateInterval );
+        }, updateContentInterval );
+    };
+
+    this.startUpdateGraph = function() {
+        setInterval(function() {
+            piModel.getUserAmounts();
+            piView.removeUserAmountsGraph();
+            piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts);
+        }, updateGraphInterval );
     };
 
     /**

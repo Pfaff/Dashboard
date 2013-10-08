@@ -6,6 +6,12 @@ function ProjectInfoView() {
     var piView = this;
 
     /**
+     * The chart with the user amounts and time.
+     * @type {null}
+     */
+    this.chart = null;
+
+    /**
      * Calls the functions to build the project info view.
      */
     this.main = function() {
@@ -115,14 +121,14 @@ function ProjectInfoView() {
     /**
      * Builds the user amounts graph on the dashboard.
      */
-    this.buildUserAmountsGraph = function() {
-        $('#piContentArticle0').highcharts({
+    this.buildUserAmountsGraph = function(hours, amounts) {
+        piView.chart = $('#piContentArticle0').highcharts({
             title: {
                 text: ' ',
                 x: -20
             },
             xAxis: {
-                categories: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00']
+                categories: hours
             },
             yAxis: {
                 min: 0,
@@ -132,8 +138,15 @@ function ProjectInfoView() {
             },
             series: [{
                 name: ' ',
-                data: [254, 0, 3, 413, 3687, 7921, 5098, 4316]
+                data: amounts
             }]
         });
+    };
+
+    /**
+     * Removes the user amounts graph.
+     */
+    this.removeUserAmountsGraph = function() {
+        piView.chart.empty();
     };
 }
