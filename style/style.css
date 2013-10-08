@@ -5,7 +5,7 @@ body {
 }
 
 .title {
-    font-size:13px;
+    font-size:12px;
 }
 
 #overlay {
@@ -77,8 +77,7 @@ body {
 }
 
 .piContent {
-    font-family:'Open Sans Bold', sans-serif;
-    font-size:19px;
+    font-size:28px;
 }
 
 .piContent p {

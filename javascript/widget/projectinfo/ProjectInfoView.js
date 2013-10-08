@@ -95,7 +95,7 @@ function ProjectInfoView() {
     this.addSpanToParagraph = function(piContentElement, value) {
         var splitText = value.split(' ');
         piContentElement.innerHTML = splitText[0]+ " <span>" + splitText[1] + "</span>";
-        piContentElement.style.marginTop = "31px";
+        piContentElement.style.marginTop = "27px";
     };
 
     /**
@@ -104,7 +104,7 @@ function ProjectInfoView() {
      * @param piContentElement
      */
     this.setNormalMarginToParagraph = function(piContentElement) {
-        piContentElement.style.marginTop = "37px";
+        piContentElement.style.marginTop = "34px";
     };
 
     /**
