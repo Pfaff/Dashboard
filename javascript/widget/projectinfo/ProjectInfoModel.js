@@ -6,12 +6,6 @@ function ProjectInfoModel() {
     var piModel = this;
 
     /**
-     * Defines the maximum difference in hours to show in the graph.
-     * @type {number}
-     */
-    var maxHoursDiff = 24;
-
-    /**
      * Defines the maximum amount of different amounts to show in the graph.
      * @type {number}
      */
@@ -92,9 +86,12 @@ function ProjectInfoModel() {
 
     /**
      * Calculates the uptime of the server.
+     * Removing the dashes out of the date string otherwise it won't be recognized as Date object.
      */
     this.calculateUptime = function() {
-        var serverStart = new Date(piModel.pi.getValue('uptime'));
+        var dateString = piModel.pi.getValue('uptime');
+        dateString = dateString.replace(/-/g, ' ');
+        var serverStart = new Date(dateString);
         piModel.pi.setValue('uptime', new Date().getHours() - serverStart.getHours() + " hours");
     };
 
@@ -156,13 +153,14 @@ function ProjectInfoModel() {
     /**
      * Creates a user amount object per data row and pushes it into the desired project info array object.
      * Clearing the array to avoid double data in the graph.
+     * Replacing the dashes so it can be actually recognized as a Date object by FireFox.
      * @param data
      */
     this.handleUserAmountArray = function(data) {
         piModel.pi.setValue('userAmount', []);
 
         for(var i = 0; i < data.length; i++) {
-            var user = new UserAmount(data[i].amount, new Date(data[i].datetime));
+            var user = new UserAmount(data[i].amount, new Date(data[i].datetime.replace(/-/g, ' ')));
             piModel.pi.pushNewUserAmount(user);
         }
 
@@ -177,13 +175,13 @@ function ProjectInfoModel() {
     this.createArrayWithRecentUserAmounts = function() {
         piModel.recentUserAmounts.length = 0;
         var counter = 0;
-        var currentDateTime = new Date();
+        //var currentDateTime = new Date();
         var userAmounts = piModel.pi.getValue('userAmount');
 
         for(var i = userAmounts.length - 1; i > 0; i--) {
-            var userAmountDateTime = userAmounts[i].getValue('datetime');
-            var hoursDiff = Math.abs((currentDateTime - userAmountDateTime)) / 36e5;
-            if(hoursDiff < maxHoursDiff && counter < maxAmountOfUserAmountsToShow) {
+            //var userAmountDateTime = userAmounts[i].getValue('datetime');
+            //var hoursDiff = Math.abs((currentDateTime - userAmountDateTime)) / 36e5;
+            if(counter < maxAmountOfUserAmountsToShow) {
                 piModel.recentUserAmounts.unshift(userAmounts[i]);
                 counter++;
             }

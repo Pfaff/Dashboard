@@ -125,9 +125,7 @@ function ProjectInfoView() {
         piView.chart = $('#piContentArticle0').highcharts({
             chart: {
                 events: {
-                    click: function () {
-                        functionToExecute()
-                    }
+                    click: function () { functionToExecute() }
                 }
             },
             title: {
