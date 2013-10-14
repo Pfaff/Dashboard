@@ -86,11 +86,13 @@ function ProjectInfoModel() {
 
     /**
      * Calculates the uptime of the server.
+     * I get the following date format: dd/mm/yyyy hh:mm, but I want mm/dd/yyyy hh:mm.
+     * So I used the replace function at the start of the function to manage it.
      * Removing the dashes out of the date string otherwise it won't be recognized as Date object.
      */
     this.calculateUptime = function() {
-        var dateString = piModel.pi.getValue('uptime');
-        dateString = dateString.replace(/-/g, ' ');
+        var dateString = piModel.pi.getValue('uptime').replace(/(\d\d)-(\d\d)/,"$2-$1");
+        dateString = dateString.replace(/-/g, '/');
         var serverStart = new Date(dateString);
         piModel.pi.setValue('uptime', new Date().getHours() - serverStart.getHours() + " hours");
     };
@@ -160,7 +162,7 @@ function ProjectInfoModel() {
         piModel.pi.setValue('userAmount', []);
 
         for(var i = 0; i < data.length; i++) {
-            var user = new UserAmount(data[i].amount, new Date(data[i].datetime.replace(/-/g, ' ')));
+            var user = new UserAmount(data[i].amount, new Date(data[i].datetime.replace(/-/g, '/')));
             piModel.pi.pushNewUserAmount(user);
         }
 
