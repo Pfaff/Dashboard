@@ -14,15 +14,11 @@ class UserAmount {
 
     public function getUserAmounts() {
         try {
-            $STH = $this->DBH->prepare("SELECT * FROM users");
+            $STH = $this->DBH->prepare("SELECT * FROM user_amount");
             $STH->execute();
             $this->userAmounts = $STH->fetchAll();
 
-            if($this->userAmounts) {
-                return json_encode($this->userAmounts);
-            } else {
-                return 0;
-            }
+            return json_encode($this->userAmounts);
         } catch(PDOException $e) {
             return $e->getMessage();
         }

@@ -162,7 +162,7 @@ function ProjectInfoModel() {
         piModel.pi.setValue('userAmount', []);
 
         for(var i = 0; i < data.length; i++) {
-            var user = new UserAmount(data[i].amount, new Date(data[i].datetime.replace(/-/g, '/')));
+            var user = new UserAmount(data[i].project, new Date(data[i].datetime.replace(/-/g, '/')), data[i].amount);
             piModel.pi.pushNewUserAmount(user);
         }
 
