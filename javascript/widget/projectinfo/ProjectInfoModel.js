@@ -63,18 +63,18 @@ function ProjectInfoModel() {
      * @param data
      */
     this.fillProjectInfoObject = function(data) {
-        piModel.pi.setValue('version', data['Versie']);
-        piModel.pi.setValue('requestTime', data['Gem. request duur']);
-        piModel.pi.setValue('requestMin', data['Requests per minuut']);
-        piModel.pi.setValue('uptime', data['Starttijd']);
-        piModel.pi.setValue('capacityMax', data['Maximum geheugen']);
-        piModel.pi.setValue('capacityInUse', data['Gebruikt geheugen']);
-        piModel.pi.setValue('loadAverage', data['Load average']);
-        piModel.pi.setValue('cpu', data["CPU's"]);
-        piModel.pi.setValue('scheme', data['Schema']);
-        piModel.pi.setValue('connectionsOpen', data['Open connections']);
-        piModel.pi.setValue('connectionsBusy', data['Busy connections']);
-        piModel.pi.setValue('connectionsIdle', data['Idle connections']);
+        piModel.pi.setValue('version', data['Versie1']);
+        piModel.pi.setValue('requestTime', data['Gem. request duur1']);
+        piModel.pi.setValue('requestMin', data['Requests per minuut1']);
+        piModel.pi.setValue('uptime', data['Starttijd1']);
+        piModel.pi.setValue('capacityMax', data['Maximum geheugen1']);
+        piModel.pi.setValue('capacityInUse', data['Gebruikt geheugen1']);
+        piModel.pi.setValue('loadAverage', data['Load average1']);
+        piModel.pi.setValue('cpu', data["CPU's1"]);
+        piModel.pi.setValue('scheme', data['Schema1']);
+        piModel.pi.setValue('connectionsOpen', data['Open connections1']);
+        piModel.pi.setValue('connectionsBusy', data['Busy connections1']);
+        piModel.pi.setValue('connectionsIdle', data['Idle connections1']);
 
         this.calculateUptime();
         this.fixSchemeVersion();
@@ -197,5 +197,15 @@ function ProjectInfoModel() {
         for(var i = 0; i < piModel.recentUserAmounts.length; i++) {
             piModel.userAmountsGraphAmounts.push(piModel.recentUserAmounts[i].getValue('amount'));
         }
+    };
+
+    this.calculateAverage = function(array) {
+        var average = 0;
+
+        for(var i = 0; i < array.length; i++) {
+            average = average + array[i];
+        }
+
+        return (average / array.length);
     };
 }

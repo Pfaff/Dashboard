@@ -6,18 +6,21 @@ include('../lib/simple_html_dom.php');
 class ProjectInfo {
 
     public static function getProjectInfo() {
-        $html = file_get_html('https://start1.mijnsom.nl/app/status');
-
-        $tds = $html->find('body', 0)->find('td');
-
-        $data = self::fillArrayWithValuesToGet();
-
         $results = array();
 
-        foreach ($data as $value) {
-            foreach($tds as $td){
-                if($td->plaintext == $value){
-                    $results[$value] = $td->next_sibling()->plaintext;
+        for ($i = 1; $i <= 7; $i++) {
+            $html = file_get_html('https://start'.$i.'.mijnsom.nl/app/status');
+
+            $tds = $html->find('body', 0)->find('td');
+
+            $data = self::fillArrayWithValuesToGet();
+
+
+            foreach ($data as $value) {
+                foreach($tds as $td){
+                    if($td->plaintext == $value){
+                        $results[$value.$i] = $td->next_sibling()->plaintext;
+                    }
                 }
             }
         }
