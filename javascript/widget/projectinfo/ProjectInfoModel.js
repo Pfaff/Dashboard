@@ -41,20 +41,6 @@ function ProjectInfoModel() {
     this.main = function() {
         piModel.getProjectInformation();
         piModel.getUserAmounts();
-        piModel.helloWorld();
-    };
-
-    this.helloWorld = function() {
-        $.ajax({
-            url: '../dashboard/php/HelloWorld.php',
-            data: { method: 'sayHello' },
-            type: 'POST',
-            dataType: 'json',
-            success: function(data){
-                console.log(data);
-                console.log(data.Response);
-            }
-        });
     };
 
     /**
@@ -62,13 +48,10 @@ function ProjectInfoModel() {
      */
     this.getProjectInformation = function() {
         $.ajax({
-            url: '../dashboard/php/proxy.php',
+            url: '../dashboard/php/projectinfo/ProjectInfo.php',
+            data: { method: 'getProjectInfo' },
             type: 'POST',
             dataType: 'json',
-            data: {
-                externalUrl: 'https://start1.mijnsom.nl/app/status',
-                value: JSON.stringify(piModel.createValuesToGetArray())
-            },
             success: function(data){
                 piModel.fillProjectInfoObject(data);
             }
@@ -129,27 +112,6 @@ function ProjectInfoModel() {
         var newRequestTime = requestTime.split('.').join("");
 
         piModel.pi.setValue('requestTime', newRequestTime);
-    };
-
-    /**
-     * A list of the values the project info widget wants to get.
-     * @returns {Array}
-     */
-    this.createValuesToGetArray = function() {
-        return [
-            'Versie',
-            'Gem. request duur',
-            'Requests per minuut',
-            'Starttijd',
-            'Gebruikt geheugen',
-            'Maximum geheugen',
-            'Load average',
-            "CPU's",
-            'Schema',
-            'Open connections',
-            'Busy connections',
-            'Idle connections'
-        ];
     };
 
     /**
