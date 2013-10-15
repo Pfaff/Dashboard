@@ -1,26 +1,21 @@
 <?php
 
+require_once("../lib/RestServer.php");
 require_once("../dbconfig.php");
 
 class UserAmount {
-    public function __construct() {
-        $this->DBH = new PDO("pgsql:dbname=".CON_DBNAME.";host=".CON_HOST."", CON_USER, CON_PASSWORD);
-        $this->userAmounts = Array();
-    }
+    public static function getUserAmounts() {
+        $con = pg_connect("host=".CON_HOST." dbname=".CON_DBNAME." user=".CON_USER." password=".CON_PASSWORD."")
+            or die ("Could not connect to server.");
 
-    public function __destruct() {
-        $this->DBH = null;
-    }
+        $query = "SELECT * FROM user_amount";
 
-    public function getUserAmounts() {
-        try {
-            $STH = $this->DBH->prepare("SELECT * FROM user_amount");
-            $STH->execute();
-            $this->userAmounts = $STH->fetchAll();
+        $result = pg_query($con, $query)
+            or die("Cannot execute the query.");
 
-            return json_encode($this->userAmounts);
-        } catch(PDOException $e) {
-            return $e->getMessage();
-        }
+        return pg_fetch_all($result);
     }
 }
+
+$rest = new RestServer('UserAmount');
+$rest->handle();

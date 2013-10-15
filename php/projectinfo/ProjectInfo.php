@@ -1,6 +1,6 @@
 <?php
 
-require_once "../lib/RestServer.php";
+require_once("../lib/RestServer.php");
 include('../lib/simple_html_dom.php');
 
 class ProjectInfo {
