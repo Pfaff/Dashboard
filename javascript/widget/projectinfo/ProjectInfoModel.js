@@ -41,6 +41,20 @@ function ProjectInfoModel() {
     this.main = function() {
         piModel.getProjectInformation();
         piModel.getUserAmounts();
+        piModel.helloWorld();
+    };
+
+    this.helloWorld = function() {
+        $.ajax({
+            url: '../dashboard/php/HelloWorld.php',
+            data: { method: 'sayHello' },
+            type: 'POST',
+            dataType: 'json',
+            success: function(data){
+                console.log(data);
+                console.log(data.Response);
+            }
+        });
     };
 
     /**

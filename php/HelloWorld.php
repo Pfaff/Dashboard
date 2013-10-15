@@ -6,7 +6,7 @@ class HelloWorld
 {
     public static function sayHello()
     {
-        return array("Response" => "Hallo Wereld");
+        return array("Response" => "Hello World");
     }
 }
 
