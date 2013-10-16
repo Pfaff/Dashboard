@@ -140,10 +140,10 @@ function ProjectInfoController() {
      */
     this.updateBlock = function(array) {
         piView.clearParagraphs();
-        piView.updateContent(1, array[0], piModel.pi.getValue(array[1]));
-        piView.updateContent(2, array[2], piModel.pi.getValue(array[3]));
-        piView.updateContent(3, array[4], piModel.pi.getValue(array[5]));
-        piView.updateContent(4, array[6], piModel.pi.getValue(array[7]));
+        piView.updateContent(1, array[0], piModel.pi.attribute[array[1]]);
+        piView.updateContent(2, array[2], piModel.pi.attribute[array[3]]);
+        piView.updateContent(3, array[4], piModel.pi.attribute[array[5]]);
+        piView.updateContent(4, array[6], piModel.pi.attribute[array[7]]);
 
         for(var i = 1; i < 8; i += 2) {
             var p = piController.getPiContentElement(i);
