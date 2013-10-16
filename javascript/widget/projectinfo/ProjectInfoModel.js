@@ -199,13 +199,23 @@ function ProjectInfoModel() {
         }
     };
 
-    this.calculateAverage = function(array) {
-        var average = 0;
+    /**
+     * Calculates the avarage or sum of the numbers in the given array, depending on the given 'objective'.
+     * @param objective
+     * @param array
+     * @returns {number}
+     */
+    this.calculateAverageOrSum = function(objective, array) {
+        var result = 0;
 
         for(var i = 0; i < array.length; i++) {
-            average = average + array[i];
+            result = result + array[i];
         }
 
-        return (average / array.length);
+        if(objective === 'avg') {
+            return (result / array.length);
+        } else {
+            return result;
+        }
     };
 }

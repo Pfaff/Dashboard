@@ -105,11 +105,11 @@ function ProjectInfoController() {
         setTimeout(function() {
             piController.updateBlock(piController.block[blockToUse]);
             piModel.getProjectInformation();
-        }, 1500 );
+        }, 2000 );
 
         setTimeout(function() {
             piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
-        }, 1000 );
+        }, 1500 );
     };
 
     /**
