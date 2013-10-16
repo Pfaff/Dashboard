@@ -14,9 +14,9 @@ function ProjectInfoController() {
      * 20.000 = 20 seconds.
      * @type {number}
      */
-    var updateContentInterval = 5000;
+    var updateContentInterval = 3000;
     var updateGraphInterval = 3600000;
-    var blockSwitchInterval = 20000;
+    var blockSwitchInterval = 15000;
 
     /**
      * Defines what block the dashboard should be using.
@@ -123,6 +123,9 @@ function ProjectInfoController() {
         }, updateContentInterval );
     };
 
+    /**
+     * Starts the updater of the graph.
+     */
     this.startUpdateGraph = function() {
         setInterval(function() {
             piModel.getUserAmounts();
@@ -145,7 +148,7 @@ function ProjectInfoController() {
         for(var i = 1; i < 8; i += 2) {
             var p = piController.getPiContentElement(i);
             var value = piModel.pi.getValue(array[i]);
-            if(value.indexOf(' ') >= 0) {
+            if(String(value).indexOf(' ') >= 0) {
                 piView.addSpanToParagraph(p, value);
             } else {
                 piView.setNormalMarginToParagraph(p);

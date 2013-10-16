@@ -6,6 +6,12 @@ function ProjectInfoModel() {
     var piModel = this;
 
     /**
+     * Defines the amount of SOM servers.
+     * @type {number}
+     */
+    this.amountOfSOMServers = 7;
+
+    /**
      * Defines the maximum amount of different amounts to show in the graph.
      * @type {number}
      */
@@ -63,22 +69,84 @@ function ProjectInfoModel() {
      * @param data
      */
     this.fillProjectInfoObject = function(data) {
-        piModel.pi.setValue('version', data['Versie1']);
-        piModel.pi.setValue('requestTime', data['Gem. request duur1']);
-        piModel.pi.setValue('requestMin', data['Requests per minuut1']);
-        piModel.pi.setValue('uptime', data['Starttijd1']);
-        piModel.pi.setValue('capacityMax', data['Maximum geheugen1']);
-        piModel.pi.setValue('capacityInUse', data['Gebruikt geheugen1']);
-        piModel.pi.setValue('loadAverage', data['Load average1']);
-        piModel.pi.setValue('cpu', data["CPU's1"]);
-        piModel.pi.setValue('scheme', data['Schema1']);
-        piModel.pi.setValue('connectionsOpen', data['Open connections1']);
-        piModel.pi.setValue('connectionsBusy', data['Busy connections1']);
-        piModel.pi.setValue('connectionsIdle', data['Idle connections1']);
+        piModel.pi.attribute['version'] = data['Versie1'];
+        piModel.pi.attribute['scheme'] = data['Schema1'];
+        piModel.fixSchemeVersion();
 
-        this.calculateUptime();
-        this.fixSchemeVersion();
-        this.fixRequestTime();
+        piModel.pi.clearAllArraysExceptForUserAmount();
+
+        for(var i = 1; i <= piModel.amountOfSOMServers; i++) {
+            piModel.pi.pushNewValueInGivenArray('requestTimeAll', data['Gem. request duur' + i]);
+            piModel.pi.pushNewValueInGivenArray('requestMinAll', data['Requests per minuut' + i]);
+            piModel.pi.pushNewValueInGivenArray('uptimeAll', data['Starttijd' + i]);
+            piModel.pi.pushNewValueInGivenArray('capacityMaxAll', data['Maximum geheugen' + i]);
+            piModel.pi.pushNewValueInGivenArray('capacityInUseAll', data['Gebruikt geheugen' + i]);
+            piModel.pi.pushNewValueInGivenArray('loadAverageAll', data['Load average' + i]);
+            piModel.pi.pushNewValueInGivenArray('cpuAll', data["CPU's" + i]);
+            piModel.pi.pushNewValueInGivenArray('connectionsOpenAll', data['Open connections' + i]);
+            piModel.pi.pushNewValueInGivenArray('connectionsBusyAll', data['Busy connections' + i]);
+            piModel.pi.pushNewValueInGivenArray('connectionsIdleAll', data['Idle connections' + i]);
+        }
+
+        piModel.startCalculationOfValues();
+    };
+
+    /**
+     * Starts the functions which calculate their own value of the array with values.
+     */
+    this.startCalculationOfValues = function() {
+        piModel.calculateRequestTime();
+        piModel.calculateRequestMin();
+        piModel.calculateUptime();
+        piModel.calculateCapacityMax();
+        piModel.calculateCapacityInUse();
+        piModel.calculateLoadAverage();
+        piModel.calculateCpu();
+        piModel.calculateConnections();
+    };
+
+    /**
+     * Calculates the request time. Removing the dot after 'ms'.
+     */
+    this.calculateRequestTime = function() {
+        var result = 0;
+        var requestTimes = piModel.pi.attribute['requestTimeAll'];
+
+        var unit = " " + requestTimes[0].split(' ')[1];
+
+        for(var i = 0; i < requestTimes.length; i++) {
+            result = result + parseInt(requestTimes[i].split(' ')[0]);
+        }
+
+        Math.floor(result);
+        piModel.pi.attribute['requestTime'] = (result + unit).split('.').join("");
+    };
+
+    /**
+     * Calculates the requests per minute.
+     */
+    this.calculateRequestMin = function() {
+        var requestMinAll = piModel.pi.attribute['requestMinAll'];
+        var averageRequestMin = Math.floor(piModel.calculateSum(requestMinAll) / requestMinAll.length);
+        piModel.pi.attribute['requestMin'] = averageRequestMin;
+    };
+
+    /**
+     * Calculates the maximum capacity.
+     */
+    this.calculateCapacityMax = function() {
+        var capacityMaxAll = piModel.pi.attribute['capacityMaxAll'];
+        var capacityMax = piModel.calculateSum(capacityMaxAll);
+        piModel.pi.attribute['capacityMax'] = capacityMax + " GB";
+    };
+
+    /**
+     * Calculates the capacity in use.
+     */
+    this.calculateCapacityInUse = function() {
+        var capacityInUseAll = piModel.pi.attribute['capacityInUseAll'];
+        var capacityInUse = piModel.calculateSum(capacityInUseAll);
+        piModel.pi.attribute['capacityInUse'] = capacityInUse + " GB";
     };
 
     /**
@@ -88,10 +156,49 @@ function ProjectInfoModel() {
      * Removing the dashes out of the date string otherwise it won't be recognized as Date object.
      */
     this.calculateUptime = function() {
-        var dateString = piModel.pi.getValue('uptime').replace(/(\d\d)-(\d\d)/,"$2-$1");
-        dateString = dateString.replace(/-/g, '/');
-        var serverStart = new Date(dateString);
-        piModel.pi.setValue('uptime', new Date().getHours() - serverStart.getHours() + " hours");
+        var tempUptimeArray = piModel.pi.attribute['uptimeAll'];
+        piModel.pi.attribute['uptimeAll'] = [];
+
+        for(var i = 0; i < piModel.amountOfSOMServers; i++) {
+            var dateString = tempUptimeArray[i].replace(/(\d\d)-(\d\d)/,"$2-$1");
+            dateString = dateString.replace(/-/g, '/');
+            var serverStart = new Date(dateString);
+            piModel.pi.pushNewValueInGivenArray('uptimeAll', String(new Date().getHours() - serverStart.getHours()));
+        }
+
+        var uptimeAll = piModel.pi.attribute['uptimeAll'];
+        piModel.pi.attribute['uptime'] = (piModel.calculateSum(uptimeAll) / uptimeAll.length) + " hours";
+    };
+
+    /**
+     * Calculates the load average.
+     */
+    this.calculateLoadAverage = function() {
+        var loadAverageAll = piModel.pi.attribute['loadAverageAll'];
+        var averageLoadAverage = piModel.calculateSum(loadAverageAll) / loadAverageAll.length;
+        var loadAverage = parseFloat(averageLoadAverage.toFixed(2));
+        piModel.pi.attribute['loadAverage'] = loadAverage;
+    };
+
+    /**
+     * Calculates the amount of CPU's.
+     */
+    this.calculateCpu = function() {
+        var cpuAll = piModel.pi.attribute['cpuAll'];
+        piModel.pi.attribute['cpu'] = piModel.calculateSum(cpuAll);
+    };
+
+    /**
+     * Calculates the open, idle and busy connections.
+     */
+    this.calculateConnections = function() {
+        var connectionsOpenAll = piModel.pi.attribute['connectionsOpenAll'];
+        var connectionsBusyAll = piModel.pi.attribute['connectionsBusyAll'];
+        var connectionsIdleAll = piModel.pi.attribute['connectionsIdleAll'];
+
+        piModel.pi.attribute['connectionsOpen'] = piModel.calculateSum(connectionsOpenAll);
+        piModel.pi.attribute['connectionsBusy'] = piModel.calculateSum(connectionsBusyAll);
+        piModel.pi.attribute['connectionsIdle'] = piModel.calculateSum(connectionsIdleAll);
     };
 
     /**
@@ -101,17 +208,7 @@ function ProjectInfoModel() {
         var scheme = piModel.pi.getValue('scheme');
         var newScheme = scheme.substr(0, scheme.indexOf(' '));
 
-        piModel.pi.setValue('scheme', newScheme);
-    };
-
-    /**
-     * Removes the . after ms.
-     */
-    this.fixRequestTime = function() {
-        var requestTime = piModel.pi.getValue('requestTime');
-        var newRequestTime = requestTime.split('.').join("");
-
-        piModel.pi.setValue('requestTime', newRequestTime);
+        piModel.pi.attribute['scheme'] = newScheme;
     };
 
     /**
@@ -136,11 +233,11 @@ function ProjectInfoModel() {
      * @param data
      */
     this.handleUserAmountArray = function(data) {
-        piModel.pi.setValue('userAmount', []);
+        piModel.pi.attribute['userAmount'] = [];
 
         for(var i = 0; i < data.length; i++) {
             var user = new UserAmount(data[i].project, new Date(data[i].datetime.replace(/-/g, '/')), parseInt(data[i].amount));
-            piModel.pi.pushNewUserAmount(user);
+            piModel.pi.pushNewValueInGivenArray('userAmount', user);
         }
         piModel.createArrayWithRecentUserAmounts();
     };
@@ -153,12 +250,9 @@ function ProjectInfoModel() {
     this.createArrayWithRecentUserAmounts = function() {
         piModel.recentUserAmounts.length = 0;
         var counter = 0;
-        //var currentDateTime = new Date();
         var userAmounts = piModel.pi.getValue('userAmount');
 
         for(var i = userAmounts.length - 1; i > 0; i--) {
-            //var userAmountDateTime = userAmounts[i].getValue('datetime');
-            //var hoursDiff = Math.abs((currentDateTime - userAmountDateTime)) / 36e5;
             if(counter < maxAmountOfUserAmountsToShow) {
                 piModel.recentUserAmounts.unshift(userAmounts[i]);
                 counter++;
@@ -200,22 +294,17 @@ function ProjectInfoModel() {
     };
 
     /**
-     * Calculates the avarage or sum of the numbers in the given array, depending on the given 'objective'.
-     * @param objective
+     * Calculates the sum of the given array.
      * @param array
      * @returns {number}
      */
-    this.calculateAverageOrSum = function(objective, array) {
+    this.calculateSum = function(array) {
         var result = 0;
 
         for(var i = 0; i < array.length; i++) {
-            result = result + array[i];
+            result = result + parseInt(array[i]);
         }
 
-        if(objective === 'avg') {
-            return (result / array.length);
-        } else {
-            return result;
-        }
+        return result;
     };
 }

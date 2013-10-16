@@ -15,7 +15,6 @@ class ProjectInfo {
 
             $data = self::fillArrayWithValuesToGet();
 
-
             foreach ($data as $value) {
                 foreach($tds as $td){
                     if($td->plaintext == $value){
