@@ -58,9 +58,9 @@ function ProjectInfoModel() {
         $.ajax({
             url: '../dashboard/php/projectinfo/ProjectInfo.php',
             data: { method: 'getProjectInfo' },
-            type: 'POST',
+            type: 'GET',
             dataType: 'json',
-            success: function(data) {
+            success: function (data) {
                 piModel.fillProjectInfoObject(data);
             }
         });
@@ -77,7 +77,7 @@ function ProjectInfoModel() {
 
         piModel.pi.clearAllArraysExceptForUserAmount();
 
-        for(var i = 1; i <= amountOfSOMServers; i++) {
+        for (var i = 1; i <= amountOfSOMServers; i++) {
             piModel.pi.pushNewValueInGivenArray('requestTimeAll', data['Gem. request duur' + i]);
             piModel.pi.pushNewValueInGivenArray('requestMinAll', data['Requests per minuut' + i]);
             piModel.pi.pushNewValueInGivenArray('uptimeAll', data['Starttijd' + i]);
@@ -116,7 +116,7 @@ function ProjectInfoModel() {
 
         var unit = " " + requestTimes[0].split(' ')[1];
 
-        for(var i = 0; i < requestTimes.length; i++) {
+        for (var i = 0; i < requestTimes.length; i++) {
             result = result + parseInt(requestTimes[i].split(' ')[0]);
         }
 
@@ -129,8 +129,7 @@ function ProjectInfoModel() {
      */
     this.calculateRequestMin = function () {
         var requestMinAll = piModel.pi.attribute['requestMinAll'];
-        var averageRequestMin = Math.floor(piModel.calculateSum(requestMinAll) / requestMinAll.length);
-        piModel.pi.attribute['requestMin'] = averageRequestMin;
+        piModel.pi.attribute['requestMin'] = Math.floor(piModel.calculateSum(requestMinAll) / requestMinAll.length);
     };
 
     /**
@@ -178,8 +177,7 @@ function ProjectInfoModel() {
     this.calculateLoadAverage = function () {
         var loadAverageAll = piModel.pi.attribute['loadAverageAll'];
         var averageLoadAverage = piModel.calculateSum(loadAverageAll) / loadAverageAll.length;
-        var loadAverage = parseFloat(averageLoadAverage.toFixed(2));
-        piModel.pi.attribute['loadAverage'] = loadAverage;
+        piModel.pi.attribute['loadAverage'] = parseFloat(averageLoadAverage.toFixed(2));
     };
 
     /**
@@ -208,9 +206,7 @@ function ProjectInfoModel() {
      */
     this.fixSchemeVersion = function () {
         var scheme = piModel.pi.getValue('scheme');
-        var newScheme = scheme.substr(0, scheme.indexOf(' '));
-
-        piModel.pi.attribute['scheme'] = newScheme;
+        piModel.pi.attribute['scheme'] = scheme.substr(0, scheme.indexOf(' '));
     };
 
     /**
@@ -220,7 +216,7 @@ function ProjectInfoModel() {
         $.ajax({
             url: '../dashboard/php/projectinfo/UserAmount.php',
             data: { method: 'getUserAmounts' },
-            type: 'POST',
+            type: 'GET',
             dataType: 'json',
             success: function(data){
                 piModel.handleUserAmountArray(data);

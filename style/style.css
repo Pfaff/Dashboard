@@ -153,7 +153,7 @@ body {
     margin-top:11px;
 }
 
-rect[fill='#FFFFFF'] {
+rect {
     fill:none;
 }
 
