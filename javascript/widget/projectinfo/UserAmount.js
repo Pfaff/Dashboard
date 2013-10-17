@@ -6,8 +6,4 @@ function UserAmount(project, datetime, amount) {
     this.att.amount = amount;
 
     this.getValue = function (value) { return this.att[value]; };
-
-    this.testFunction = function (value) {
-        return value === 1;
-    };
 }
