@@ -3,14 +3,15 @@
  * @constructor
  */
 function OverlayController() {
+    "use strict";
 
     /**
      * Builds or removes the overlay on the page.
      */
-    this.main = function(trueForBuildFalseForRemove) {
+    this.main = function (trueForBuildFalseForRemove) {
         var overlayView = new OverlayView();
 
-        if(trueForBuildFalseForRemove) {
+        if (trueForBuildFalseForRemove) {
             overlayView.buildOverlay();
         } else {
             overlayView.removeOverlay();

@@ -3,12 +3,14 @@
  * @constructor
  */
 function DashboardController() {
-    var dashCon = this;
+    "use strict";
+    var dashCon;
+    dashCon = this;
 
     /**
      * Starts the dashboard.
      */
-    this.main = function() {
+    this.main = function () {
         dashCon.buildView();
         dashCon.startProjectInfoController();
     };
@@ -16,7 +18,7 @@ function DashboardController() {
     /**
      * Builds the view of the dashboard.
      */
-    this.buildView = function() {
+    this.buildView = function () {
         var dashView = new DashboardView();
         dashView.main();
     };
@@ -24,7 +26,7 @@ function DashboardController() {
     /**
      * Starts the project info controller.
      */
-    this.startProjectInfoController = function() {
+    this.startProjectInfoController = function () {
         var piController = new ProjectInfoController();
         piController.main();
     };

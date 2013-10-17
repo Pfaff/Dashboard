@@ -2,7 +2,8 @@
  * Runs once the document is loaded.
  * @author - Jeffrey Pfaff
  */
-$(document).ready(function() {
+$(document).ready(function () {
+    "use strict";
     var dashCon = new DashboardController();
     dashCon.main();
 });
@@ -14,7 +15,8 @@ $(document).ready(function() {
  * @param properties
  * @returns {HTMLElement}
  */
-function createElement (elementName, parent, properties) {
+function createElement(elementName, parent, properties) {
+    "use strict";
     var element = document.createElement(elementName);
     parent.appendChild(element);
 

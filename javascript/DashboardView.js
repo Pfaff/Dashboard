@@ -3,12 +3,14 @@
  * @constructor
  */
 function DashboardView() {
-    var dashView = this;
+    "use strict";
+    var dashView;
+    dashView = this;
 
     /**
      * Builds the view of the dashboard.
      */
-    this.main = function() {
+    this.main = function () {
         dashView.createDashboardContainers();
         dashView.createLeftContainerSections();
     };
@@ -16,10 +18,11 @@ function DashboardView() {
     /**
      * Creates the containers for the dashboard.
      */
-    this.createDashboardContainers = function() {
-        var container = document.getElementById("container");
+    this.createDashboardContainers = function () {
+        var container, att;
+        container = document.getElementById("container");
 
-        var att = [];
+        att = [];
         att.name = "container";
 
         createElement("section", container, { id: att.name + "Left", className: att.name });
@@ -30,7 +33,7 @@ function DashboardView() {
     /**
      * Creates the sections in the left container.
      */
-    this.createLeftContainerSections = function() {
+    this.createLeftContainerSections = function () {
         var containerLeft = document.getElementById("containerLeft");
 
         createElement("section", containerLeft, { id: "containerLeftSectionTop", className: "containerLeftSection" });
