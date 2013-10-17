@@ -165,13 +165,11 @@ function ProjectInfoController() {
      * @returns {*}
      */
     this.getPiContentElement = function (index) {
-        if (index === 1) {
-            return document.getElementById('piContent1');
-        }
-        else if (index === 3) { return document.getElementById('piContent2'); }
-        else if (index === 5) { return document.getElementById('piContent3'); }
-        else if (index === 7) { return document.getElementById('piContent4'); }
-        else { return null; }
+        if (index === 1) { return document.getElementById('piContent1'); }
+        if (index === 3) { return document.getElementById('piContent2'); }
+        if (index === 5) { return document.getElementById('piContent3'); }
+        if (index === 7) { return document.getElementById('piContent4'); }
+        return null;
     };
 
     /**

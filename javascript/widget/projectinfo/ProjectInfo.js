@@ -39,7 +39,7 @@ function ProjectInfo(version, requestTime, requestMin, uptime, capacityMax, capa
 
     this.getValue = function (value) { return this.att[value]; };
 
-    this.pushNewValueInGivenArray = function(array, value) {
+    this.pushNewValueInGivenArray = function (array, value) {
         this.att[array].push(value);
     };
 

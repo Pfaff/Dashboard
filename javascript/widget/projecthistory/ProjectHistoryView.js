@@ -8,7 +8,7 @@ function ProjectHistoryView() {
     phView = this;
 
     /**
-     * Calls the fuctions to build the project history view.
+     * Calls the functions to build the project history view.
      */
     this.main = function () {
         phView.createProjectHistoryArticles();
@@ -22,8 +22,9 @@ function ProjectHistoryView() {
      * Creates the project history articles.
      */
     this.createProjectHistoryArticles = function () {
-        var containerOverlay = document.getElementById("containerOverlay");
-        for (var i = 0; i < 4; i++) {
+        var containerOverlay, i;
+        containerOverlay = document.getElementById("containerOverlay");
+        for (i = 0; i < 4; i++) {
             createElement("article", containerOverlay, { id: "phArticle" + i, className: "phArticle" });
         }
     };
@@ -32,8 +33,9 @@ function ProjectHistoryView() {
      * Creates the project history content articles.
      */
     this.createProjectHistoryContentArticles = function () {
-        for (var i = 0; i < 4; i++) {
-            var phArticle = document.getElementById("phArticle" + i);
+        var i, phArticle;
+        for (i = 0; i < 4; i++) {
+            phArticle = document.getElementById("phArticle" + i);
             createElement("article", phArticle, { id: "phContentArticle" + i, className: "phContentArticle" });
         }
     };
@@ -42,9 +44,10 @@ function ProjectHistoryView() {
      * Creates the actual content for the project history content articles.
      */
     this.createProjectHistoryContent = function () {
-        var imgSources = ["users", "time", "chart"];
-        for(var i = 0; i < 3; i++) {
-            var phContentArticle = document.getElementById("phContentArticle" + (i + 1));
+        var imgSources, i, phContentArticle;
+        imgSources = ["users", "time", "chart"];
+        for (i = 0; i < 3; i++) {
+            phContentArticle = document.getElementById("phContentArticle" + (i + 1));
             createElement("img", phContentArticle, { id: "phContent" + (i + 1), className: "phContent", src: "images/icon/" + imgSources[i] + ".png" });
         }
     };
@@ -53,8 +56,9 @@ function ProjectHistoryView() {
      * Creates the articles for the project history titles.
      */
     this.createProjectHistoryTitlesArticles = function () {
-        for(var i = 0; i < 4; i++) {
-            var phArticle = document.getElementById("phArticle" + i);
+        var i, phArticle;
+        for (i = 0; i < 4; i++) {
+            phArticle = document.getElementById("phArticle" + i);
             createElement("article", phArticle, { id: "phTitleArticle" + i, className: "titleArticle" });
         }
     };
@@ -63,10 +67,11 @@ function ProjectHistoryView() {
      * Creates the actual titles for the project history title articles.
      */
     this.createProjectHistoryTitles = function () {
-        var names = ["users", "users", "request time", "server load"];
-        for(var i = 0; i < 4; i++) {
-            var phTitleArticle = document.getElementById("phTitleArticle" + i);
-            var phTitle = createElement("p", phTitleArticle, { id: "phTitle" + i, className: "title" });
+        var names, i, phTitleArticle, phTitle;
+        names = ["users", "users", "request time", "server load"];
+        for (i = 0; i < 4; i++) {
+            phTitleArticle = document.getElementById("phTitleArticle" + i);
+            phTitle = createElement("p", phTitleArticle, { id: "phTitle" + i, className: "title" });
             phTitle.appendChild(document.createTextNode(names[i]));
         }
     };
