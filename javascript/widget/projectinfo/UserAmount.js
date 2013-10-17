@@ -1,9 +1,9 @@
 function UserAmount(project, datetime, amount) {
     "use strict";
-    this.attribute = [];
-    this.attribute["project"] = project;
-    this.attribute["datetime"] = datetime;
-    this.attribute["amount"] = amount;
+    this.att = [];
+    this.att.project = project;
+    this.att.datetime = datetime;
+    this.att.amount = amount;
 
-    this.getValue = function (value) { return this.attribute[value]; };
+    this.getValue = function (value) { return this.att[value]; };
 }

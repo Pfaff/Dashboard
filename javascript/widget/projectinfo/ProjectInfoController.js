@@ -103,7 +103,7 @@ function ProjectInfoController() {
      * Starts the time outs.
      * It's being used for the build after loading the page, so it doesn't have to wait on the first interval.
      */
-    this.startTimeOutsForContentAndGraph = function() {
+    this.startTimeOutsForContentAndGraph = function () {
         setTimeout(function () {
             piController.updateBlock(piController.block[blockToUse]);
             piModel.getProjectInformation();
@@ -141,16 +141,17 @@ function ProjectInfoController() {
      * @param array
      */
     this.updateBlock = function (array) {
+        var i, p, value;
         piView.clearParagraphs();
-        piView.updateContent(1, array[0], piModel.pi.attribute[array[1]]);
-        piView.updateContent(2, array[2], piModel.pi.attribute[array[3]]);
-        piView.updateContent(3, array[4], piModel.pi.attribute[array[5]]);
-        piView.updateContent(4, array[6], piModel.pi.attribute[array[7]]);
+        piView.updateContent(1, array[0], piModel.pi.att[array[1]]);
+        piView.updateContent(2, array[2], piModel.pi.att[array[3]]);
+        piView.updateContent(3, array[4], piModel.pi.att[array[5]]);
+        piView.updateContent(4, array[6], piModel.pi.att[array[7]]);
 
-        for (var i = 1; i < 8; i += 2) {
-            var p = piController.getPiContentElement(i);
-            var value = piModel.pi.getValue(array[i]);
-            if(String(value).indexOf(' ') >= 0) {
+        for (i = 1; i < 8; i += 2) {
+            p = piController.getPiContentElement(i);
+            value = piModel.pi.getValue(array[i]);
+            if (String(value).indexOf(' ') >= 0) {
                 piView.addSpanToParagraph(p, value);
             } else {
                 piView.setNormalMarginToParagraph(p);
@@ -164,10 +165,12 @@ function ProjectInfoController() {
      * @returns {*}
      */
     this.getPiContentElement = function (index) {
-        if(index === 1) { return document.getElementById('piContent1'); }
-        else if(index === 3) { return document.getElementById('piContent2'); }
-        else if(index === 5) { return document.getElementById('piContent3'); }
-        else if(index === 7) { return document.getElementById('piContent4'); }
+        if (index === 1) {
+            return document.getElementById('piContent1');
+        }
+        else if (index === 3) { return document.getElementById('piContent2'); }
+        else if (index === 5) { return document.getElementById('piContent3'); }
+        else if (index === 7) { return document.getElementById('piContent4'); }
         else { return null; }
     };
 
@@ -176,11 +179,11 @@ function ProjectInfoController() {
      */
     this.setTimerForBlockSwitch = function () {
         setInterval(function () {
-            if(blockToUse > 2) {
+            if (blockToUse > 2) {
                 blockToUse = 1;
             } else {
                 blockToUse++;
             }
-        }, blockSwitchInterval );
+        }, blockSwitchInterval);
     };
 }

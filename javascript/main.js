@@ -17,11 +17,12 @@ $(document).ready(function () {
  */
 function createElement(elementName, parent, properties) {
     "use strict";
-    var element = document.createElement(elementName);
+    var element, property;
+    element = document.createElement(elementName);
     parent.appendChild(element);
 
     if (properties) {
-        for (var property in properties) {
+        for (property in properties) {
             if (properties.hasOwnProperty(property)) {
                 element[property] = properties[property];
             }

@@ -4,6 +4,8 @@
     <option browser="true" />
     <option indent="4" />
     <option maxerr="50" />
+    <option plusplus="true" />
+    <option predef="$, createElement, OverlayView, OverlayController, ProjectHistoryView, ProjectHistoryController, UserAmount, ProjectInfo, ProjectInfoModel, ProjectInfoView, ProjectInfoController, DashboardView, DashboardController," />
   </component>
 </project>
 

@@ -1,58 +1,58 @@
 function ProjectInfo(version, requestTime, requestMin, uptime, capacityMax, capacityInUse, loadAverage, cpu, scheme, connectionsOpen, connectionsBusy, connectionsIdle) {
     "use strict";
-    this.attribute = [];
-    this.attribute['version'] = version;
+    this.att = [];
+    this.att.version = version;
 
-    this.attribute['requestTimeAll'] = [];
-    this.attribute['requestTime'] = requestTime;
+    this.att.requestTimeAll = [];
+    this.att.requestTime = requestTime;
 
-    this.attribute['requestMinAll'] = [];
-    this.attribute['requestMin'] = requestMin;
+    this.att.requestMinAll = [];
+    this.att.requestMin = requestMin;
 
-    this.attribute['uptimeAll'] = [];
-    this.attribute['uptime'] = uptime;
+    this.att.uptimeAll = [];
+    this.att.uptime = uptime;
 
-    this.attribute['capacityMaxAll'] = [];
-    this.attribute['capacityMax'] = capacityMax;
+    this.att.capacityMaxAll = [];
+    this.att.capacityMax = capacityMax;
 
-    this.attribute['capacityInUseAll'] = [];
-    this.attribute['capacityInUse'] = capacityInUse;
+    this.att.capacityInUseAll = [];
+    this.att.capacityInUse = capacityInUse;
 
-    this.attribute['loadAverageAll'] = [];
-    this.attribute['loadAverage'] = loadAverage;
+    this.att.loadAverageAll = [];
+    this.att.loadAverage = loadAverage;
 
-    this.attribute['cpuAll'] = [];
-    this.attribute['cpu'] = cpu;
+    this.att.cpuAll = [];
+    this.att.cpu = cpu;
 
-    this.attribute['scheme'] = scheme;
+    this.att.scheme = scheme;
 
-    this.attribute['connectionsOpenAll'] = [];
-    this.attribute['connectionsOpen'] = connectionsOpen;
+    this.att.connectionsOpenAll = [];
+    this.att.connectionsOpen = connectionsOpen;
 
-    this.attribute['connectionsBusyAll'] = [];
-    this.attribute['connectionsBusy'] = connectionsBusy;
+    this.att.connectionsBusyAll = [];
+    this.att.connectionsBusy = connectionsBusy;
 
-    this.attribute['connectionsIdleAll'] = [];
-    this.attribute['connectionsIdle'] = connectionsIdle;
+    this.att.connectionsIdleAll = [];
+    this.att.connectionsIdle = connectionsIdle;
 
-    this.attribute['userAmount'] = [];
+    this.att.userAmount = [];
 
-    this.getValue = function (value) { return this.attribute[value]; };
+    this.getValue = function (value) { return this.att[value]; };
 
     this.pushNewValueInGivenArray = function(array, value) {
-        this.attribute[array].push(value);
+        this.att[array].push(value);
     };
 
     this.clearAllArraysExceptForUserAmount = function () {
-        this.attribute['requestTimeAll'] = [];
-        this.attribute['requestMinAll'] = [];
-        this.attribute['uptimeAll'] = [];
-        this.attribute['capacityMaxAll'] = [];
-        this.attribute['capacityInUseAll'] = [];
-        this.attribute['loadAverageAll'] = [];
-        this.attribute['cpuAll'] = [];
-        this.attribute['connectionsOpenAll'] = [];
-        this.attribute['connectionsBusyAll'] = [];
-        this.attribute['connectionsIdleAll'] = [];
+        this.att.requestTimeAll = [];
+        this.att.requestMinAll = [];
+        this.att.uptimeAll = [];
+        this.att.capacityMaxAll = [];
+        this.att.capacityInUseAll = [];
+        this.att.loadAverageAll = [];
+        this.att.cpuAll = [];
+        this.att.connectionsOpenAll = [];
+        this.att.connectionsBusyAll = [];
+        this.att.connectionsIdleAll = [];
     };
 }

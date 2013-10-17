@@ -11,7 +11,7 @@ function ProjectInfoView() {
      * The chart with the user amounts and time.
      * @type {null}
      */
-    this.chart = null;
+    piView.chart = null;
 
     /**
      * Calls the functions to build the project info view.
@@ -28,8 +28,9 @@ function ProjectInfoView() {
      * Creates the articles for the project info in the sections.
      */
     this.createProjectInfoArticles = function () {
-        var sectionTop = document.getElementById("containerLeftSectionTop");
-        for (var i = 0; i < 5; i++) {
+        var sectionTop, i;
+        sectionTop = document.getElementById("containerLeftSectionTop");
+        for (i = 0; i < 5; i++) {
             createElement("article", sectionTop, { id: "piArticle" + i, className: "piArticle" });
         }
     };
@@ -38,8 +39,9 @@ function ProjectInfoView() {
      * Creates the articles for the project info content.
      */
     this.createProjectInfoContentArticles = function () {
-        for (var i = 0; i < 5; i++) {
-            var piArticle = document.getElementById("piArticle" + i);
+        var i, piArticle;
+        for (i = 0; i < 5; i++) {
+            piArticle = document.getElementById("piArticle" + i);
             createElement("article", piArticle, { id: "piContentArticle" + i, className: "piContentArticle" });
         }
     };
@@ -48,10 +50,11 @@ function ProjectInfoView() {
      * Creates the actual 'content' for the project info content articles.
      */
     this.createProjectInfoContent = function () {
-        var info = [" ", " ", " ", " "];
-        for (var i = 0; i < 4; i++) {
-            var piContentArticle = document.getElementById("piContentArticle" + (i + 1));
-            var piTitle = createElement("p", piContentArticle, { id: "piContent" + (i + 1), className: "piContent" });
+        var info, i, piContentArticle, piTitle;
+        info = [" ", " ", " ", " "];
+        for (i = 0; i < 4; i++) {
+            piContentArticle = document.getElementById("piContentArticle" + (i + 1));
+            piTitle = createElement("p", piContentArticle, { id: "piContent" + (i + 1), className: "piContent" });
             piTitle.appendChild(document.createTextNode(info[i]));
         }
     };
@@ -60,8 +63,9 @@ function ProjectInfoView() {
      * Creates the title articles for in the project info articles.
      */
     this.createProjectInfoTitlesArticles = function () {
-        for (var i = 0; i < 5; i++) {
-            var piArticle = document.getElementById("piArticle" + i);
+        var i, piArticle;
+        for (i = 0; i < 5; i++) {
+            piArticle = document.getElementById("piArticle" + i);
             createElement("article", piArticle, { id: "piTitleArticle" + i, className: "titleArticle" });
         }
     };
@@ -70,10 +74,11 @@ function ProjectInfoView() {
      * Creates the actual text for in the title articles.
      */
     this.createProjectInfoTitles = function () {
-        var names = ["current users", "version", "request time", "requests / min", "uptime"];
-        for (var i = 0; i < 5; i++) {
-            var piTitleArticle = document.getElementById("piTitleArticle" + i);
-            var piTitle = createElement("p", piTitleArticle, { id: "piTitle" + i, className: "title" });
+        var names, i, piTitleArticle, piTitle;
+        names = ["current users", "version", "request time", "requests / min", "uptime"];
+        for (i = 0; i < 5; i++) {
+            piTitleArticle = document.getElementById("piTitleArticle" + i);
+            piTitle = createElement("p", piTitleArticle, { id: "piTitle" + i, className: "title" });
             piTitle.appendChild(document.createTextNode(names[i]));
         }
     };
@@ -96,7 +101,7 @@ function ProjectInfoView() {
      */
     this.addSpanToParagraph = function (piContentElement, value) {
         var splitText = value.split(' ');
-        piContentElement.innerHTML = splitText[0]+ " <span>" + splitText[1] + "</span>";
+        piContentElement.innerHTML = splitText[0] + " <span>" + splitText[1] + "</span>";
         piContentElement.style.marginTop = "27px";
     };
 
@@ -114,9 +119,10 @@ function ProjectInfoView() {
      * If this is not called the made <span> elements keep in place.
      */
     this.clearParagraphs = function () {
-        for (var i = 1; i < 5; i++) {
-            var myNode = document.getElementById("piContent" + i);
-            myNode.innerHTML = ' ';
+        var i, piContent;
+        for (i = 1; i < 5; i++) {
+            piContent = document.getElementById("piContent" + i);
+            piContent.innerHTML = ' ';
         }
     };
 
