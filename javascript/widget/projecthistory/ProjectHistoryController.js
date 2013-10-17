@@ -3,8 +3,12 @@
  * @constructor
  */
 function ProjectHistoryController() {
+    "use strict";
 
-    this.main = function() {
+    /**
+     * Main function of the project history controller.
+     */
+    this.main = function () {
         var phView = new ProjectHistoryView();
         phView.main();
     };

@@ -3,9 +3,11 @@
  * @constructor
  */
 function ProjectInfoController() {
-    var piController = this;
-    var piView = new ProjectInfoView();
-    var piModel = new ProjectInfoModel();
+    "use strict";
+    var piController, piView, piModel, updateContentInterval, updateGraphInterval, blockSwitchInterval, blockToUse;
+    piController = this;
+    piView = new ProjectInfoView();
+    piModel = new ProjectInfoModel();
 
     /**
      * The variables for the intervals.
@@ -14,15 +16,15 @@ function ProjectInfoController() {
      * 20.000 = 20 seconds.
      * @type {number}
      */
-    var updateContentInterval = 3000;
-    var updateGraphInterval = 3600000;
-    var blockSwitchInterval = 15000;
+    updateContentInterval = 3000;
+    updateGraphInterval = 3600000;
+    blockSwitchInterval = 15000;
 
     /**
      * Defines what block the dashboard should be using.
      * @type {number}
      */
-    var blockToUse = 1;
+    blockToUse = 1;
 
     /**
      * The different blocks, the first value is the name on the bottom left corner.
@@ -37,7 +39,7 @@ function ProjectInfoController() {
     /**
      * Calls the functions to activate the project info widget.
      */
-    this.main = function() {
+    this.main = function () {
         piController.startProjectInfoView();
         piController.startProjectInfoModel();
         piController.startTimeOutsForContentAndGraph();
@@ -50,14 +52,14 @@ function ProjectInfoController() {
     /**
      * Starts the project info view.
      */
-    this.startProjectInfoView = function() {
+    this.startProjectInfoView = function () {
         piView.main();
     };
 
     /**
      * Starts the project info model.
      */
-    this.startProjectInfoModel = function() {
+    this.startProjectInfoModel = function () {
         piModel.main();
     };
 
@@ -65,8 +67,8 @@ function ProjectInfoController() {
     /**
      * Activates the click listeners.
      */
-    this.activatePIArticleClickListeners = function() {
-        $(".piArticle").click(function() {
+    this.activatePIArticleClickListeners = function () {
+        $(".piArticle").click(function () {
             piController.startOverlayAndProjectHistoryController();
         });
     };
@@ -75,7 +77,7 @@ function ProjectInfoController() {
      * Calls the function which creates both of the controllers.
      * Did this so I could give this function to the project view.
      */
-    this.startOverlayAndProjectHistoryController = function() {
+    this.startOverlayAndProjectHistoryController = function () {
         piController.startOverlayController(true);
         piController.startProjectHistoryController();
     };
@@ -84,7 +86,7 @@ function ProjectInfoController() {
      * Starts the overlay controller.
      * @param trueForBuildFalseForRemove
      */
-    this.startOverlayController = function(trueForBuildFalseForRemove) {
+    this.startOverlayController = function (trueForBuildFalseForRemove) {
         var overlayController = new OverlayController();
         overlayController.main(trueForBuildFalseForRemove);
     };
@@ -92,7 +94,7 @@ function ProjectInfoController() {
     /**
      * Starts the project history controller.
      */
-    this.startProjectHistoryController = function() {
+    this.startProjectHistoryController = function () {
         var phController = new ProjectHistoryController();
         phController.main();
     };
@@ -102,50 +104,50 @@ function ProjectInfoController() {
      * It's being used for the build after loading the page, so it doesn't have to wait on the first interval.
      */
     this.startTimeOutsForContentAndGraph = function() {
-        setTimeout(function() {
+        setTimeout(function () {
             piController.updateBlock(piController.block[blockToUse]);
             piModel.getProjectInformation();
-        }, 2000 );
+        }, 2000);
 
-        setTimeout(function() {
+        setTimeout(function () {
             piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
-        }, 1500 );
+        }, 1500);
     };
 
     /**
      * Starts the timer which updates the content of the project info widget.
      * The reason it starts with a time-out is made so the user doesn't have to wait on the interval to see the information at the start.
      */
-    this.startUpdateContent = function() {
-        setInterval(function() {
+    this.startUpdateContent = function () {
+        setInterval(function () {
             piController.updateBlock(piController.block[blockToUse]);
             piModel.getProjectInformation();
-        }, updateContentInterval );
+        }, updateContentInterval);
     };
 
     /**
      * Starts the updater of the graph.
      */
-    this.startUpdateGraph = function() {
-        setInterval(function() {
+    this.startUpdateGraph = function () {
+        setInterval(function () {
             piModel.getUserAmounts();
             piView.removeUserAmountsGraph();
             piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
-        }, updateGraphInterval );
+        }, updateGraphInterval);
     };
 
     /**
      * Updates the project info with the given block array.
      * @param array
      */
-    this.updateBlock = function(array) {
+    this.updateBlock = function (array) {
         piView.clearParagraphs();
         piView.updateContent(1, array[0], piModel.pi.attribute[array[1]]);
         piView.updateContent(2, array[2], piModel.pi.attribute[array[3]]);
         piView.updateContent(3, array[4], piModel.pi.attribute[array[5]]);
         piView.updateContent(4, array[6], piModel.pi.attribute[array[7]]);
 
-        for(var i = 1; i < 8; i += 2) {
+        for (var i = 1; i < 8; i += 2) {
             var p = piController.getPiContentElement(i);
             var value = piModel.pi.getValue(array[i]);
             if(String(value).indexOf(' ') >= 0) {
@@ -161,7 +163,7 @@ function ProjectInfoController() {
      * @param index
      * @returns {*}
      */
-    this.getPiContentElement = function(index) {
+    this.getPiContentElement = function (index) {
         if(index === 1) { return document.getElementById('piContent1'); }
         else if(index === 3) { return document.getElementById('piContent2'); }
         else if(index === 5) { return document.getElementById('piContent3'); }
@@ -172,8 +174,8 @@ function ProjectInfoController() {
     /**
      * Sets the timer for switching the block.
      */
-    this.setTimerForBlockSwitch = function() {
-        setInterval(function() {
+    this.setTimerForBlockSwitch = function () {
+        setInterval(function () {
             if(blockToUse > 2) {
                 blockToUse = 1;
             } else {

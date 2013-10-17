@@ -1,4 +1,5 @@
 function ProjectInfo(version, requestTime, requestMin, uptime, capacityMax, capacityInUse, loadAverage, cpu, scheme, connectionsOpen, connectionsBusy, connectionsIdle) {
+    "use strict";
     this.attribute = [];
     this.attribute['version'] = version;
 
@@ -36,13 +37,13 @@ function ProjectInfo(version, requestTime, requestMin, uptime, capacityMax, capa
 
     this.attribute['userAmount'] = [];
 
-    this.getValue = function(value) { return this.attribute[value]; };
+    this.getValue = function (value) { return this.attribute[value]; };
 
     this.pushNewValueInGivenArray = function(array, value) {
         this.attribute[array].push(value);
     };
 
-    this.clearAllArraysExceptForUserAmount = function() {
+    this.clearAllArraysExceptForUserAmount = function () {
         this.attribute['requestTimeAll'] = [];
         this.attribute['requestMinAll'] = [];
         this.attribute['uptimeAll'] = [];

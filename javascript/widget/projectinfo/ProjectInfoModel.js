@@ -3,37 +3,39 @@
  * @constructor
  */
 function ProjectInfoModel() {
-    var piModel = this;
+    "use strict";
+    var piModel, amountOfSOMServers, maxAmountOfUserAmountsToShow;
+    piModel = this;
 
     /**
      * Defines the amount of SOM servers.
      * @type {number}
      */
-    this.amountOfSOMServers = 7;
+    amountOfSOMServers = 7;
 
     /**
      * Defines the maximum amount of different amounts to show in the graph.
      * @type {number}
      */
-    var maxAmountOfUserAmountsToShow = 10;
+    maxAmountOfUserAmountsToShow = 10;
 
     /**
      * Array which contains the most recent user amounts.
      * @type {Array}
      */
-    this.recentUserAmounts = [];
+    piModel.recentUserAmounts = [];
 
     /**
      * Array which contains the hours for the horizontal axis.
      * @type {Array}
      */
-    this.userAmountsGraphHours = [];
+    piModel.userAmountsGraphHours = [];
 
     /**
      * Array which contains the actual amounts.
      * @type {Array}
      */
-    this.userAmountsGraphAmounts = [];
+    piModel.userAmountsGraphAmounts = [];
 
     /**
      * Creates the object that saves all the information of the project info.
@@ -44,7 +46,7 @@ function ProjectInfoModel() {
     /**
      * Gathers the information for the project info widget.
      */
-    this.main = function() {
+    this.main = function () {
         piModel.getProjectInformation();
         piModel.getUserAmounts();
     };
@@ -52,13 +54,13 @@ function ProjectInfoModel() {
     /**
      * The AJAX call which gathers the information.
      */
-    this.getProjectInformation = function() {
+    this.getProjectInformation = function () {
         $.ajax({
             url: '../dashboard/php/projectinfo/ProjectInfo.php',
             data: { method: 'getProjectInfo' },
             type: 'POST',
             dataType: 'json',
-            success: function(data){
+            success: function(data) {
                 piModel.fillProjectInfoObject(data);
             }
         });
@@ -68,14 +70,14 @@ function ProjectInfoModel() {
      * Handles the response data of the AJAX call, storing the data in the project info object.
      * @param data
      */
-    this.fillProjectInfoObject = function(data) {
+    this.fillProjectInfoObject = function (data) {
         piModel.pi.attribute['version'] = data['Versie1'];
         piModel.pi.attribute['scheme'] = data['Schema1'];
         piModel.fixSchemeVersion();
 
         piModel.pi.clearAllArraysExceptForUserAmount();
 
-        for(var i = 1; i <= piModel.amountOfSOMServers; i++) {
+        for(var i = 1; i <= amountOfSOMServers; i++) {
             piModel.pi.pushNewValueInGivenArray('requestTimeAll', data['Gem. request duur' + i]);
             piModel.pi.pushNewValueInGivenArray('requestMinAll', data['Requests per minuut' + i]);
             piModel.pi.pushNewValueInGivenArray('uptimeAll', data['Starttijd' + i]);
@@ -94,7 +96,7 @@ function ProjectInfoModel() {
     /**
      * Starts the functions which calculate their own value of the array with values.
      */
-    this.startCalculationOfValues = function() {
+    this.startCalculationOfValues = function () {
         piModel.calculateRequestTime();
         piModel.calculateRequestMin();
         piModel.calculateUptime();
@@ -108,7 +110,7 @@ function ProjectInfoModel() {
     /**
      * Calculates the request time. Removing the dot after 'ms'.
      */
-    this.calculateRequestTime = function() {
+    this.calculateRequestTime = function () {
         var result = 0;
         var requestTimes = piModel.pi.attribute['requestTimeAll'];
 
@@ -125,7 +127,7 @@ function ProjectInfoModel() {
     /**
      * Calculates the requests per minute.
      */
-    this.calculateRequestMin = function() {
+    this.calculateRequestMin = function () {
         var requestMinAll = piModel.pi.attribute['requestMinAll'];
         var averageRequestMin = Math.floor(piModel.calculateSum(requestMinAll) / requestMinAll.length);
         piModel.pi.attribute['requestMin'] = averageRequestMin;
@@ -134,7 +136,7 @@ function ProjectInfoModel() {
     /**
      * Calculates the maximum capacity.
      */
-    this.calculateCapacityMax = function() {
+    this.calculateCapacityMax = function () {
         var capacityMaxAll = piModel.pi.attribute['capacityMaxAll'];
         var capacityMax = piModel.calculateSum(capacityMaxAll);
         piModel.pi.attribute['capacityMax'] = capacityMax + " GB";
@@ -143,7 +145,7 @@ function ProjectInfoModel() {
     /**
      * Calculates the capacity in use.
      */
-    this.calculateCapacityInUse = function() {
+    this.calculateCapacityInUse = function () {
         var capacityInUseAll = piModel.pi.attribute['capacityInUseAll'];
         var capacityInUse = piModel.calculateSum(capacityInUseAll);
         piModel.pi.attribute['capacityInUse'] = capacityInUse + " GB";
@@ -155,11 +157,11 @@ function ProjectInfoModel() {
      * So I used the replace function at the start of the function to manage it.
      * Removing the dashes out of the date string otherwise it won't be recognized as Date object.
      */
-    this.calculateUptime = function() {
+    this.calculateUptime = function () {
         var tempUptimeArray = piModel.pi.attribute['uptimeAll'];
         piModel.pi.attribute['uptimeAll'] = [];
 
-        for(var i = 0; i < piModel.amountOfSOMServers; i++) {
+        for(var i = 0; i < amountOfSOMServers; i++) {
             var dateString = tempUptimeArray[i].replace(/(\d\d)-(\d\d)/,"$2-$1");
             dateString = dateString.replace(/-/g, '/');
             var serverStart = new Date(dateString);
@@ -173,7 +175,7 @@ function ProjectInfoModel() {
     /**
      * Calculates the load average.
      */
-    this.calculateLoadAverage = function() {
+    this.calculateLoadAverage = function () {
         var loadAverageAll = piModel.pi.attribute['loadAverageAll'];
         var averageLoadAverage = piModel.calculateSum(loadAverageAll) / loadAverageAll.length;
         var loadAverage = parseFloat(averageLoadAverage.toFixed(2));
@@ -183,7 +185,7 @@ function ProjectInfoModel() {
     /**
      * Calculates the amount of CPU's.
      */
-    this.calculateCpu = function() {
+    this.calculateCpu = function () {
         var cpuAll = piModel.pi.attribute['cpuAll'];
         piModel.pi.attribute['cpu'] = piModel.calculateSum(cpuAll);
     };
@@ -191,7 +193,7 @@ function ProjectInfoModel() {
     /**
      * Calculates the open, idle and busy connections.
      */
-    this.calculateConnections = function() {
+    this.calculateConnections = function () {
         var connectionsOpenAll = piModel.pi.attribute['connectionsOpenAll'];
         var connectionsBusyAll = piModel.pi.attribute['connectionsBusyAll'];
         var connectionsIdleAll = piModel.pi.attribute['connectionsIdleAll'];
@@ -204,7 +206,7 @@ function ProjectInfoModel() {
     /**
      * Removes the text part after the version number of the scheme.
      */
-    this.fixSchemeVersion = function() {
+    this.fixSchemeVersion = function () {
         var scheme = piModel.pi.getValue('scheme');
         var newScheme = scheme.substr(0, scheme.indexOf(' '));
 
@@ -214,7 +216,7 @@ function ProjectInfoModel() {
     /**
      * Gathers the user amounts from the database.
      */
-    this.getUserAmounts = function() {
+    this.getUserAmounts = function () {
         $.ajax({
             url: '../dashboard/php/projectinfo/UserAmount.php',
             data: { method: 'getUserAmounts' },
@@ -232,7 +234,7 @@ function ProjectInfoModel() {
      * Replacing the dashes so it can be actually recognized as a Date object by FireFox.
      * @param data
      */
-    this.handleUserAmountArray = function(data) {
+    this.handleUserAmountArray = function (data) {
         piModel.pi.attribute['userAmount'] = [];
 
         for(var i = 0; i < data.length; i++) {
@@ -247,7 +249,7 @@ function ProjectInfoModel() {
      * Counting from the latest to the first one to get the most recent values.
      * Clearing the array to avoid double data in the array.
      */
-    this.createArrayWithRecentUserAmounts = function() {
+    this.createArrayWithRecentUserAmounts = function () {
         piModel.recentUserAmounts.length = 0;
         var counter = 0;
         var userAmounts = piModel.pi.getValue('userAmount');
@@ -266,7 +268,7 @@ function ProjectInfoModel() {
     /**
      * Fills an array with hours for the graph.
      */
-    this.fillArrayWithHours = function() {
+    this.fillArrayWithHours = function () {
         piModel.userAmountsGraphHours.length = 0;
 
         for(var i = 0; i < piModel.recentUserAmounts.length; i++) {
@@ -285,7 +287,7 @@ function ProjectInfoModel() {
     /**
      * Fills an array with the amounts for the graph.
      */
-    this.fillArrayWithAmounts = function() {
+    this.fillArrayWithAmounts = function () {
         piModel.userAmountsGraphAmounts.length = 0;
 
         for(var i = 0; i < piModel.recentUserAmounts.length; i++) {
@@ -298,7 +300,7 @@ function ProjectInfoModel() {
      * @param array
      * @returns {number}
      */
-    this.calculateSum = function(array) {
+    this.calculateSum = function (array) {
         var result = 0;
 
         for(var i = 0; i < array.length; i++) {

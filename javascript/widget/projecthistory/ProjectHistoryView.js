@@ -3,12 +3,14 @@
  * @constructor
  */
 function ProjectHistoryView() {
-    var phView = this;
+    "use strict";
+    var phView;
+    phView = this;
 
     /**
      * Calls the fuctions to build the project history view.
      */
-    this.main = function() {
+    this.main = function () {
         phView.createProjectHistoryArticles();
         phView.createProjectHistoryContentArticles();
         phView.createProjectHistoryContent();
@@ -19,9 +21,9 @@ function ProjectHistoryView() {
     /**
      * Creates the project history articles.
      */
-    this.createProjectHistoryArticles = function() {
+    this.createProjectHistoryArticles = function () {
         var containerOverlay = document.getElementById("containerOverlay");
-        for(var i = 0; i < 4; i++) {
+        for (var i = 0; i < 4; i++) {
             createElement("article", containerOverlay, { id: "phArticle" + i, className: "phArticle" });
         }
     };
@@ -29,8 +31,8 @@ function ProjectHistoryView() {
     /**
      * Creates the project history content articles.
      */
-    this.createProjectHistoryContentArticles = function() {
-        for(var i = 0; i < 4; i++) {
+    this.createProjectHistoryContentArticles = function () {
+        for (var i = 0; i < 4; i++) {
             var phArticle = document.getElementById("phArticle" + i);
             createElement("article", phArticle, { id: "phContentArticle" + i, className: "phContentArticle" });
         }
@@ -39,7 +41,7 @@ function ProjectHistoryView() {
     /**
      * Creates the actual content for the project history content articles.
      */
-    this.createProjectHistoryContent = function() {
+    this.createProjectHistoryContent = function () {
         var imgSources = ["users", "time", "chart"];
         for(var i = 0; i < 3; i++) {
             var phContentArticle = document.getElementById("phContentArticle" + (i + 1));
@@ -50,7 +52,7 @@ function ProjectHistoryView() {
     /**
      * Creates the articles for the project history titles.
      */
-    this.createProjectHistoryTitlesArticles = function() {
+    this.createProjectHistoryTitlesArticles = function () {
         for(var i = 0; i < 4; i++) {
             var phArticle = document.getElementById("phArticle" + i);
             createElement("article", phArticle, { id: "phTitleArticle" + i, className: "titleArticle" });
@@ -60,7 +62,7 @@ function ProjectHistoryView() {
     /**
      * Creates the actual titles for the project history title articles.
      */
-    this.createProjectHistoryTitles = function() {
+    this.createProjectHistoryTitles = function () {
         var names = ["users", "users", "request time", "server load"];
         for(var i = 0; i < 4; i++) {
             var phTitleArticle = document.getElementById("phTitleArticle" + i);
