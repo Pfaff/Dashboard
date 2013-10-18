@@ -1,7 +1,7 @@
 <?php
 
 require_once("../lib/RestServer.php");
-require_once("../dbconfig.php");
+require_once("../config/database.php");
 
 class UserAmount {
     public static function getUserAmounts() {
@@ -11,7 +11,7 @@ class UserAmount {
         $query = "SELECT * FROM user_amount";
 
         $result = pg_query($con, $query)
-            or die("Cannot execute the query.");
+            or die("Cannot execute the given query.");
 
         return pg_fetch_all($result);
     }

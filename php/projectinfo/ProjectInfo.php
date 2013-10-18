@@ -1,7 +1,8 @@
 <?php
 
+require_once('../config/config.php');
 require_once("../lib/RestServer.php");
-include('../lib/simple_html_dom.php');
+require_once('../lib/simple_html_dom.php');
 
 class ProjectInfo {
 
@@ -9,11 +10,11 @@ class ProjectInfo {
         $results = array();
 
         for ($i = 1; $i <= 7; $i++) {
-            $html = file_get_html('https://start'.$i.'.mijnsom.nl/app/status');
+            $html = file_get_html(SERVERPAGE_SOM_START.$i.SERVERPAGE_SOM_END);
 
             $tds = $html->find('body', 0)->find('td');
 
-            $data = self::fillArrayWithValuesToGet();
+            $data = unserialize(SERVERPAGE_SOM_VALUES);
 
             foreach ($data as $value) {
                 foreach($tds as $td){
@@ -25,21 +26,6 @@ class ProjectInfo {
         }
 
         return $results;
-    }
-
-    private static function fillArrayWithValuesToGet() {
-        return array(   'Versie',
-                        'Gem. request duur',
-                        'Requests per minuut',
-                        'Starttijd',
-                        'Gebruikt geheugen',
-                        'Maximum geheugen',
-                        'Load average',
-                        "CPU's",
-                        'Schema',
-                        'Open connections',
-                        'Busy connections',
-                        'Idle connections'      );
     }
 }
 
