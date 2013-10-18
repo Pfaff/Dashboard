@@ -77,3 +77,42 @@ test("DashboardView tests. ", function () {
     container = document.getElementById("containerLeftSectionBottom");
     equal(container.id, "containerLeftSectionBottom", "Expecting an element with id 'containerLeftSectionBottom'.");
 });
+
+test("ProjectInfoView tests. ", function () {
+    "use strict";
+    var piView, element, i;
+
+    createElement("section", document.body, { id: "containerLeftSectionTop" });
+
+    piView = new ProjectInfoView();
+
+    piView.createProjectInfoArticles();
+    for (i = 0; i < 5; i++) {
+        element = document.getElementById("piArticle" + i);
+        equal(element.id, "piArticle" + i, "Expecting an element with id 'piArticle" + i + "'.");
+    }
+
+    piView.createProjectInfoContentArticles();
+    for (i = 0; i < 5; i++) {
+        element = document.getElementById("piContentArticle" + i);
+        equal(element.id, "piContentArticle" + i, "Expecting an element with id 'piContentArticle" + i + "'.");
+    }
+
+    piView.createProjectInfoContent();
+    for (i = 1; i < 5; i++) {
+        element = document.getElementById("piContent" + i);
+        equal(element.id, "piContent" + i, "Expecting an element with id 'piContent" + i + "'.");
+    }
+
+    piView.createProjectInfoTitlesArticles();
+    for (i = 0; i < 5; i++) {
+        element = document.getElementById("piTitleArticle" + i);
+        equal(element.id, "piTitleArticle" + i, "Expecting an element with id 'piTitleArticle" + i + "'.");
+    }
+
+    piView.clearParagraphs();
+    for (i = 1; i < 5; i++) {
+        element = document.getElementById("piContent" + i);
+        equal(element.firstChild.data, " ", "Expecting element 'piContent" + i + "' to have an empty value.");
+    }
+});
