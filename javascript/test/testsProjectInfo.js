@@ -16,3 +16,17 @@ test("calculateSum tests. ", function () {
     result = piModel.calculateSum(numbers);
     equal(result, 0, "Expecting result to equal 0.");
 });
+
+test("buildOverlay / removeOverlay tests. ", function () {
+    "use strict";
+    var overlayView, overlay;
+    overlayView = new OverlayView();
+
+    overlayView.buildOverlay();
+    overlay = document.getElementById("overlay");
+    equal(overlay.id, "overlay", "Expecting element with id 'overlay'.");
+
+    overlayView.removeOverlay();
+    overlay = document.getElementById("overlay");
+    equal(overlay, undefined, "Expecting no element with id 'overlay'.");
+});
