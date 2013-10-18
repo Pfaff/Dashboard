@@ -11,7 +11,8 @@ function OverlayView() {
      * Builds the overlay view.
      */
     this.buildOverlay = function () {
-        var overlay = createElement("section", document.body, { id: "overlay" });
+        var overlay;
+        overlay = createElement("section", document.body, { id: "overlay" });
         overlay.onclick = function () { overlayView.removeOverlay(); };
 
         overlayView.createOverlayContainer();
