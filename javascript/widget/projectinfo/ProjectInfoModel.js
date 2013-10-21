@@ -55,7 +55,7 @@ function ProjectInfoModel() {
     this.testZabbix = function () {
         $.ajax({
             url: '../dashboard/php/projectinfo/TestZabbix.php',
-            //data: { method: 'getProjectInfo' },
+            data: { method: 'getUserAmountHistory' },
             type: 'GET',
             dataType: 'json',
             success: function (data) {

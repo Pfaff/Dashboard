@@ -3,11 +3,13 @@
 require_once('../config/config.php');
 require_once('../lib/ZabbixApiAbstract.class.php');
 require_once('../lib/ZabbixApi.class.php');
+require_once("../lib/RestServer.php");
 
+class UserAmountHistory {
 
+    public static function getUserAmountHistory() {
 try {
     $api = new ZabbixApi(ZABBIX_API_URL, ZABBIX_USER, ZABBIX_PASS);
-} catch(Exception $e) { echo $e->getMessage(); }
 
     $host = $api->hostGet( array(
         'output' => 'extend',
@@ -35,4 +37,10 @@ try {
     ));
     echo(json_encode($history));
 
+} catch(Exception $e) { echo $e->getMessage(); }
+    }
+}
+
+$rest = new RestServer('UserAmountHistory');
+$rest->handle();
 
