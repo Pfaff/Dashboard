@@ -4,7 +4,7 @@
  */
 function ProjectInfoController() {
     "use strict";
-    var piController, piView, piModel, updateContentInterval, updateGraphInterval, blockSwitchInterval, blockToUse;
+    var piController, piView, piModel, updateContentInterval, updateGraphInterval, blockSwitchInterval, blockToUse, blockContent, blockTitle;
     piController = this;
     piView = new ProjectInfoView();
     piModel = new ProjectInfoModel();
@@ -35,6 +35,19 @@ function ProjectInfoController() {
     piController.block[1] = ['version', 'version', 'request time', 'requestTime', 'requests / min', 'requestMin', 'uptime', 'uptime'];
     piController.block[2] = ['capacity max', 'capacityMax', 'capacity in use', 'capacityInUse', 'load average', 'loadAverage', "cpu's", 'cpu'];
     piController.block[3] = ['scheme', 'scheme', 'open connections', 'connectionsOpen', 'busy connections', 'connectionsBusy', 'idle connections', 'connectionsIdle'];
+
+//    blockContent = [];
+//    blockTitle = [];
+//
+//    blockContent[1] = [' ',   'version',          'requestTime',          'requestMin',           'uptime'            ];
+//    blockTitle[1] = [' ',     'version',          'request time',         'requests / min',       'uptime'            ];
+//
+//    blockContent[2] = [' ',   'capacityMax',      'capacityInUse',        'loadAverage',          'cpu'               ];
+//    blockTitle[2] = [' ',     'capacity max',     'capacity in use',      'load average',         "cpu's"             ];
+//
+//    blockContent[3] = [' ',   'scheme',           'connectionsOpen',      'connectionsBusy',      'connectionsIdle'   ];
+//    blockTitle[3] = [' ',     'scheme',           'open connections',     'busy connections',     'idle connections'  ];
+
 
     /**
      * Calls the functions to activate the project info widget.

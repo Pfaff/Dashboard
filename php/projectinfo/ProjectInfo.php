@@ -9,7 +9,7 @@ class ProjectInfo {
     public static function getProjectInfo() {
         $results = array();
 
-        for ($i = 1; $i <= 7; $i++) {
+        for ($i = 1; $i <= AMOUNT_SOM_SERVERS; $i++) {
             $html = file_get_html(SERVERPAGE_SOM_START.$i.SERVERPAGE_SOM_END);
 
             $tds = $html->find('body', 0)->find('td');

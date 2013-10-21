@@ -1,8 +1,11 @@
 <?php
 
+/* Amount of SOM Servers. */
+define('AMOUNT_SOM_SERVERS',    7);
+
 /* Serverpage: SOM. */
-define('SERVERPAGE_SOM_START', 'https://start');
-define('SERVERPAGE_SOM_END', '.mijnsom.nl/app/status');
+define('SERVERPAGE_SOM_START',  'https://start');
+define('SERVERPAGE_SOM_END',    '.mijnsom.nl/app/status');
 
 /* Information retrieved from the SOM servers for project information display. */
 $information = array(   'Versie',
@@ -17,5 +20,18 @@ $information = array(   'Versie',
                         'Open connections',
                         'Busy connections',
                         'Idle connections'      );
-
 define('SERVERPAGE_SOM_VALUES', serialize($information));
+
+/* Server of Topicus Zabbix. */
+define('ZABBIX_API_URL',    'https://zabbix.topicusonderwijs.nl/api_jsonrpc.php');
+
+/* User and password of the Topicus Zabbix page. */
+define('ZABBIX_USER',   'dashboard');
+define('ZABBIX_PASS',   'b9UWR7ba');
+
+/* Graph hosts of Zabbix. */
+define('GRAPHHOST_SOM_START',   'start');
+define('GRAPHHOST_SOM_END',     '.mijnsom.nl');
+
+/* Search word for graph host. */
+define('GRAPH_FILTER_NAME', 'Number of active sessions at this moment');

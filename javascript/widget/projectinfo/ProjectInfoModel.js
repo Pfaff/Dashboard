@@ -49,6 +49,19 @@ function ProjectInfoModel() {
     this.main = function () {
         piModel.getProjectInformation();
         piModel.getUserAmounts();
+        piModel.testZabbix();
+    };
+
+    this.testZabbix = function () {
+        $.ajax({
+            url: '../dashboard/php/projectinfo/TestZabbix.php',
+            //data: { method: 'getProjectInfo' },
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+            }
+        });
     };
 
     /**
