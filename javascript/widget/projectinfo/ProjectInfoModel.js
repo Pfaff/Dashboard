@@ -48,7 +48,6 @@ function ProjectInfoModel() {
      */
     this.main = function () {
         piModel.getProjectInformation();
-        //piModel.getUserAmounts();
         piModel.getUserAmountHistory();
     };
 
@@ -128,7 +127,6 @@ function ProjectInfoModel() {
     };
 
     /**
-     *
      * Calculates the requests per minute.
      */
     this.calculateRequestMin = function () {
@@ -228,7 +226,6 @@ function ProjectInfoModel() {
             type: 'GET',
             dataType: 'json',
             success: function (data) {
-                console.log(data);
                 piModel.fillUserAmountArray(data);
             }
         });
@@ -241,8 +238,7 @@ function ProjectInfoModel() {
     this.fillUserAmountArray = function (data) {
         var i, user, date;
         piModel.pi.att.userAmount = [];
-
-        for (i = data.length - 1; i > 0; i--) {
+        for (i = data.length - 1; i >= 0; i--) {
             date = new Date(0);
             date.setUTCSeconds(data[i].clock);
             user = new UserAmount('SOM', date, parseInt(data[i].value, 10));
@@ -251,38 +247,6 @@ function ProjectInfoModel() {
 
         piModel.createArrayWithRecentUserAmounts();
     };
-
-    /**
-     * Gathers the user amounts from the database.
-
-    this.getUserAmounts = function () {
-        $.ajax({
-            url: '../dashboard/php/projectinfo/UserAmount.php',
-            data: { method: 'getUserAmounts' },
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                piModel.handleUserAmountArray(data);
-            }
-        });
-    };
-
-    /**
-     * Creates a user amount object per data row and pushes it into the desired project info array object.
-     * Clearing the array to avoid double data in the graph.
-     * Replacing the dashes so it can be actually recognized as a Date object by FireFox.
-     * @param data
-
-    this.handleUserAmountArray = function (data) {
-        var i, user;
-        piModel.pi.att.userAmount = [];
-
-        for (i = 0; i < data.length; i++) {
-            user = new UserAmount(data[i].project, new Date(data[i].datetime.replace(/-/g, '/')), parseInt(data[i].amount, 10));
-            piModel.pi.pushNewValueInGivenArray('userAmount', user);
-        }
-        piModel.createArrayWithRecentUserAmounts();
-    };*/
 
     /**
      * Pushes the most recent user amounts into the array.

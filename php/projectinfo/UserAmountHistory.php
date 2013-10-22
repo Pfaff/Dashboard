@@ -6,19 +6,13 @@ require_once('../lib/ZabbixApi.class.php');
 require_once("../lib/RestServer.php");
 
 class UserAmountHistory {
-    var $api = null;
-    var $hostid = null;
-    var $itemid = null;
-    var $epoch = null;
-    var $clockTimes = null;
-
     public static function main() {
+        global $historyToReturn;
+
         self::connectToZabbix();
-        self::getHostId();
-        self::getItemId();
-        self::getLatestEpochTime();
-        self::calculateHoursForClock();
-        return self::getHistory();
+        self::getUserAmountHistoryOfAllServers();
+
+        return $historyToReturn;
     }
 
     private static function connectToZabbix() {
@@ -26,11 +20,27 @@ class UserAmountHistory {
         $api = new ZabbixApi(ZABBIX_API_URL, ZABBIX_USER, ZABBIX_PASS);
     }
 
-    private static function getHostId() {
+    private static function getUserAmountHistoryOfAllServers() {
+        global $history, $historyToReturn;
+        for($i = 1; $i <= AMOUNT_SOM_SERVERS; $i++) {
+            self::getHostId($i);
+            self::getItemId();
+            self::getLatestEpochTime();
+            self::calculateHoursForClock();
+            self::getHistory();
+            if($i == 1) {
+                $historyToReturn = $history;
+            } else {
+                self::updateHistoryToReturn();
+            }
+        }
+    }
+
+    private static function getHostId($i) {
         global $api, $hostid;
         $host = $api->hostGet( array(
             'output' => 'extend',
-            'filter' => array('host' => GRAPHHOST_SOM_START.'6'.GRAPHHOST_SOM_END)
+            'filter' => array('host' => GRAPHHOST_SOM_START.$i.GRAPHHOST_SOM_END)
         ));
         $hostid = $host[0]->hostid;
     }
@@ -61,17 +71,18 @@ class UserAmountHistory {
     }
 
     private static function calculateHoursForClock() {
-        global $i, $epoch, $clockTimes;
+        global $epoch, $clockTimes;
         $clockTimes = Array();
 
-        for($i = 0; $i < GRAPH_VALUES_AMOUNT; $i++) {
-            array_push($clockTimes, (string)$epoch);
+        for($i = 0; $i <= GRAPH_VALUES_AMOUNT; $i++) {
+//            print_r($epoch."   :   ");
+            array_push($clockTimes, $epoch);
             $epoch = $epoch - GRAPH_VALUES_DIFFERENCE;
         }
     }
 
     private static function getHistory() {
-        global $api, $itemid, $clockTimes;
+        global $api, $itemid, $clockTimes, $history;
 
         $history = $api->historyGet(array(
             'output' => 'extend',
@@ -82,8 +93,19 @@ class UserAmountHistory {
             'limit' => GRAPH_VALUES_AMOUNT,
             'filter' => array('clock' => $clockTimes)
         ));
+    }
 
-        return $history;
+    private static function updateHistoryToReturn() {
+        global $history, $historyToReturn;
+
+        for($i = 0; $i < count($history); $i++) {
+            $historyToReturn[$i]->clock = $history[$i]->clock;
+            $historyToReturn[$i]->itemid = $history[$i]->itemid;
+            $historyToReturn[$i]->ns = $history[$i]->ns;
+            $historyToReturn[$i]->value = $historyToReturn[$i]->value + $history[$i]->value;
+        }
+
+//        $historyToReturn = $history;
     }
 }
 

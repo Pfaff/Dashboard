@@ -16,9 +16,9 @@ function ProjectInfoController() {
      * 20.000 = 20 seconds.
      * @type {number}
      */
-    updateContentInterval = 3000;
-    updateGraphInterval = 5000; //3600000;
-    blockSwitchInterval = 15000;
+    updateContentInterval = 1500; //3000;
+    updateGraphInterval = 3600000;
+    blockSwitchInterval = 6000; //15000;
 
     /**
      * Defines what block the dashboard should be using.
@@ -36,17 +36,17 @@ function ProjectInfoController() {
     piController.block[2] = ['capacity max', 'capacityMax', 'capacity in use', 'capacityInUse', 'load average', 'loadAverage', "cpu's", 'cpu'];
     piController.block[3] = ['scheme', 'scheme', 'open connections', 'connectionsOpen', 'busy connections', 'connectionsBusy', 'idle connections', 'connectionsIdle'];
 
-//    blockContent = [];
-//    blockTitle = [];
-//
-//    blockContent[1] = [' ',   'version',          'requestTime',          'requestMin',           'uptime'            ];
-//    blockTitle[1] = [' ',     'version',          'request time',         'requests / min',       'uptime'            ];
-//
-//    blockContent[2] = [' ',   'capacityMax',      'capacityInUse',        'loadAverage',          'cpu'               ];
-//    blockTitle[2] = [' ',     'capacity max',     'capacity in use',      'load average',         "cpu's"             ];
-//
-//    blockContent[3] = [' ',   'scheme',           'connectionsOpen',      'connectionsBusy',      'connectionsIdle'   ];
-//    blockTitle[3] = [' ',     'scheme',           'open connections',     'busy connections',     'idle connections'  ];
+    blockContent = [];
+    blockTitle = [];
+
+    blockContent[1] = [' ',   'version',          'requestTime',          'requestMin',           'uptime'            ];
+    blockTitle[1] = [' ',     'version',          'request time',         'requests / min',       'uptime'            ];
+
+    blockContent[2] = [' ',   'capacityMax',      'capacityInUse',        'loadAverage',          'cpu'               ];
+    blockTitle[2] = [' ',     'capacity max',     'capacity in use',      'load average',         "cpu's"             ];
+
+    blockContent[3] = [' ',   'scheme',           'connectionsOpen',      'connectionsBusy',      'connectionsIdle'   ];
+    blockTitle[3] = [' ',     'scheme',           'open connections',     'busy connections',     'idle connections'  ];
 
 
     /**
@@ -124,7 +124,7 @@ function ProjectInfoController() {
 
         setTimeout(function () {
             piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
-        }, 1500);
+        }, 7500);
     };
 
     /**
@@ -161,9 +161,9 @@ function ProjectInfoController() {
         piView.updateContent(3, array[4], piModel.pi.att[array[5]]);
         piView.updateContent(4, array[6], piModel.pi.att[array[7]]);
 
-        for (i = 1; i < 8; i += 2) {
-            p = piController.getPiContentElement(i);
-            value = piModel.pi.getValue(array[i]);
+        for (i = 1; i < blockContent[1].length; i++) {
+            p = document.getElementById('piContent' + i);
+            value = piModel.pi.getValue(blockContent[blockToUse][i]);
             if (String(value).indexOf(' ') >= 0) {
                 piView.addSpanToParagraph(p, value);
             } else {

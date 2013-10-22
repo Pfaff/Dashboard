@@ -33,7 +33,7 @@ define('ZABBIX_PASS',   'b9UWR7ba');
 define('GRAPH_VALUES_AMOUNT',    10);
 
 /* Difference between graph values. */
-define('GRAPH_VALUES_DIFFERENCE',   3600); // 3600 = 1 Hour.
+define('GRAPH_VALUES_DIFFERENCE',   7200); // 3600 = 1 Hour.
 
 /* Graph hosts of Zabbix. */
 define('GRAPHHOST_SOM_START',   'start');
