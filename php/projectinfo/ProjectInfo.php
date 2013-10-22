@@ -5,7 +5,10 @@ require_once("../lib/RestServer.php");
 require_once('../lib/simple_html_dom.php');
 
 class ProjectInfo {
-
+    /**
+     *
+     * @return array
+     */
     public static function getProjectInfo() {
         $results = array();
 

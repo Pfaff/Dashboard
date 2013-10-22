@@ -178,10 +178,14 @@ function ProjectInfoModel() {
 
     /**
      * Calculates the load average.
+     * Replacing the , with the . for the sake of counting.
      */
     this.calculateLoadAverage = function () {
-        var loadAverageAll, averageLoadAverage;
+        var loadAverageAll, averageLoadAverage, i;
         loadAverageAll = piModel.pi.att.loadAverageAll;
+        for (i = 0; i < loadAverageAll.length; i++) {
+            loadAverageAll[i] = loadAverageAll[i].replace(/,/g, '.');
+        }
         averageLoadAverage = piModel.calculateSum(loadAverageAll) / loadAverageAll.length;
         piModel.pi.att.loadAverage = parseFloat(averageLoadAverage.toFixed(2));
     };
@@ -312,7 +316,7 @@ function ProjectInfoModel() {
         result = 0;
 
         for (i = 0; i < array.length; i++) {
-            result = result + parseInt(array[i], 10);
+            result = result + parseFloat(array[i]);
         }
 
         return result;
