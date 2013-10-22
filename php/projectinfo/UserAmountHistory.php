@@ -35,9 +35,9 @@ try {
         'sortorder' => 'DESC',
         'limit' => 10
     ));
-    echo(json_encode($history));
+    return $history;
 
-} catch(Exception $e) { echo $e->getMessage(); }
+} catch(Exception $e) { return $e->getMessage(); }
     }
 }
 
