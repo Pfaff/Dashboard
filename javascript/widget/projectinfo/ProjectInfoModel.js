@@ -48,20 +48,8 @@ function ProjectInfoModel() {
      */
     this.main = function () {
         piModel.getProjectInformation();
-        piModel.getUserAmounts();
-        piModel.testZabbix();
-    };
-
-    this.testZabbix = function () {
-        $.ajax({
-            url: '../dashboard/php/projectinfo/UserAmountHistory.php',
-            data: { method: 'getUserAmountHistory' },
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                console.log(data);
-            }
-        });
+        //piModel.getUserAmounts();
+        piModel.getUserAmountHistory();
     };
 
     /**
@@ -231,8 +219,41 @@ function ProjectInfoModel() {
     };
 
     /**
-     * Gathers the user amounts from the database.
+     * Collects the user amount history information from the given REST service.
      */
+    this.getUserAmountHistory = function () {
+        $.ajax({
+            url: '../dashboard/php/projectinfo/UserAmountHistory.php',
+            data: { method: 'main' },
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                piModel.fillUserAmountArray(data);
+            }
+        });
+    };
+
+    /**
+     * Fills the user amount array for in the project info object.
+     * @param data
+     */
+    this.fillUserAmountArray = function (data) {
+        var i, user, date;
+        piModel.pi.att.userAmount = [];
+
+        for (i = 0; i < data.length; i++) {
+            date = new Date(0);
+            date.setUTCSeconds(data[i].clock);
+            user = new UserAmount('SOM', date, parseInt(data[i].value, 10));
+            piModel.pi.pushNewValueInGivenArray('userAmount', user);
+        }
+
+        piModel.createArrayWithRecentUserAmounts();
+    };
+
+    /**
+     * Gathers the user amounts from the database.
+
     this.getUserAmounts = function () {
         $.ajax({
             url: '../dashboard/php/projectinfo/UserAmount.php',
@@ -243,7 +264,7 @@ function ProjectInfoModel() {
                 piModel.handleUserAmountArray(data);
             }
         });
-    };
+    };*/
 
     /**
      * Creates a user amount object per data row and pushes it into the desired project info array object.

@@ -1,5 +1,5 @@
 <?php
-
+//1382421600  1382425200  1382428800
 /* Amount of SOM Servers. */
 define('AMOUNT_SOM_SERVERS',    7);
 
