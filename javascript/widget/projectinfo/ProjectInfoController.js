@@ -16,9 +16,9 @@ function ProjectInfoController() {
      * 20.000 = 20 seconds.
      * @type {number}
      */
-    updateContentInterval = 1500; //3000;
+    updateContentInterval = 3000;
     updateGraphInterval = 3600000;
-    blockSwitchInterval = 6000; //15000;
+    blockSwitchInterval = 15000;
 
     /**
      * Defines what block the dashboard should be using.
@@ -27,15 +27,9 @@ function ProjectInfoController() {
     blockToUse = 1;
 
     /**
-     * The different blocks, the first value is the name on the bottom left corner.
-     * The second value is the name of the attribute in the project info object.
+     * The blocks for the dashboard project information
      * @type {Array}
      */
-    piController.block = [];
-    piController.block[1] = ['version', 'version', 'request time', 'requestTime', 'requests / min', 'requestMin', 'uptime', 'uptime'];
-    piController.block[2] = ['capacity max', 'capacityMax', 'capacity in use', 'capacityInUse', 'load average', 'loadAverage', "cpu's", 'cpu'];
-    piController.block[3] = ['scheme', 'scheme', 'open connections', 'connectionsOpen', 'busy connections', 'connectionsBusy', 'idle connections', 'connectionsIdle'];
-
     blockContent = [];
     blockTitle = [];
 
@@ -47,7 +41,6 @@ function ProjectInfoController() {
 
     blockContent[3] = [' ',   'scheme',           'connectionsOpen',      'connectionsBusy',      'connectionsIdle'   ];
     blockTitle[3] = [' ',     'scheme',           'open connections',     'busy connections',     'idle connections'  ];
-
 
     /**
      * Calls the functions to activate the project info widget.
@@ -118,7 +111,7 @@ function ProjectInfoController() {
      */
     this.startTimeOutsForContentAndGraph = function () {
         setTimeout(function () {
-            piController.updateBlock(piController.block[blockToUse]);
+            piController.updateBlock(blockContent[blockToUse], blockTitle[blockToUse]);
             piModel.getProjectInformation();
         }, 2000);
 
@@ -133,7 +126,7 @@ function ProjectInfoController() {
      */
     this.startUpdateContent = function () {
         setInterval(function () {
-            piController.updateBlock(piController.block[blockToUse]);
+            piController.updateBlock(blockContent[blockToUse], blockTitle[blockToUse]);
             piModel.getProjectInformation();
         }, updateContentInterval);
     };
@@ -151,15 +144,15 @@ function ProjectInfoController() {
 
     /**
      * Updates the project info with the given block array.
-     * @param array
+     * @param arrayContent
+     * @param arrayTitle
      */
-    this.updateBlock = function (array) {
-        var i, p, value;
+    this.updateBlock = function (arrayContent, arrayTitle) {
+        var x, i, p, value;
         piView.clearParagraphs();
-        piView.updateContent(1, array[0], piModel.pi.att[array[1]]);
-        piView.updateContent(2, array[2], piModel.pi.att[array[3]]);
-        piView.updateContent(3, array[4], piModel.pi.att[array[5]]);
-        piView.updateContent(4, array[6], piModel.pi.att[array[7]]);
+        for (x = 1; x < 5; x++) {
+            piView.updateContent(x, arrayTitle[x], piModel.pi.att[arrayContent[x]]);
+        }
 
         for (i = 1; i < blockContent[1].length; i++) {
             p = document.getElementById('piContent' + i);
@@ -170,19 +163,6 @@ function ProjectInfoController() {
                 piView.setNormalMarginToParagraph(p);
             }
         }
-    };
-
-    /**
-     * Returns the desired piContent element.
-     * @param index
-     * @returns {*}
-     */
-    this.getPiContentElement = function (index) {
-        if (index === 1) { return document.getElementById('piContent1'); }
-        if (index === 3) { return document.getElementById('piContent2'); }
-        if (index === 5) { return document.getElementById('piContent3'); }
-        if (index === 7) { return document.getElementById('piContent4'); }
-        return null;
     };
 
     /**
