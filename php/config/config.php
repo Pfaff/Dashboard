@@ -7,11 +7,13 @@ define('AMOUNT_SOM_SERVERS',    7);
 
 /**
  * Serverpage: SOM.
- * /
+ */
 define('SERVERPAGE_SOM_START',  'https://start');
 define('SERVERPAGE_SOM_END',    '.mijnsom.nl/app/status');
 
-/* Information retrieved from the (SOM) servers for project information display. */
+/**
+ * Information retrieved from the (SOM) servers for project information display.
+ */
 $information = array(   'Versie',
                         'Gem. request duur',
                         'Requests per minuut',
