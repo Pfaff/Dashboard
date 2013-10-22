@@ -17,7 +17,7 @@ function ProjectInfoController() {
      * @type {number}
      */
     updateContentInterval = 3000;
-    updateGraphInterval = 3600000;
+    updateGraphInterval = 5000; //3600000;
     blockSwitchInterval = 15000;
 
     /**
@@ -143,7 +143,7 @@ function ProjectInfoController() {
      */
     this.startUpdateGraph = function () {
         setInterval(function () {
-            piModel.getUserAmounts();
+            piModel.getUserAmountHistory();
             piView.removeUserAmountsGraph();
             piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
         }, updateGraphInterval);

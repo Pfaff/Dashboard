@@ -228,6 +228,7 @@ function ProjectInfoModel() {
             type: 'GET',
             dataType: 'json',
             success: function (data) {
+                console.log(data);
                 piModel.fillUserAmountArray(data);
             }
         });
@@ -241,7 +242,7 @@ function ProjectInfoModel() {
         var i, user, date;
         piModel.pi.att.userAmount = [];
 
-        for (i = 0; i < data.length; i++) {
+        for (i = data.length - 1; i > 0; i--) {
             date = new Date(0);
             date.setUTCSeconds(data[i].clock);
             user = new UserAmount('SOM', date, parseInt(data[i].value, 10));
@@ -264,14 +265,14 @@ function ProjectInfoModel() {
                 piModel.handleUserAmountArray(data);
             }
         });
-    };*/
+    };
 
     /**
      * Creates a user amount object per data row and pushes it into the desired project info array object.
      * Clearing the array to avoid double data in the graph.
      * Replacing the dashes so it can be actually recognized as a Date object by FireFox.
      * @param data
-     */
+
     this.handleUserAmountArray = function (data) {
         var i, user;
         piModel.pi.att.userAmount = [];
@@ -281,7 +282,7 @@ function ProjectInfoModel() {
             piModel.pi.pushNewValueInGivenArray('userAmount', user);
         }
         piModel.createArrayWithRecentUserAmounts();
-    };
+    };*/
 
     /**
      * Pushes the most recent user amounts into the array.

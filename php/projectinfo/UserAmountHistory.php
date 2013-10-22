@@ -9,11 +9,15 @@ class UserAmountHistory {
     var $api = null;
     var $hostid = null;
     var $itemid = null;
+    var $epoch = null;
+    var $clockTimes = null;
 
     public static function main() {
         self::connectToZabbix();
         self::getHostId();
         self::getItemId();
+        self::getLatestEpochTime();
+        self::calculateHoursForClock();
         return self::getHistory();
     }
 
@@ -26,7 +30,7 @@ class UserAmountHistory {
         global $api, $hostid;
         $host = $api->hostGet( array(
             'output' => 'extend',
-            'filter' => array('host' => GRAPHHOST_SOM_START.'1'.GRAPHHOST_SOM_END)
+            'filter' => array('host' => GRAPHHOST_SOM_START.'6'.GRAPHHOST_SOM_END)
         ));
         $hostid = $host[0]->hostid;
     }
@@ -41,8 +45,8 @@ class UserAmountHistory {
         $itemid = $item[0]->itemid;
     }
 
-    private static function getHistory() {
-        global $api, $itemid;
+    private static function getLatestEpochTime() {
+        global $api, $itemid, $epoch;
 
         $history = $api->historyGet(array(
             'output' => 'extend',
@@ -50,8 +54,33 @@ class UserAmountHistory {
             'itemids' => $itemid,
             'sortfield' => 'clock',
             'sortorder' => 'DESC',
-            'limit' => 10,
-            //'filter' => array('clock' => array('1382423641', '1382416441'))
+            'limit' => 1,
+        ));
+
+        $epoch = $history[0]->clock;
+    }
+
+    private static function calculateHoursForClock() {
+        global $i, $epoch, $clockTimes;
+        $clockTimes = Array();
+
+        for($i = 0; $i < GRAPH_VALUES_AMOUNT; $i++) {
+            array_push($clockTimes, (string)$epoch);
+            $epoch = $epoch - GRAPH_VALUES_DIFFERENCE;
+        }
+    }
+
+    private static function getHistory() {
+        global $api, $itemid, $clockTimes;
+
+        $history = $api->historyGet(array(
+            'output' => 'extend',
+            'history' => 3,
+            'itemids' => $itemid,
+            'sortfield' => 'clock',
+            'sortorder' => 'DESC',
+            'limit' => GRAPH_VALUES_AMOUNT,
+            'filter' => array('clock' => $clockTimes)
         ));
 
         return $history;

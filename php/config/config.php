@@ -7,7 +7,7 @@ define('AMOUNT_SOM_SERVERS',    7);
 define('SERVERPAGE_SOM_START',  'https://start');
 define('SERVERPAGE_SOM_END',    '.mijnsom.nl/app/status');
 
-/* Information retrieved from the SOM servers for project information display. */
+/* Information retrieved from the (SOM) servers for project information display. */
 $information = array(   'Versie',
                         'Gem. request duur',
                         'Requests per minuut',
@@ -28,6 +28,12 @@ define('ZABBIX_API_URL',    'https://zabbix.topicusonderwijs.nl/api_jsonrpc.php'
 /* User and password of the Topicus Zabbix page. */
 define('ZABBIX_USER',   'dashboard');
 define('ZABBIX_PASS',   'b9UWR7ba');
+
+/* Amount of values for graph. */
+define('GRAPH_VALUES_AMOUNT',    10);
+
+/* Difference between graph values. */
+define('GRAPH_VALUES_DIFFERENCE',   3600); // 3600 = 1 Hour.
 
 /* Graph hosts of Zabbix. */
 define('GRAPHHOST_SOM_START',   'start');
