@@ -4,7 +4,7 @@
  */
 function ProjectInfoModel() {
     "use strict";
-    var piModel, amountOfSOMServers, maxAmountOfUserAmountsToShow;
+    var piModel, amountOfSOMServers, maxAmountOfUserAmountsToShow, onTheSameServer;
     piModel = this;
 
     /**
@@ -36,6 +36,16 @@ function ProjectInfoModel() {
      * @type {Array}
      */
     piModel.userAmountsGraphAmounts = [];
+
+    /**
+     * Defines those who are on the same server. Currently it's as follows:
+     * Atvo 1 - Som 1
+     * Atvo 2 - Som 2 / 7
+     * Atvo 3 - Som 3 / 5
+     * Atvo 4 - Som 4 / 6
+     * @type {Array}
+     */
+    onTheSameServer = [2, 3, 4];
 
     /**
      * Creates the object that saves all the information of the project info.
@@ -194,7 +204,11 @@ function ProjectInfoModel() {
      * Calculates the amount of CPU's.
      */
     this.calculateCpu = function () {
-        var cpuAll = piModel.pi.att.cpuAll;
+        var cpuAll, i;
+        cpuAll = piModel.pi.att.cpuAll;
+        for (i = 0; i < onTheSameServer.length; i++) {
+            cpuAll[onTheSameServer[i]] = 0;
+        }
         piModel.pi.att.cpu = piModel.calculateSum(cpuAll);
     };
 

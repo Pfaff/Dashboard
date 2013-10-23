@@ -17,7 +17,7 @@ function ProjectInfoController() {
      * @type {number}
      */
     updateContentInterval = 3000;
-    updateGraphInterval = 3600000;
+    updateGraphInterval = 1800000;
     blockSwitchInterval = 15000;
 
     /**

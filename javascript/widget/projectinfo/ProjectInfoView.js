@@ -136,6 +136,12 @@ function ProjectInfoView() {
                     click: function () { functionToExecute(); }
                 }
             },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
             title: {
                 text: ' ',
                 x: -20
