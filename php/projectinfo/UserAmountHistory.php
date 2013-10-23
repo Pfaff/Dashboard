@@ -99,7 +99,7 @@ class UserAmountHistory {
 
         for($i = 0; $i <= GRAPH_VALUES_AMOUNT; $i++) {
             array_push($clockTimes, $epoch);
-            $epoch = $epoch - GRAPH_VALUES_DIFFERENCE;
+            $epoch = $epoch - GRAPH_VALUES_DIFFERENCE_SHORT;
         }
     }
 
