@@ -6,5 +6,4 @@ $(document).ready(function () {
     "use strict";
     var dashCon = new Dashboard.DashboardController();
     dashCon.main();
-    console.log(Dashboard);
 });

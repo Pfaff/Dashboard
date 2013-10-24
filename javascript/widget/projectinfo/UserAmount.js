@@ -1,9 +1,11 @@
-function UserAmount(project, datetime, amount) {
+(function (db) {
     "use strict";
-    this.att = [];
-    this.att.project = project;
-    this.att.datetime = datetime;
-    this.att.amount = amount;
+    db.UserAmount = function UserAmount(project, datetime, amount) {
+        this.att = [];
+        this.att.project = project;
+        this.att.datetime = datetime;
+        this.att.amount = amount;
 
-    this.getValue = function (value) { return this.att[value]; };
-}
+        this.getValue = function (value) { return this.att[value]; };
+    };
+}(Dashboard));

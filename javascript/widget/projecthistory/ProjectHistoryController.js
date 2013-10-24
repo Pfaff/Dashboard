@@ -1,15 +1,16 @@
 /**
  * @author - Jeffrey Pfaff
- * @constructor
  */
-function ProjectHistoryController() {
+(function (db) {
     "use strict";
+    db.ProjectHistoryController = function ProjectHistoryController() {
 
-    /**
-     * Main function of the project history controller.
-     */
-    this.main = function () {
-        var phView = new ProjectHistoryView();
-        phView.main();
+        /**
+         * Main function of the project history controller.
+         */
+        this.main = function () {
+            var phView = new db.ProjectHistoryView();
+            phView.main();
+        };
     };
-}
+}(Dashboard));
