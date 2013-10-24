@@ -12,7 +12,7 @@
          */
         this.buildOverlay = function () {
             var overlay;
-            overlay = createElement("section", document.body, { id: "overlay" });
+            overlay = db.createElement("section", document.body, { id: "overlay" });
             overlay.onclick = function () { overlayView.removeOverlay(); };
 
             overlayView.createOverlayContainer();
@@ -26,7 +26,7 @@
         };
 
         this.createOverlayContainer = function () {
-            createElement("section", document.getElementById("overlay"), { id: "containerOverlay" });
+            db.createElement("section", document.getElementById("overlay"), { id: "containerOverlay" });
         };
     };
 }(Dashboard));
