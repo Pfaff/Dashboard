@@ -4,20 +4,8 @@
 (function (db) {
     "use strict";
     db.ProjectInfoModel = function ProjectInfoModel() {
-        var piModel, amountOfSOMServers, maxAmountOfUserAmountsToShow, onTheSameServer;
+        var piModel;
         piModel = this;
-
-        /**
-         * Defines the amount of SOM servers.
-         * @type {number}
-         */
-        amountOfSOMServers = 7;
-
-        /**
-         * Defines the maximum amount of different amounts to show in the graph.
-         * @type {number}
-         */
-        maxAmountOfUserAmountsToShow = 10;
 
         /**
          * Array which contains the most recent user amounts.
@@ -36,16 +24,6 @@
          * @type {Array}
          */
         piModel.userAmountsGraphAmounts = [];
-
-        /**
-         * Defines those who are on the same server. Currently it's as follows:
-         * Atvo 1 - Som 1
-         * Atvo 2 - Som 2 / 7
-         * Atvo 3 - Som 3 / 5
-         * Atvo 4 - Som 4 / 6
-         * @type {Array}
-         */
-        onTheSameServer = [2, 3, 4];
 
         /**
          * Creates the object that saves all the information of the project info.
@@ -88,7 +66,7 @@
 
             piModel.pi.clearAllArraysExceptForUserAmount();
 
-            for (i = 1; i <= amountOfSOMServers; i++) {
+            for (i = 1; i <= db.amountOfSOMServers; i++) {
                 piModel.pi.pushNewValueInGivenArray('requestTimeAll', data['Gem. request duur' + i]);
                 piModel.pi.pushNewValueInGivenArray('requestMinAll', data['Requests per minuut' + i]);
                 piModel.pi.pushNewValueInGivenArray('uptimeAll', data['Starttijd' + i]);
@@ -175,7 +153,7 @@
             tempUptimeArray = piModel.pi.att.uptimeAll;
             piModel.pi.att.uptimeAll = [];
 
-            for (i = 0; i < amountOfSOMServers; i++) {
+            for (i = 0; i < db.amountOfSOMServers; i++) {
                 dateString = tempUptimeArray[i].replace(/(\d\d)-(\d\d)/, "$2-$1");
                 dateString = dateString.replace(/-/g, '/');
                 serverStart = new Date(dateString);
@@ -206,8 +184,8 @@
         this.calculateCpu = function () {
             var cpuAll, i;
             cpuAll = piModel.pi.att.cpuAll;
-            for (i = 0; i < onTheSameServer.length; i++) {
-                cpuAll[onTheSameServer[i]] = 0;
+            for (i = 0; i < db.sameServer.length; i++) {
+                cpuAll[db.sameServer[i]] = 0;
             }
             piModel.pi.att.cpu = piModel.calculateSum(cpuAll);
         };
@@ -277,8 +255,8 @@
             counter = 0;
             userAmounts = piModel.pi.getValue('userAmount');
 
-            for (i = userAmounts.length - 1; i > 0; i--) {
-                if (counter < maxAmountOfUserAmountsToShow) {
+            for (i = userAmounts.length - 1; i >= 0; i--) {
+                if (counter <= db.maxAmountOfUserAmountsToShow) {
                     piModel.recentUserAmounts.unshift(userAmounts[i]);
                     counter++;
                 }

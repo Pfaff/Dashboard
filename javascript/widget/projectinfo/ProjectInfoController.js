@@ -4,21 +4,10 @@
 (function (db) {
     "use strict";
     db.ProjectInfoController = function ProjectInfoController() {
-        var piController, piView, piModel, updateContentInterval, updateGraphInterval, blockSwitchInterval, blockToUse, blockContent, blockTitle;
+        var piController, piView, piModel, blockToUse, blockContent, blockTitle;
         piController = this;
         piView = new db.ProjectInfoView();
         piModel = new db.ProjectInfoModel();
-
-        /**
-         * The variables for the intervals.
-         * 5.000 = 5 seconds.
-         * 3.600.000 = 1 hour.
-         * 20.000 = 20 seconds.
-         * @type {number}
-         */
-        updateContentInterval = 3000;
-        updateGraphInterval = 1800000;
-        blockSwitchInterval = 15000;
 
         /**
          * Defines what block the dashboard should be using.
@@ -117,7 +106,7 @@
 
             setTimeout(function () {
                 piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
-            }, 8500);
+            }, 10000);
         };
 
         /**
@@ -128,7 +117,7 @@
             setInterval(function () {
                 piController.updateBlock(blockContent[blockToUse], blockTitle[blockToUse]);
                 piModel.getProjectInformation();
-            }, updateContentInterval);
+            }, db.updateContentInterval);
         };
 
         /**
@@ -139,7 +128,7 @@
                 piModel.getUserAmountHistory();
                 piView.removeUserAmountsGraph();
                 piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
-            }, updateGraphInterval);
+            }, db.updateGraphInterval);
         };
 
         /**
@@ -175,7 +164,7 @@
                 } else {
                     blockToUse++;
                 }
-            }, blockSwitchInterval);
+            }, db.blockSwitchInterval);
         };
     };
 }(Dashboard));
