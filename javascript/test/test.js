@@ -1,22 +1,24 @@
-test("createElement tests. ", function () {
+var db = Dashboard;
+
+test("db.createElement tests. ", function () {
     "use strict";
     var element, properties, result;
 
     properties = { id: "testSectionId" };
-    element = createElement("section", document.body, properties);
+    element = db.createElement("section", document.body, properties);
     equal(element.id, "testSectionId", "Expecting an element with id 'testSectionId'.");
 
     properties = { className: "testSectionClass" };
-    element = createElement("section", document.body, properties);
+    element = db.createElement("section", document.body, properties);
     equal(element.className, "testSectionClass", "Expecting an element with class 'testSectionClass'.");
 
     properties = { id: "testSectionId", className: "testSectionClass" };
-    element = createElement("section", document.body, properties);
+    element = db.createElement("section", document.body, properties);
     result = (element.id === "testSectionId" && element.className === "testSectionClass");
     equal(result, true, "Expecting an element with id 'testSectionId and class 'testSectionClass'.");
 
     properties = { width: "100px", height: "100px" };
-    element = createElement("rect", document.body, properties);
+    element = db.createElement("rect", document.body, properties);
     result = (element.width === "100px" && element.height === "100px");
     equal(result, true, "Expecting an element with a height and width of 100px.");
 });
@@ -24,7 +26,7 @@ test("createElement tests. ", function () {
 test("calculateSum tests. ", function () {
     "use strict";
     var piModel, numbers, result;
-    piModel = new ProjectInfoModel();
+    piModel = new db.ProjectInfoModel();
 
     numbers = [1, 1, 1, 1, 1];
     result = piModel.calculateSum(numbers);
@@ -42,7 +44,7 @@ test("calculateSum tests. ", function () {
 test("OverlayView tests. ", function () {
     "use strict";
     var overlayView, overlay;
-    overlayView = new OverlayView();
+    overlayView = new db.OverlayView();
 
     overlayView.buildOverlay();
     overlay = document.getElementById("overlay");
@@ -57,9 +59,9 @@ test("DashboardView tests. ", function () {
     "use strict";
     var dashboardView, container;
 
-    createElement("section", document.body, { id: "container" });
+    db.createElement("section", document.body, { id: "container" });
 
-    dashboardView = new DashboardView();
+    dashboardView = new db.DashboardView();
     dashboardView.main();
 
     container = document.getElementById("containerLeft");
@@ -82,9 +84,9 @@ test("ProjectInfoView tests. ", function () {
     "use strict";
     var piView, element, i;
 
-    createElement("section", document.body, { id: "containerLeftSectionTop" });
+    db.createElement("section", document.body, { id: "containerLeftSectionTop" });
 
-    piView = new ProjectInfoView();
+    piView = new db.ProjectInfoView();
 
     piView.createProjectInfoArticles();
     for (i = 0; i < 5; i++) {
