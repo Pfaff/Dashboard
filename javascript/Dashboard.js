@@ -32,5 +32,10 @@ var Dashboard = {
      * Atvo 3 - Som 3 / 5
      * Atvo 4 - Som 4 / 6
      */
-    sameServer              :   [2, 3, 4]
+    sameServer              :   [2, 3, 4],
+
+    /**
+     * Defines the time difference in points on the graph.
+     */
+    graphEpochDifference    :   3600
 };

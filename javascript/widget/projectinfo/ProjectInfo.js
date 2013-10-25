@@ -38,6 +38,8 @@
 
         this.att.userAmount = [];
 
+        this.att.cpuLoad = [];
+
         this.getValue = function (value) { return this.att[value]; };
 
         this.pushNewValueInGivenArray = function (array, value) {

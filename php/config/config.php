@@ -42,21 +42,26 @@ define('ZABBIX_PASS',   'b9UWR7ba');
 /**
  * Amount of values for graph.
  */
-define('GRAPH_VALUES_AMOUNT',    10);
+define('UA_GRAPH_VALUES_AMOUNT',    10);
 
 /**
- * Difference between graph values.
+ * User amount history graph hosts of Zabbix.
  */
-define('GRAPH_VALUES_DIFFERENCE_SHORT',   7200); // 3600 = 1 Hour.
-define('GRAPH_VALUES_DIFFERENCE_LONG',   7200);
+define('UA_GRAPHHOST_SOM_START',   'start');
+define('UA_GRAPHHOST_SOM_END',     '.mijnsom.nl');
 
 /**
- * Graph hosts of Zabbix.
+ * Search word for user amount history graph host.
  */
-define('GRAPHHOST_SOM_START',   'start');
-define('GRAPHHOST_SOM_END',     '.mijnsom.nl');
+define('UA_GRAPH_FILTER_NAME', 'Number of active sessions at this moment');
 
 /**
- * Search word for graph host.
+ * CPU load history graph hosts of Zabbix.
  */
-define('GRAPH_FILTER_NAME', 'Number of active sessions at this moment');
+define('CL_GRAPHHOST_SOM_START',    'atvo');
+define('CL_GRAPHHOST_SOM_END',    '-web');
+
+/**
+ * Search word for CPU load history graph host.
+ */
+define('CL_GRAPH_FILTER_NAME', 'Processor load (1 min average per core)');

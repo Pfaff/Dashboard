@@ -6,6 +6,7 @@ require_once('../lib/ZabbixApi.class.php');
 require_once("../lib/RestServer.php");
 
 class UserAmountHistory {
+
     /**
      * Starts a connection with the Zabbix overview of Topicus Onderwijs, then starts the function to gather the desired information.
      * @return mixed
@@ -54,7 +55,7 @@ class UserAmountHistory {
         global $api, $hostid;
         $host = $api->hostGet( array(
             'output' => 'extend',
-            'filter' => array('host' => GRAPHHOST_SOM_START.$i.GRAPHHOST_SOM_END)
+            'filter' => array('host' => UA_GRAPHHOST_SOM_START.$i.UA_GRAPHHOST_SOM_END)
         ));
         $hostid = $host[0]->hostid;
     }
@@ -67,7 +68,7 @@ class UserAmountHistory {
         $item = $api->itemGet(array(
             'output' => 'extend',
             'hostids' => $hostid,
-            'search' => array('key_' => 'session', 'name' => GRAPH_FILTER_NAME),
+            'search' => array('key_' => 'session', 'name' => UA_GRAPH_FILTER_NAME),
         ));
         $itemid = $item[0]->itemid;
     }
@@ -97,9 +98,9 @@ class UserAmountHistory {
         global $epoch, $clockTimes;
         $clockTimes = Array();
 
-        for($i = 0; $i <= GRAPH_VALUES_AMOUNT; $i++) {
+        for($i = 0; $i <= UA_GRAPH_VALUES_AMOUNT; $i++) {
             array_push($clockTimes, $epoch);
-            $epoch = $epoch - GRAPH_VALUES_DIFFERENCE_SHORT;
+            $epoch = $epoch - $_REQUEST['value'];
         }
     }
 
@@ -115,7 +116,7 @@ class UserAmountHistory {
             'itemids' => $itemid,
             'sortfield' => 'clock',
             'sortorder' => 'DESC',
-            'limit' => GRAPH_VALUES_AMOUNT,
+            'limit' => UA_GRAPH_VALUES_AMOUNT,
             'filter' => array('clock' => $clockTimes)
         ));
     }

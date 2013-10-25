@@ -25,6 +25,10 @@
          */
         piModel.userAmountsGraphAmounts = [];
 
+        piModel.cpuLoadHours = [];
+
+        piModel.cpuLoadValues = [];
+
         /**
          * Creates the object that saves all the information of the project info.
          * @type {ProjectInfo}
@@ -35,8 +39,9 @@
          * Gathers the information for the project info widget.
          */
         this.main = function () {
-            piModel.getProjectInformation();
+            piModel.getCpuLoadHistory();
             piModel.getUserAmountHistory();
+            piModel.getProjectInformation();
         };
 
         /**
@@ -73,7 +78,7 @@
                 piModel.pi.pushNewValueInGivenArray('capacityMaxAll', data['Maximum geheugen' + i]);
                 piModel.pi.pushNewValueInGivenArray('capacityInUseAll', data['Gebruikt geheugen' + i]);
                 piModel.pi.pushNewValueInGivenArray('loadAverageAll', data['Load average' + i]);
-                piModel.pi.pushNewValueInGivenArray('cpuAll', data["CPU's" + i]);
+                piModel.pi.pushNewValueInGivenArray('cpuAll', data["Cpu's" + i]);
                 piModel.pi.pushNewValueInGivenArray('connectionsOpenAll', data['Open connections' + i]);
                 piModel.pi.pushNewValueInGivenArray('connectionsBusyAll', data['Busy connections' + i]);
                 piModel.pi.pushNewValueInGivenArray('connectionsIdleAll', data['Idle connections' + i]);
@@ -179,7 +184,7 @@
         };
 
         /**
-         * Calculates the amount of CPU's.
+         * Calculates the amount of Cpu's.
          */
         this.calculateCpu = function () {
             var cpuAll, i;
@@ -218,7 +223,8 @@
         this.getUserAmountHistory = function () {
             $.ajax({
                 url: '../dashboard/php/projectinfo/UserAmountHistory.php',
-                data: { method: 'main' },
+                data: { method: 'main',
+                        value: db.graphEpochDifference },
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
@@ -312,6 +318,62 @@
             }
 
             return result;
+        };
+
+        this.getCpuLoadHistory = function () {
+            $.ajax({
+                url: '../dashboard/php/projectinfo/CpuLoadHistory.php',
+                data: { method: 'main' },
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    piModel.handleCpuLoadData(data);
+                }
+            });
+        };
+
+        this.handleCpuLoadData = function (data) {
+            piModel.fillCpuLoadArray(data);
+
+//            var i;
+//            for (i = 0; i <= 0; i++) {
+//                piModel.fillCpuLoadHours(data[i]);
+//                piModel.fillCpuLoadValues(data[i]);
+//            }
+        };
+
+        this.fillCpuLoadArray = function (data) {
+            var i, cpuLoad, date;
+            piModel.pi.att.cpuLoad = [];
+            for (i = data.length - 1; i >= 0; i--) {
+                date = new Date(0);
+                date.setUTCSeconds(data[i].clock);
+                cpuLoad = new db.CpuLoad('SOM', i, date, parseInt(data[i].value, 10));
+                piModel.pi.pushNewValueInGivenArray('cpuLoad', cpuLoad);
+            }
+
+            console.log(piModel.pi.att.cpuLoad);
+        };
+
+        this.fillCpuLoadHours = function (data) {
+//            var i, hours;
+//            piModel.cpuLoadHours.length = 0;
+//
+//            for (i = 0; i < piModel.recentUserAmounts.length; i++) {
+//                hours = piModel.recentUserAmounts[i].att.datetime.getHours();
+//
+//                if (hours < 10) {
+//                    hours = "0" + hours + ":00";
+//                } else {
+//                    hours = hours + ":00";
+//                }
+//
+//                piModel.userAmountsGraphHours.push(hours);
+//            }
+        };
+
+        this.fillCpuLoadValues = function (data) {
+
         };
     };
 }(Dashboard));
