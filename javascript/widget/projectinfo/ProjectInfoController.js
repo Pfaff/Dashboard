@@ -142,7 +142,7 @@
         };
 
         this.startBuildCpuLoadAverageGraph = function () {
-            //
+            // -
         };
 
         /**
