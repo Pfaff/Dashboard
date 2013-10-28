@@ -4,10 +4,12 @@
 (function (db) {
     "use strict";
     db.ProjectInfoController = function ProjectInfoController() {
-        var piController, piView, piModel, blockToUse, blockContent, blockTitle;
+        var piController, piView, piModel, blockToUse, blockContent, blockTitle, graphToUse;
         piController = this;
         piView = new db.ProjectInfoView();
         piModel = new db.ProjectInfoModel();
+
+        graphToUse = 1;
 
         /**
          * Defines what block the dashboard should be using.
@@ -41,6 +43,7 @@
             piController.startUpdateContent();
             piController.startUpdateGraph();
             piController.setTimerForBlockSwitch();
+            piController.setTimerForGraphSwitch();
             piController.activatePIArticleClickListeners();
         };
 
@@ -57,7 +60,6 @@
         this.startProjectInfoModel = function () {
             piModel.main();
         };
-
 
         /**
          * Activates the click listeners.
@@ -125,10 +127,22 @@
          */
         this.startUpdateGraph = function () {
             setInterval(function () {
-                piModel.getUserAmountHistory();
-                piView.removeUserAmountsGraph();
-                piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
+                if (graphToUse === 1) {
+                    piController.startBuildUserAmountGraph();
+                } else {
+                    piController.startBuildCpuLoadAverageGraph();
+                }
             }, db.updateGraphInterval);
+        };
+
+        this.startBuildUserAmountGraph = function () {
+            piModel.getUserAmountHistory();
+            piView.removeUserAmountsGraph();
+            piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
+        };
+
+        this.startBuildCpuLoadAverageGraph = function () {
+            //
         };
 
         /**
@@ -163,6 +177,16 @@
                     blockToUse = 1;
                 } else {
                     blockToUse++;
+                }
+            }, db.blockSwitchInterval);
+        };
+
+        this.setTimerForGraphSwitch = function () {
+            setInterval(function () {
+                if (graphToUse > 1) {
+                    graphToUse = 1;
+                } else {
+                    graphToUse++;
                 }
             }, db.blockSwitchInterval);
         };
