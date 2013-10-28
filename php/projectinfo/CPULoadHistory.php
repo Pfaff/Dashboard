@@ -29,18 +29,23 @@ class CPULoadHistory {
         $api = new ZabbixApi(ZABBIX_API_URL, ZABBIX_USER, ZABBIX_PASS);
     }
 
+    /**
+     * Starts the functions which gather the CPU load history of all servers.
+     */
     private static function getCPULoadHistoryOfAllServers() {
         for($i = 1; $i <= 4; $i++) {
             self::getHostId($i);
             self::getItemId();
-            if($i == 1) {
-                self::getLatestEpochTime();
-                self::calculateClockTimes();
-            }
+            self::getLatestEpochTime();
+            self::calculateClockTimes();
             self::getHistory($i);
         }
     }
 
+    /**
+     * Gets the desired host id, required to get the itemid.
+     * @param $i
+     */
     private static function getHostId($i) {
         global $api, $host, $hostid;
         $host = $api->hostGet( array(
@@ -51,6 +56,9 @@ class CPULoadHistory {
         $hostid = $host[0]->hostid;
     }
 
+    /**
+     * Gets the desired item id, required to get the history.
+     */
     private static function getItemId() {
         global $api, $hostid, $itemid;
         $item = $api->itemGet(array(
@@ -92,6 +100,11 @@ class CPULoadHistory {
         }
     }
 
+    /**
+     * Gets the history.
+     * @param $i
+     * @return mixed
+     */
     private static function getHistory($i) {
         global $api, $history, $historyToReturn, $itemid, $clockTimes;
 
