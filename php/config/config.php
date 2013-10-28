@@ -65,3 +65,8 @@ define('CL_GRAPHHOST_SOM_END',    '-web');
  * Search word for CPU load history graph host.
  */
 define('CL_GRAPH_FILTER_NAME', 'Processor load (1 min average per core)');
+
+/**
+ * Amount of values for graph.
+ */
+define('CL_GRAPH_VALUES_AMOUNT',    8);

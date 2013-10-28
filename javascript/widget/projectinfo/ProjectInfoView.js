@@ -75,7 +75,7 @@
          */
         this.createProjectInfoTitles = function () {
             var names, i, piTitleArticle, piTitle;
-            names = ["current users", "version", "request time", "requests / min", "uptime"];
+            names = ["number of users", "version", "request time", "requests / min", "uptime"];
             for (i = 0; i < 5; i++) {
                 piTitleArticle = document.getElementById("piTitleArticle" + i);
                 piTitle = db.createElement("p", piTitleArticle, { id: "piTitle" + i, className: "title" });
@@ -163,10 +163,77 @@
         };
 
         /**
-         * Removes the user amounts graph.
+         * Builds the CPU load average graph.
+         * @param times
+         * @param amounts
+         * @param functionToExecute
          */
-        this.removeUserAmountsGraph = function () {
+        this.buildCpuLoadAverageGraph = function (times, amounts, functionToExecute) {
+            piView.chart = $('#piContentArticle0').highcharts({
+                chart: {
+                    events: {
+                        click: function () { functionToExecute(); }
+                    }
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                },
+                title: {
+                    text: ' ',
+                    x: -20
+                },
+                xAxis: {
+                    categories: times
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: ' '
+                    }
+                },
+                series: [{
+                    name: ' SOM 1',
+                    data: amounts[1]
+                }, {
+                    name: ' SOM 2 + 7',
+                    data: amounts[2]
+                }, {
+                    name: ' SOM 3 + 5',
+                    data: amounts[3]
+                }, {
+                    name: ' SOM 4 + 6',
+                    data: amounts[4]
+                }]
+            });
+        };
+
+        /**
+         * Removes the graph.
+         */
+        this.removeGraph = function () {
             piView.chart.empty();
+        };
+
+        /**
+         * Uses the given newTitle as the new title for the graph.
+         * @param newTitle
+         */
+        this.setGraphTitle = function (newTitle) {
+            var title;
+            title = document.getElementById('piTitle0');
+            title.firstChild.data = newTitle;
+        };
+
+        this.toggleLegendVisibility = function (visibility) {
+            var legends, i;
+            legends = document.getElementsByClassName('highcharts-legend');
+
+            for (i = 0; i < legends.length; i++) {
+                legends[i].style.visibility = visibility;
+            }
         };
     };
 }(Dashboard));

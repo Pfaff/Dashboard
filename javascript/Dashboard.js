@@ -11,16 +11,25 @@ var Dashboard = {
 
     /**
      * Interval used to update the content.
+     * 1.000 = 1 second.
      */
     updateContentInterval   :   3000,
 
     /**
      * Interval used to update the graph.
+     * 1.000 = 1 second.
      */
-    updateGraphInterval     :   900000,
+    updateGraphInterval     :   10000,
+
+    /**
+     * Interval used to update switching between the graphs.
+     * 1.000 = 1 second.
+     */
+    graphSwitchInterval     :   10000,
 
     /**
      * Interval used to update switching between the blocks.
+     * 1.000 = 1 second.
      */
     blockSwitchInterval     :   15000,
 
@@ -35,7 +44,7 @@ var Dashboard = {
     sameServer              :   [2, 3, 4],
 
     /**
-     * Defines the time difference in points on the graph.
+     * Defines the time difference in points on the graph. - 3.600 = 1 hour.
      */
     graphEpochDifference    :   3600
 };

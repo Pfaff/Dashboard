@@ -25,12 +25,16 @@
          */
         piModel.userAmountsGraphAmounts = [];
 
-        piModel.cpuLoadHours = [];
-        piModel.cpuLoadHours[1] = [];
-        piModel.cpuLoadHours[2] = [];
-        piModel.cpuLoadHours[3] = [];
-        piModel.cpuLoadHours[4] = [];
+        /**
+         * Array which contains the times for the cpu load graph.
+         * @type {Array}
+         */
+        piModel.cpuLoadTimes = [];
 
+        /**
+         * Four arrays which contains the values for the cpu load graph.
+         * @type {Array}
+         */
         piModel.cpuLoadValues = [];
         piModel.cpuLoadValues[1] = [];
         piModel.cpuLoadValues[2] = [];
@@ -328,6 +332,9 @@
             return result;
         };
 
+        /**
+         * Retrieves the CPU average load history from the given REST service.
+         */
         this.getCpuLoadHistory = function () {
             $.ajax({
                 url: '../dashboard/php/projectinfo/CpuLoadHistory.php',
@@ -340,15 +347,25 @@
             });
         };
 
+        /**
+         * Handles the received data from the REST service.
+         * @param data
+         */
         this.handleCpuLoadData = function (data) {
             piModel.fillCpuLoadArray(data);
-            piModel.fillCpuLoadHours();
+            piModel.fillCpuLoadTimes();
             piModel.fillCpuLoadValues();
         };
 
+        /**
+         * Creates CPU load objects and adds them in the project info object.
+         * @param data
+         */
         this.fillCpuLoadArray = function (data) {
             var i, x, cpuLoad, date, dataLength;
-            piModel.pi.att.cpuLoad.lenght = 0;
+
+            piModel.pi.att.cpuLoad = [];
+
             dataLength = $.map(data, function (n, i) { return i; }).length;
 
             for (i = dataLength; i > 0; i--) {
@@ -361,30 +378,41 @@
             }
         };
 
-        this.fillCpuLoadHours = function () {
-            var i, x, y, time, minutes, hours, cpuLoads;
+        /**
+         * Fills the CPU load times array with the times for the graph.
+         */
+        this.fillCpuLoadTimes = function () {
+            var i, time, minutes, hours, cpuLoads;
 
-            for (i = 1; i > 4; i++) { piModel.cpuLoadHours[i] = []; }
+            piModel.cpuLoadTimes = [];
             cpuLoads = piModel.pi.att.cpuLoad;
 
-            for (x = 4; x > 0; x--) {
-                for (y = cpuLoads.length - 1; y >= 0; y--) {
-                    if (cpuLoads[y].att.server === x) {
-                        hours = cpuLoads[y].att.datetime.getHours();
-                        if (hours < 10) { hours = "0" + hours; }
+            for (i = cpuLoads.length - 1; i >= 0; i--) {
+                if (cpuLoads[i].att.server === 1) {
+                    hours = cpuLoads[i].att.datetime.getHours();
+                    if (hours < 10) { hours = "0" + hours; }
 
-                        minutes = cpuLoads[y].att.datetime.getMinutes();
-                        time = hours + ":" + minutes;
-                        piModel.cpuLoadHours[x].push(time);
-                    }
+                    minutes = cpuLoads[i].att.datetime.getMinutes();
+                    if (minutes < 10) { minutes = "0" + minutes; }
+
+                    time = hours + ":" + minutes;
+                    piModel.cpuLoadTimes.push(time);
                 }
             }
         };
 
+        /**
+         * Fills the different arrays with the CPU average load values.
+         */
         this.fillCpuLoadValues = function () {
-            var i, x, y, value, cpuLoads;
+            var x, y, value, cpuLoads;
 
-            for (i = 1; i > 4; i++) { piModel.cpuLoadValues[i] = []; }
+            piModel.cpuLoadValues = [];
+            piModel.cpuLoadValues[1] = [];
+            piModel.cpuLoadValues[2] = [];
+            piModel.cpuLoadValues[3] = [];
+            piModel.cpuLoadValues[4] = [];
+
             cpuLoads = piModel.pi.att.cpuLoad;
 
             for (x = 4; x > 0; x--) {

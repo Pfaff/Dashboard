@@ -9,7 +9,11 @@
         piView = new db.ProjectInfoView();
         piModel = new db.ProjectInfoModel();
 
-        graphToUse = 1;
+        /**
+         * Defines what graph the dashboard should be showing.
+         * @type {number}
+         */
+        graphToUse = 2;
 
         /**
          * Defines what block the dashboard should be using.
@@ -135,14 +139,26 @@
             }, db.updateGraphInterval);
         };
 
+        /**
+         * Gets the new user history, removes the current graph and builds the new graph.
+         */
         this.startBuildUserAmountGraph = function () {
             piModel.getUserAmountHistory();
-            piView.removeUserAmountsGraph();
+            piView.removeGraph();
             piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
+            piView.setGraphTitle('number of users');
+            piView.toggleLegendVisibility('hidden');
         };
 
+        /**
+         * Gets the new CPU load history, removes the current graph and builds the new graph.
+         */
         this.startBuildCpuLoadAverageGraph = function () {
-            // -
+            piModel.getCpuLoadHistory();
+            piView.removeGraph();
+            piView.buildCpuLoadAverageGraph(piModel.cpuLoadTimes, piModel.cpuLoadValues, piController.startOverlayAndProjectHistoryController);
+            piView.setGraphTitle('average cpu load');
+            piView.toggleLegendVisibility('visible');
         };
 
         /**
@@ -181,6 +197,9 @@
             }, db.blockSwitchInterval);
         };
 
+        /**
+         * Sets the timer for switching the graph.
+         */
         this.setTimerForGraphSwitch = function () {
             setInterval(function () {
                 if (graphToUse > 1) {
@@ -188,7 +207,7 @@
                 } else {
                     graphToUse++;
                 }
-            }, db.blockSwitchInterval);
+            }, db.graphSwitchInterval);
         };
     };
 }(Dashboard));

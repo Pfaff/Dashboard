@@ -66,7 +66,7 @@ class CPULoadHistory {
             'itemids' => $itemid,
             'sortfield' => 'clock',
             'sortorder' => 'DESC',
-            'limit' => 10
+            'limit' => CL_GRAPH_VALUES_AMOUNT
         ));
 
         return $historyToReturn[$i] = $history;
