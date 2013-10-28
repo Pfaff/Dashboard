@@ -100,7 +100,7 @@ class UserAmountHistory {
 
         for($i = 0; $i <= UA_GRAPH_VALUES_AMOUNT; $i++) {
             array_push($clockTimes, $epoch);
-            $epoch = $epoch - $_REQUEST['value'];
+            $epoch = $epoch - $_REQUEST['epochDifference'];
         }
     }
 

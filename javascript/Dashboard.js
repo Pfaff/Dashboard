@@ -19,13 +19,13 @@ var Dashboard = {
      * Interval used to update the graph.
      * 1.000 = 1 second.
      */
-    updateGraphInterval     :   10000,
+    updateGraphInterval     :   30000,
 
     /**
      * Interval used to update switching between the graphs.
      * 1.000 = 1 second.
      */
-    graphSwitchInterval     :   10000,
+    graphSwitchInterval     :   30000,
 
     /**
      * Interval used to update switching between the blocks.
@@ -44,7 +44,18 @@ var Dashboard = {
     sameServer              :   [2, 3, 4],
 
     /**
-     * Defines the time difference in points on the graph. - 3.600 = 1 hour.
+     * Defines the time difference in points on the graphs. - 3.600 = 1 hour.
      */
-    graphEpochDifference    :   3600
+    ua_GraphEpochDifference    :   3600,
+    cl_GraphEpochDifference    :   600,
+
+    /**
+     * URL's to the locations of the information; including their desired methods.
+     */
+    url_ProjectInfo             :   '../dashboard/php/projectinfo/ProjectInfo.php',
+    method_ProjectInfo          :   'main',
+    url_UserAmountHistory       :   '../dashboard/php/projectinfo/UserAmountHistory.php',
+    method_UserAmountHistory    :   'main',
+    url_CpuLoadHistory          :   '../dashboard/php/projectinfo/CpuLoadHistory.php',
+    method_CpuLoadHistory       :   'main'
 };

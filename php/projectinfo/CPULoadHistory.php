@@ -33,6 +33,10 @@ class CPULoadHistory {
         for($i = 1; $i <= 4; $i++) {
             self::getHostId($i);
             self::getItemId();
+            if($i == 1) {
+                self::getLatestEpochTime();
+                self::calculateClockTimes();
+            }
             self::getHistory($i);
         }
     }
@@ -57,8 +61,11 @@ class CPULoadHistory {
         $itemid = $item[0]->itemid;
     }
 
-    private static function getHistory($i) {
-        global $api, $history, $historyToReturn, $itemid;
+    /**
+     * Gets the latest time in epoch.
+     */
+    private static function getLatestEpochTime() {
+        global $api, $itemid, $epoch;
 
         $history = $api->historyGet(array(
             'output' => 'extend',
@@ -66,7 +73,36 @@ class CPULoadHistory {
             'itemids' => $itemid,
             'sortfield' => 'clock',
             'sortorder' => 'DESC',
-            'limit' => CL_GRAPH_VALUES_AMOUNT
+            'limit' => 1,
+        ));
+
+        $epoch = $history[0]->clock;
+    }
+
+    /**
+     * Calculates the desired clocktimes to show on the graph.
+     */
+    private static function calculateClockTimes() {
+        global $epoch, $clockTimes;
+        $clockTimes = Array();
+
+        for($i = 0; $i <= UA_GRAPH_VALUES_AMOUNT; $i++) {
+            array_push($clockTimes, $epoch);
+            $epoch = $epoch - $_REQUEST['epochDifference'];
+        }
+    }
+
+    private static function getHistory($i) {
+        global $api, $history, $historyToReturn, $itemid, $clockTimes;
+
+        $history = $api->historyGet(array(
+            'output' => 'extend',
+            'history' => 0,
+            'itemids' => $itemid,
+            'sortfield' => 'clock',
+            'sortorder' => 'DESC',
+            'limit' => CL_GRAPH_VALUES_AMOUNT,
+            'filter' => array('clock' => $clockTimes)
         ));
 
         return $historyToReturn[$i] = $history;

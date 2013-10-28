@@ -6,7 +6,7 @@ require_once('../lib/simple_html_dom.php');
 
 class ProjectInfo {
 
-    public static function getProjectInfo() {
+    public static function main() {
         $results = array();
 
         for ($i = 1; $i <= AMOUNT_SOM_SERVERS; $i++) {

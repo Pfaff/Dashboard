@@ -61,8 +61,8 @@
          */
         this.getProjectInformation = function () {
             $.ajax({
-                url: '../dashboard/php/projectinfo/ProjectInfo.php',
-                data: { method: 'getProjectInfo' },
+                url: db.url_ProjectInfo,
+                data: { method: db.method_ProjectInfo },
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
@@ -234,9 +234,9 @@
          */
         this.getUserAmountHistory = function () {
             $.ajax({
-                url: '../dashboard/php/projectinfo/UserAmountHistory.php',
-                data: { method: 'main',
-                        value: db.graphEpochDifference },
+                url: db.url_UserAmountHistory,
+                data: { method: db.method_UserAmountHistory,
+                        epochDifference: db.ua_GraphEpochDifference },
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
@@ -288,19 +288,19 @@
          * Fills an array with hours for the graph.
          */
         this.fillArrayWithHours = function () {
-            var i, hours;
+            var i, time, hours, minutes;
             piModel.userAmountsGraphHours.length = 0;
 
             for (i = 0; i < piModel.recentUserAmounts.length; i++) {
                 hours = piModel.recentUserAmounts[i].att.datetime.getHours();
+                if (hours < 10) { hours = "0" + hours; }
 
-                if (hours < 10) {
-                    hours = "0" + hours + ":00";
-                } else {
-                    hours = hours + ":00";
-                }
+                minutes = piModel.recentUserAmounts[i].att.datetime.getMinutes();
+                if (minutes < 10) { minutes = "0" + minutes; }
 
-                piModel.userAmountsGraphHours.push(hours);
+                time = hours + ":" + minutes;
+
+                piModel.userAmountsGraphHours.push(time);
             }
         };
 
@@ -337,8 +337,9 @@
          */
         this.getCpuLoadHistory = function () {
             $.ajax({
-                url: '../dashboard/php/projectinfo/CpuLoadHistory.php',
-                data: { method: 'main' },
+                url: db.url_CpuLoadHistory,
+                data: { method: db.method_CpuLoadHistory,
+                        epochDifference: db.cl_GraphEpochDifference},
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
