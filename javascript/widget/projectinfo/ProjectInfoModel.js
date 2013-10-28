@@ -26,8 +26,16 @@
         piModel.userAmountsGraphAmounts = [];
 
         piModel.cpuLoadHours = [];
+        piModel.cpuLoadHours[1] = [];
+        piModel.cpuLoadHours[2] = [];
+        piModel.cpuLoadHours[3] = [];
+        piModel.cpuLoadHours[4] = [];
 
         piModel.cpuLoadValues = [];
+        piModel.cpuLoadValues[1] = [];
+        piModel.cpuLoadValues[2] = [];
+        piModel.cpuLoadValues[3] = [];
+        piModel.cpuLoadValues[4] = [];
 
         /**
          * Creates the object that saves all the information of the project info.
@@ -78,7 +86,7 @@
                 piModel.pi.pushNewValueInGivenArray('capacityMaxAll', data['Maximum geheugen' + i]);
                 piModel.pi.pushNewValueInGivenArray('capacityInUseAll', data['Gebruikt geheugen' + i]);
                 piModel.pi.pushNewValueInGivenArray('loadAverageAll', data['Load average' + i]);
-                piModel.pi.pushNewValueInGivenArray('cpuAll', data["Cpu's" + i]);
+                piModel.pi.pushNewValueInGivenArray('cpuAll', data["CPU's" + i]);
                 piModel.pi.pushNewValueInGivenArray('connectionsOpenAll', data['Open connections' + i]);
                 piModel.pi.pushNewValueInGivenArray('connectionsBusyAll', data['Busy connections' + i]);
                 piModel.pi.pushNewValueInGivenArray('connectionsIdleAll', data['Idle connections' + i]);
@@ -239,7 +247,7 @@
          */
         this.fillUserAmountArray = function (data) {
             var i, user, date;
-            piModel.pi.att.userAmount = [];
+            piModel.pi.att.userAmount.length = 0;
             for (i = data.length - 1; i >= 0; i--) {
                 date = new Date(0);
                 date.setUTCSeconds(data[i].clock);
@@ -334,46 +342,59 @@
 
         this.handleCpuLoadData = function (data) {
             piModel.fillCpuLoadArray(data);
-
-//            var i;
-//            for (i = 0; i <= 0; i++) {
-//                piModel.fillCpuLoadHours(data[i]);
-//                piModel.fillCpuLoadValues(data[i]);
-//            }
+            piModel.fillCpuLoadHours();
+            piModel.fillCpuLoadValues();
         };
 
         this.fillCpuLoadArray = function (data) {
-            var i, cpuLoad, date;
-            piModel.pi.att.cpuLoad = [];
-            for (i = data.length - 1; i >= 0; i--) {
-                date = new Date(0);
-                date.setUTCSeconds(data[i].clock);
-                cpuLoad = new db.CpuLoad('SOM', i, date, parseInt(data[i].value, 10));
-                piModel.pi.pushNewValueInGivenArray('cpuLoad', cpuLoad);
+            var i, x, cpuLoad, date, dataLength;
+            piModel.pi.att.cpuLoad.lenght = 0;
+            dataLength = $.map(data, function (n, i) { return i; }).length;
+
+            for (i = dataLength; i > 0; i--) {
+                for (x = 0; x < data[i].length; x++) {
+                    date = new Date(0);
+                    date.setUTCSeconds(data[i][x].clock);
+                    cpuLoad = new db.CpuLoad('SOM', i, date, parseFloat(data[i][x].value));
+                    piModel.pi.pushNewValueInGivenArray('cpuLoad', cpuLoad);
+                }
             }
-
-            console.log(piModel.pi.att.cpuLoad);
         };
 
-        this.fillCpuLoadHours = function (data) {
-//            var i, hours;
-//            piModel.cpuLoadHours.length = 0;
-//
-//            for (i = 0; i < piModel.recentUserAmounts.length; i++) {
-//                hours = piModel.recentUserAmounts[i].att.datetime.getHours();
-//
-//                if (hours < 10) {
-//                    hours = "0" + hours + ":00";
-//                } else {
-//                    hours = hours + ":00";
-//                }
-//
-//                piModel.userAmountsGraphHours.push(hours);
-//            }
+        this.fillCpuLoadHours = function () {
+            var i, x, y, time, minutes, hours, cpuLoads;
+
+            for (i = 1; i > 4; i++) { piModel.cpuLoadHours[i] = []; }
+            cpuLoads = piModel.pi.att.cpuLoad;
+
+            for (x = 4; x > 0; x--) {
+                for (y = cpuLoads.length - 1; y >= 0; y--) {
+                    if (cpuLoads[y].att.server === x) {
+                        hours = cpuLoads[y].att.datetime.getHours();
+                        if (hours < 10) { hours = "0" + hours; }
+
+                        minutes = cpuLoads[y].att.datetime.getMinutes();
+                        time = hours + ":" + minutes;
+                        piModel.cpuLoadHours[x].push(time);
+                    }
+                }
+            }
         };
 
-        this.fillCpuLoadValues = function (data) {
+        this.fillCpuLoadValues = function () {
+            var i, x, y, value, cpuLoads;
 
+            for (i = 1; i > 4; i++) { piModel.cpuLoadValues[i] = []; }
+            cpuLoads = piModel.pi.att.cpuLoad;
+
+            for (x = 4; x > 0; x--) {
+                for (y = cpuLoads.length - 1; y >= 0; y--) {
+                    if (cpuLoads[y].att.server === x) {
+                        value = cpuLoads[y].att.value;
+                        piModel.cpuLoadValues[x].push(value);
+                    }
+                }
+            }
         };
     };
 }(Dashboard));
