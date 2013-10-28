@@ -6,6 +6,10 @@ require_once('../lib/simple_html_dom.php');
 
 class ProjectInfo {
 
+    /**
+     * Gets the project info from the different SOM serverpages.
+     * @return array
+     */
     public static function main() {
         $results = array();
 
