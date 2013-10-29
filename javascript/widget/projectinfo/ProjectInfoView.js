@@ -176,9 +176,9 @@
                     }
                 },
                 legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom',
                     borderWidth: 0
                 },
                 title: {
@@ -195,16 +195,16 @@
                     }
                 },
                 series: [{
-                    name: ' SOM 1',
+                    name: 'Som 1    ',
                     data: amounts[1]
                 }, {
-                    name: ' SOM 2 + 7',
+                    name: 'Som 2 + 7    ',
                     data: amounts[2]
                 }, {
-                    name: ' SOM 3 + 5',
+                    name: 'Som 3 + 5    ',
                     data: amounts[3]
                 }, {
-                    name: ' SOM 4 + 6',
+                    name: 'Som 4 + 6',
                     data: amounts[4]
                 }]
             });
