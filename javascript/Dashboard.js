@@ -19,13 +19,13 @@ var Dashboard = {
      * Interval used to update the graph.
      * 1.000 = 1 second.
      */
-    updateGraphInterval     :   30000,
+    updateGraphInterval     :   25000,
 
     /**
      * Interval used to update switching between the graphs.
      * 1.000 = 1 second.
      */
-    graphSwitchInterval     :   30000,
+    graphSwitchInterval     :   25000,
 
     /**
      * Interval used to update switching between the blocks.
