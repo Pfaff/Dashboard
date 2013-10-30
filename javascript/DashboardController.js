@@ -13,6 +13,7 @@
         this.main = function () {
             dashCon.buildView();
             dashCon.startProjectInfoController();
+            dashCon.startMessageController();
         };
 
         /**
@@ -29,6 +30,14 @@
         this.startProjectInfoController = function () {
             var piController = new db.ProjectInfoController();
             piController.main();
+        };
+
+        /**
+         * Starts the message controller.
+         */
+        this.startMessageController = function () {
+            var mesCon = new db.MessageController();
+            mesCon.main();
         };
     };
 }(Dashboard));
