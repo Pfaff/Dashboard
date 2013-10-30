@@ -30,7 +30,7 @@ body {
     text-align:center;
 }
 
-.containerLeftSection {
+.containerSection {
     width:100%;
 }
 
@@ -40,6 +40,20 @@ body {
 
 #containerLeftSectionBottom {
     height:411px;
+}
+
+#containerMiddleSectionTop {
+    /*height:120px;*/
+}
+
+#containerMiddleSectionMiddle {
+    /*height:429px;*/
+}
+
+#containerMiddleSectionBottom {
+    /*margin-top:68px;*/
+    margin-top:30px;
+    height:157px;
 }
 
 .piArticle {
@@ -175,4 +189,52 @@ tspan[x='490'] {
 
 text {
     color:#FFFFFF;
+}
+
+#messageSection {
+    height:100%;
+    width:573px;
+    background-color:#b55a41;
+}
+
+.messageArticle {
+    height:100%;
+    position:relative;
+    float:left;
+}
+
+#messageArticleLeft {
+    width:120px;
+}
+
+#messageArticleLeftQuote {
+    width:36px;
+}
+
+#messageArticle {
+    width:364px;
+}
+
+#messageArticleRight {
+    width:53px;
+}
+
+.messageArticleSplitted {
+    width:100%;
+}
+
+#messagePhoto {
+    height:113px;
+}
+
+#messageEmployee {
+    height:43px;
+}
+
+#messageTrash {
+    height:116px;
+}
+
+#messageRightQuote {
+    height:40px;
 }

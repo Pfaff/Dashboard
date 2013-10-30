@@ -13,6 +13,7 @@
         this.main = function () {
             dashView.createDashboardContainers();
             dashView.createLeftContainerSections();
+            dashView.createMiddleContainerSections();
         };
 
         /**
@@ -36,8 +37,19 @@
         this.createLeftContainerSections = function () {
             var containerLeft = document.getElementById("containerLeft");
 
-            db.createElement("section", containerLeft, { id: "containerLeftSectionTop", className: "containerLeftSection" });
-            db.createElement("section", containerLeft, { id: "containerLeftSectionBottom", className: "containerLeftSection" });
+            db.createElement("section", containerLeft, { id: "containerLeftSectionTop", className: "containerSection" });
+            db.createElement("section", containerLeft, { id: "containerLeftSectionBottom", className: "containerSection" });
+        };
+
+        /**
+         * Creates the sections in the middle container.
+         */
+        this.createMiddleContainerSections = function () {
+            var containerMiddle = document.getElementById("containerMiddle");
+
+            db.createElement("section", containerMiddle, { id: "containerMiddleSectionTop", className: "containerSection" });
+            db.createElement("section", containerMiddle, { id: "containerMiddleSectionMiddle", className: "containerSection" });
+            db.createElement("section", containerMiddle, { id: "containerMiddleSectionBottom", className: "containerSection" });
         };
     };
 }(Dashboard));
