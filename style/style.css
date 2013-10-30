@@ -205,6 +205,7 @@ text {
 
 #messageArticleLeft {
     width:120px;
+    text-align: center;
 }
 
 #messageArticleLeftQuote {
@@ -223,18 +224,59 @@ text {
     width:100%;
 }
 
-#messagePhoto {
+#messageArticlePhoto {
     height:113px;
+    position: relative;
 }
 
-#messageEmployee {
+#messageArticlePhoto img {
+    width:85px;
+    height:85px;
+    border:3px solid #fefefe;
+    border-radius:50%;
+    -webkit-border-radius:50%;
+    -moz-border-radius:50%;
+    position: absolute;
+    bottom:0;
+    left:0;
+    margin-left:16px;
+}
+
+#messageArticleEmployee {
     height:43px;
+    font-size:13px;
+    margin-top:10px;
 }
 
-#messageTrash {
+#messageArticleTrash {
     height:116px;
 }
 
-#messageRightQuote {
+#messageTrashBin {
+    height:27px;
+    width:25px;
+    margin:6px 0 0 7px;
+    visibility:hidden;
+}
+
+#messageTrashBin:hover {
+    cursor:pointer;
+}
+
+#messageArticleRightQuote {
     height:40px;
 }
+
+.messageQuote {
+    width:35px;
+    height:30px;
+    opacity:0.4;
+}
+
+#messageArticleLeftQuote {
+    margin-top:10px;
+}
+
+
+
+
