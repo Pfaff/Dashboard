@@ -13,7 +13,7 @@
 
         this.getEmployeeInfo = function () {
             $.ajax({
-                url: "",
+                url: "../dashboard/php/message/Employee.php",
                 data: { method: "main" },
                 type: "GET",
                 dataType: "json",

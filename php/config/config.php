@@ -70,3 +70,10 @@ define('CL_GRAPH_FILTER_NAME', 'Processor load (1 min average per core)');
  * Amount of values for graph.
  */
 define('CL_GRAPH_VALUES_AMOUNT',    10);
+
+/**
+ * LDAP information.
+ */
+define('LDAP_USER', 'buildbot');
+define('LDAP_PASS', 'Zp3?KL6t');
+define('LDAP_LOCATION', 'baas2');
