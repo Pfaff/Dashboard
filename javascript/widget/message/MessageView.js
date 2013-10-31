@@ -143,5 +143,12 @@
 
             p.style.marginTop = "-" + (height / 2) + "px";
         };
+
+        this.createMessagePostFunctionality = function () {
+            var container;
+            container = document.getElementById("containerOverlay");
+
+            db.createElement("article", container, { id: "messageOverlay" });
+        };
     };
 }(Dashboard));

@@ -11,6 +11,7 @@
          * Calls the functions to build the project history view.
          */
         this.main = function () {
+            phView.createProjectHistoryArticle();
             phView.createProjectHistoryArticles();
             phView.createProjectHistoryContentArticles();
             phView.createProjectHistoryContent();
@@ -18,14 +19,19 @@
             phView.createProjectHistoryTitles();
         };
 
+        this.createProjectHistoryArticle = function () {
+            var containerOverlay = document.getElementById("containerOverlay");
+            db.createElement("article", containerOverlay, { id: "phArticle" });
+        };
+
         /**
          * Creates the project history articles.
          */
         this.createProjectHistoryArticles = function () {
-            var containerOverlay, i;
-            containerOverlay = document.getElementById("containerOverlay");
+            var article, i;
+            article = document.getElementById("phArticle");
             for (i = 0; i < 4; i++) {
-                db.createElement("article", containerOverlay, { id: "phArticle" + i, className: "phArticle" });
+                db.createElement("article", article, { id: "phArticle" + i, className: "phArticle" });
             }
         };
 

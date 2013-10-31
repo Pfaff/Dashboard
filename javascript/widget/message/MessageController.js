@@ -23,7 +23,8 @@
          */
         this.activateMessageWidgetClickListeners = function () {
             $(".messageArticle").click(function () {
-                mesCon.buildOverlayAndView();
+                mesCon.buildOverlay();
+                mesView.createMessagePostFunctionality();
             });
 
             $("#messageTrashBin").click(function () {
@@ -34,7 +35,7 @@
         /**
          * Builds the overlay and desired view.
          */
-        this.buildOverlayAndView = function () {
+        this.buildOverlay = function () {
             var overlayController = new db.OverlayController();
             overlayController.buildOverlay();
         };
