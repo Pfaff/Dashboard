@@ -1,4 +1,5 @@
 /**
+ * The Message object.
  * @author - Jeffrey Pfaff
  */
 (function (db) {

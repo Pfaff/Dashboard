@@ -1,3 +1,7 @@
+/**
+ * The UserAmount object.
+ * @author - Jeffrey Pfaff
+ */
 (function (db) {
     "use strict";
     db.UserAmount = function UserAmount(project, datetime, amount) {

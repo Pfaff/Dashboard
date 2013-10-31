@@ -1,3 +1,7 @@
+/**
+ * The CpuLoad object.
+ * @author - Jeffrey Pfaff
+ */
 (function (db) {
     "use strict";
     db.CpuLoad = function CpuLoad(project, server, datetime, value) {
