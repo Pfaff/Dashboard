@@ -79,17 +79,16 @@
          * Did this so I could give this function to the project view.
          */
         this.startOverlayAndProjectHistoryController = function () {
-            piController.startOverlayController(true);
+            piController.startOverlayController();
             piController.startProjectHistoryController();
         };
 
         /**
          * Starts the overlay controller.
-         * @param trueForBuildFalseForRemove
          */
-        this.startOverlayController = function (trueForBuildFalseForRemove) {
+        this.startOverlayController = function () {
             var overlayController = new db.OverlayController();
-            overlayController.main(trueForBuildFalseForRemove);
+            overlayController.buildOverlay();
         };
 
         /**

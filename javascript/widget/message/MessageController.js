@@ -9,11 +9,44 @@
         mesView = new db.MessageView();
         mesMod = new db.MessageModel();
 
+        /**
+         * Calls the main functions in order to make the message widget function on the dashboard.
+         */
         this.main = function () {
             mesView.main();
             mesMod.main();
+            mesCon.activateMessageWidgetClickListeners();
         };
 
+        /**
+         * Activates the click listeners.
+         */
+        this.activateMessageWidgetClickListeners = function () {
+            $(".messageArticle").click(function () {
+                mesCon.buildOverlayAndView();
+            });
 
+            $("#messageTrashBin").click(function () {
+                mesCon.removeMessage();
+            });
+        };
+
+        /**
+         * Builds the overlay and desired view.
+         */
+        this.buildOverlayAndView = function () {
+            var overlayController = new db.OverlayController();
+            overlayController.buildOverlay();
+        };
+
+        /**
+         * Calls the function to remove the selected message from widget.
+         * Using prevent default and stop propagation to avoid the overlay to pop up.
+         */
+        this.removeMessage = function () {
+            alert("Ik zou nu eigenlijk je melding moeten verwijderen maar zover ben ik helaas nog niet.");
+            event.preventDefault();
+            event.stopPropagation();
+        };
     };
 }(Dashboard));

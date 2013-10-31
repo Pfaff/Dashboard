@@ -25,6 +25,9 @@
             document.body.removeChild(document.getElementById("overlay"));
         };
 
+        /**
+         * Creates the overlay container.
+         */
         this.createOverlayContainer = function () {
             db.createElement("section", document.getElementById("overlay"), { id: "containerOverlay" });
         };
