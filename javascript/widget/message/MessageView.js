@@ -64,7 +64,7 @@
         this.createPicture = function () {
             var article = document.getElementById("messageArticlePhoto");
 
-            db.createElement("img", article, { id: "messageArticleEmployeePhoto", src: "images/employee/Jeffrey_Pfaff.png", alt: "Employee Photo" });
+            db.createElement("img", article, { id: "messageArticleEmployeePhoto", src: "images/icon/employeeEmpty.png", alt: "Employee Photo" });
         };
 
         /**
@@ -144,11 +144,68 @@
             p.style.marginTop = "-" + (height / 2) + "px";
         };
 
-        this.createMessagePostFunctionality = function () {
-            var container;
+        /**
+         * Creates the overlay in order to post the message.
+         */
+        this.createMessagePostFunctionality = function (employeeNames) {
+            var container, overlay;
             container = document.getElementById("containerOverlay");
 
-            db.createElement("article", container, { id: "messageOverlay" });
+            overlay = db.createElement("article", container, { id: "messageOverlay" });
+            overlay.onclick = function () { event.stopPropagation(); event.preventDefault(); };
+
+            mesView.createMessagePostView(employeeNames);
+        };
+
+
+
+        this.createMessagePostView = function (employeeNames) {
+            mesView.createMessagePostArticles();
+            mesView.createTitleText();
+            mesView.createSelectNameTitle();
+            mesView.createSelectNameBox(employeeNames);
+        };
+
+        this.createMessagePostArticles = function () {
+            var overlay, articleIds, i;
+            overlay = document.getElementById("messageOverlay");
+            articleIds = ["messagePostTitleArticle", "messagePostSelectNameArticle", "messagePostSelectDateArticle", "messagePostCreateMessageArticle", "messagePostButtonArticle"];
+
+            for (i = 0; i < articleIds.length; i++) {
+                db.createElement("article", overlay, { id: articleIds[i], className: "messagePostArticle" });
+            }
+        };
+
+        this.createTitleText = function () {
+            var article, p;
+
+            article = document.getElementById("messagePostTitleArticle");
+            p = db.createElement("p", article);
+
+            p.appendChild(document.createTextNode("NIEUWE MEDEDELING"));
+        };
+
+        this.createSelectNameTitle = function () {
+            var article, p;
+
+            article = document.getElementById("messagePostSelectNameArticle");
+            p = db.createElement("p", article, { className: "messagePostFieldTitle" });
+
+            p.appendChild(document.createTextNode("NAAM"));
+        };
+
+        this.createSelectNameBox = function (employeeNames) {
+            var article, select, option, options, i;
+
+            options = employeeNames;
+            article = document.getElementById("messagePostSelectNameArticle");
+            select = db.createElement("select", article, { id: "messagePostSelectName" });
+
+            for (i = 0; i < options.length; i++) {
+                option = db.createElement("option", select);
+                option.value = options[i];
+                option.data = options[i];
+            }
         };
     };
 }(Dashboard));

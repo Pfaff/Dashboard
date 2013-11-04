@@ -83,4 +83,4 @@ define('LDAP_FILTER_GROUP', 'CN=topicusonderwijs,OU=TopicusGroups,OU=Topicus,DC=
 /**
  * Gravatar
  */
-define('DEFAULT_PHOTO_LOCATION', 'http://img15.imageshack.us/img15/2682/yisi.png');
+define('DEFAULT_PHOTO_LOCATION', 'http://img404.imageshack.us/img404/1729/4t1j.png');

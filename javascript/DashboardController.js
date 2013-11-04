@@ -12,7 +12,7 @@
          */
         this.main = function () {
             dashCon.buildView();
-            //dashCon.startProjectInfoController();
+            dashCon.startProjectInfoController();
             dashCon.startMessageController();
         };
 

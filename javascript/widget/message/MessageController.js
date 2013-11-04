@@ -24,7 +24,7 @@
         this.activateMessageWidgetClickListeners = function () {
             $(".messageArticle").click(function () {
                 mesCon.buildOverlay();
-                mesView.createMessagePostFunctionality();
+                mesView.createMessagePostFunctionality(["Jeffrey Pfaff", "Tom Kirchjunger", "Ties van de Ven"]);
             });
 
             $("#messageTrashBin").click(function () {

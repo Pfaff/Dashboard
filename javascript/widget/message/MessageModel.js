@@ -13,8 +13,7 @@
          * Main function of the message model, calls the desired functions.
          */
         this.main = function () {
-            //mesMod.getEmployeeInfo();
-            mesMod.getGravatarByEmail('thijs.elferink@topicdaaus.nl');
+            mesMod.getEmployeeInfo();
         };
 
         /**
