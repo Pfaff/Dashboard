@@ -79,3 +79,8 @@ define('LDAP_PASS', 'Zp3?KL6t');
 define('LDAP_LOCATION', 'baas2');
 define('LDAP_BASE_DN', 'OU=TopicusUsers, OU=Topicus, DC=topicus, DC=local');
 define('LDAP_FILTER_GROUP', 'CN=topicusonderwijs,OU=TopicusGroups,OU=Topicus,DC=topicus,DC=local');
+
+/**
+ * Gravatar
+ */
+define('DEFAULT_PHOTO_LOCATION', 'http://img15.imageshack.us/img15/2682/yisi.png');

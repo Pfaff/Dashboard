@@ -14,7 +14,7 @@
          */
         this.main = function () {
             //mesMod.getEmployeeInfo();
-            mesMod.getGravatarByEmail();
+            mesMod.getGravatarByEmail('thijs.elferink@topicdaaus.nl');
         };
 
         /**
@@ -44,10 +44,12 @@
             }
         };
 
-        this.getGravatarByEmail = function () {
+// http://www.gravatar.com/avatar/
+        this.getGravatarByEmail = function (email) {
             $.ajax({
                 url: db.url_Gravatar,
-                data: { method: db.method_Gravatar },
+                data: { method: db.method_Gravatar,
+                        email: email },
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
