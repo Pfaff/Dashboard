@@ -1,25 +1,34 @@
 <?php
 
 require_once('../config/config.php');
+require_once('../lib/ZabbixApiAbstract.class.php');
+require_once('../lib/ZabbixApi.class.php');
+require_once('../lib/RestServer.php');
 
-$ldap = ldap_connect(LDAP_LOCATION) or die("Could not connect to LDAP server.");
+class Employee {
 
-if ($ldap) {
-    $bind = ldap_bind($ldap, LDAP_USER, LDAP_PASS);
+    public static function main() {
+        $ldap = ldap_connect(LDAP_LOCATION) or die("Could not connect to LDAP server.");
+        $info = null;
 
-    $base_dn = "OU=TopicusUsers, OU=Topicus, DC=topicus, DC=local";
+        if ($ldap) {
+            ldap_bind($ldap, LDAP_USER, LDAP_PASS);
 
-    $attributes = array("name", "mail");
-//CN=topicusonderwijs
+            $attributes = array("displayname", "mail");
 
-    $email ="thijs.elferink@topicus.nl";
+            $filter = "(&(memberOf=" .LDAP_FILTER_GROUP. "))";
 
-    $result = ldap_search($ldap, $base_dn,  "(cn=*)") or die ("Error in search query");
+            $result = ldap_search($ldap, LDAP_BASE_DN,  $filter, $attributes) or die ("Error in search query");
+            $info = ldap_get_entries($ldap, $result);
+        }
 
-    $info = ldap_get_entries($ldap, $result);
-
-    echo json_encode($info);
+        return $info;
+    }
 }
+
+$rest = new RestServer('Employee');
+$rest->handle();
+
 
 
 

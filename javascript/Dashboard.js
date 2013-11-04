@@ -57,5 +57,9 @@ var Dashboard = {
     url_UserAmountHistory       :   '../dashboard/php/projectinfo/UserAmountHistory.php',
     method_UserAmountHistory    :   'main',
     url_CpuLoadHistory          :   '../dashboard/php/projectinfo/CpuLoadHistory.php',
-    method_CpuLoadHistory       :   'main'
+    method_CpuLoadHistory       :   'main',
+    url_EmployeeInfo            :   '../dashboard/php/message/Employee.php',
+    method_EmployeeInfo         :   'main',
+    url_Gravatar                :   '../dashboard/php/message/Gravatar.php',
+    method_Gravatar             :   'main'
 };

@@ -77,3 +77,5 @@ define('CL_GRAPH_VALUES_AMOUNT',    10);
 define('LDAP_USER', 'buildbot');
 define('LDAP_PASS', 'Zp3?KL6t');
 define('LDAP_LOCATION', 'baas2');
+define('LDAP_BASE_DN', 'OU=TopicusUsers, OU=Topicus, DC=topicus, DC=local');
+define('LDAP_FILTER_GROUP', 'CN=topicusonderwijs,OU=TopicusGroups,OU=Topicus,DC=topicus,DC=local');
