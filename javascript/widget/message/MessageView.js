@@ -152,7 +152,7 @@
             container = document.getElementById("containerOverlay");
 
             overlay = db.createElement("article", container, { id: "messageOverlay" });
-            overlay.onclick = function () { event.stopPropagation(); event.preventDefault(); };
+            overlay.onclick = function () { event.preventDefault(); event.stopPropagation(); };
 
             mesView.createMessagePostView(employeeNames);
         };
@@ -164,6 +164,12 @@
             mesView.createTitleText();
             mesView.createSelectNameTitle();
             mesView.createSelectNameBox(employeeNames);
+            mesView.createSelectDateArticles();
+            mesView.createSelectDateText();
+            mesView.createSelectDateFields();
+            mesView.createCreateMessageText();
+            mesView.createCreateMessageField();
+            mesView.createPostMessageButton();
         };
 
         this.createMessagePostArticles = function () {
@@ -204,8 +210,65 @@
             for (i = 0; i < options.length; i++) {
                 option = db.createElement("option", select);
                 option.value = options[i];
-                option.data = options[i];
+                option.text = options[i];
             }
+        };
+
+        this.createSelectDateArticles = function () {
+            var article;
+            article = document.getElementById("messagePostSelectDateArticle");
+
+            db.createElement("article", article, { id: "selectDateFromArticle", className: "selectDateClass" });
+            db.createElement("article", article, { id: "selectDateTillArticle", className: "selectDateClass" });
+        };
+
+        this.createSelectDateText = function () {
+            var article, p;
+
+            article = document.getElementById("selectDateFromArticle");
+            p = db.createElement("p", article, { className: "messagePostFieldTitle" });
+            p.appendChild(document.createTextNode("LAAT DE MEDEDELING ZIEN VANAF"));
+
+            article = document.getElementById("selectDateTillArticle");
+            p = db.createElement("p", article, { className: "messagePostFieldTitle" });
+            p.appendChild(document.createTextNode("LAAT DE MEDEDELING ZIEN TOT EN MET"));
+        };
+
+        this.createSelectDateFields = function () {
+            var article, i;
+
+            article = document.getElementById("selectDateFromArticle");
+            for (i = 0; i < 3; i++) {
+                db.createElement("select", article, { id: "selectDateFrom" + i });
+            }
+
+            article = document.getElementById("selectDateTillArticle");
+            for (i = 0; i < 3; i++) {
+                db.createElement("select", article, { id: "selectDateTill" + i });
+            }
+        };
+
+        this.createCreateMessageText = function () {
+            var article, p;
+
+            article = document.getElementById("messagePostCreateMessageArticle");
+            p = db.createElement("p", article, { className: "messagePostFieldTitle" });
+            p.appendChild(document.createTextNode("MEDEDELING"));
+        };
+
+        this.createCreateMessageField = function () {
+            var article;
+
+            article = document.getElementById("messagePostCreateMessageArticle");
+            db.createElement("textarea", article, { id: "createMessage" });
+        };
+
+        this.createPostMessageButton = function () {
+            var article, button;
+
+            article = document.getElementById("messagePostButtonArticle");
+            button = db.createElement("button", article, { id: "postMessage" });
+            button.appendChild(document.createTextNode("TOEVOEGEN"));
         };
     };
 }(Dashboard));

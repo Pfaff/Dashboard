@@ -201,7 +201,7 @@ text {
 #messageSection {
     height:100%;
     width:573px;
-    background-color:#b55a41;
+    background-color:#a64c40;
 }
 
 .messageArticle {
@@ -300,10 +300,47 @@ text {
 }
 
 #messageOverlay {
-    background-color:#b55a41;
+    background-color:#a64c40;
     width:606px;
     height:432px;
     margin:-216px 0 0 -320px;
+}
+
+#messageOverlay select {
+    margin-top:5px;
+    height:37px;
+    font-family:'Open Sans', sans-serif;
+    color:#393939;
+    border:0;
+}
+
+#messageOverlay textarea {
+    margin-top:5px;
+    font-family:'Open Sans', sans-serif;
+    color:#393939;
+    border:0;
+    resize:none;
+}
+
+#messageOverlay button {
+    height:37px;
+    width:115px;
+    font-family:'Open Sans', sans-serif;
+    color:#393939;
+    background-color:#FFFFFF;
+    opacity:0.6;
+    border:0;
+    float:right;
+}
+
+#messageOverlay button:hover {
+    background-color: #dddddd;
+    opacity:0.6;
+    cursor:pointer;
+}
+
+#messageOverlay select,textarea:focus {
+    outline: none !important;
 }
 
 .messagePostArticle {
@@ -321,18 +358,28 @@ text {
 }
 
 #messagePostSelectDateArticle {
-    height:83px;
+    padding-top:20px;
 }
 
 #messagePostCreateMessageArticle {
-    height:147px;
+    padding-top:20px;
 }
 
 #messagePostButtonArticle {
-    height:74px;
+    padding-top:20px;
+    padding-right:31px;
 }
 
 .messagePostFieldTitle {
     font-size:12px;
 }
 
+.selectDateClass {
+    width:50%;
+    display:inline-block;
+}
+
+#createMessage {
+    width:94%;
+    height:108px;
+}
