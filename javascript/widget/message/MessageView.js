@@ -4,8 +4,10 @@
 (function (db) {
     "use strict";
     db.MessageView = function MessageView() {
-        var mesView;
+        var mesView, months;
         mesView = this;
+
+        months = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"];
 
         /**
          * Calls the required functions to build the view of the message widget.
@@ -147,19 +149,23 @@
         /**
          * Creates the overlay in order to post the message.
          */
-        this.createMessagePostFunctionality = function (employeeNames) {
+        this.createMessagePostFunctionality = function (employeeNames, functionToCall) {
             var container, overlay;
             container = document.getElementById("containerOverlay");
 
             overlay = db.createElement("article", container, { id: "messageOverlay" });
             overlay.onclick = function () { event.preventDefault(); event.stopPropagation(); };
 
-            mesView.createMessagePostView(employeeNames);
+            mesView.createMessagePostView(employeeNames, functionToCall);
         };
 
 
-
-        this.createMessagePostView = function (employeeNames) {
+        /**
+         * Calls the functions which builds the message post overlay.
+         * @param employeeNames
+         * @param functionToCall
+         */
+        this.createMessagePostView = function (employeeNames, functionToCall) {
             mesView.createMessagePostArticles();
             mesView.createTitleText();
             mesView.createSelectNameTitle();
@@ -169,9 +175,13 @@
             mesView.createSelectDateFields();
             mesView.createCreateMessageText();
             mesView.createCreateMessageField();
-            mesView.createPostMessageButton();
+            mesView.createPostMessageButton(functionToCall);
+            mesView.fillDateSelectWithOptions();
         };
 
+        /**
+         * Creates the articles on the message post overlay.
+         */
         this.createMessagePostArticles = function () {
             var overlay, articleIds, i;
             overlay = document.getElementById("messageOverlay");
@@ -182,6 +192,9 @@
             }
         };
 
+        /**
+         * Creates the title text of the overlay.
+         */
         this.createTitleText = function () {
             var article, p;
 
@@ -191,6 +204,9 @@
             p.appendChild(document.createTextNode("NIEUWE MEDEDELING"));
         };
 
+        /**
+         * Creates the title for the select name field.
+         */
         this.createSelectNameTitle = function () {
             var article, p;
 
@@ -200,6 +216,10 @@
             p.appendChild(document.createTextNode("NAAM"));
         };
 
+        /**
+         * Creates the select name box.
+         * @param employeeNames
+         */
         this.createSelectNameBox = function (employeeNames) {
             var article, select, option, options, i;
 
@@ -214,6 +234,9 @@
             }
         };
 
+        /**
+         * Creates the select date articles.
+         */
         this.createSelectDateArticles = function () {
             var article;
             article = document.getElementById("messagePostSelectDateArticle");
@@ -222,6 +245,9 @@
             db.createElement("article", article, { id: "selectDateTillArticle", className: "selectDateClass" });
         };
 
+        /**
+         * Creates the select date text.
+         */
         this.createSelectDateText = function () {
             var article, p;
 
@@ -234,6 +260,9 @@
             p.appendChild(document.createTextNode("LAAT DE MEDEDELING ZIEN TOT EN MET"));
         };
 
+        /**
+         * Creates the select date fields.
+         */
         this.createSelectDateFields = function () {
             var article, i;
 
@@ -248,6 +277,9 @@
             }
         };
 
+        /**
+         * Creates the title for the create message field.
+         */
         this.createCreateMessageText = function () {
             var article, p;
 
@@ -256,19 +288,122 @@
             p.appendChild(document.createTextNode("MEDEDELING"));
         };
 
+        /**
+         * Creates the create message field.
+         */
         this.createCreateMessageField = function () {
-            var article;
+            var article, textarea;
 
             article = document.getElementById("messagePostCreateMessageArticle");
-            db.createElement("textarea", article, { id: "createMessage" });
+            textarea = db.createElement("textarea", article, { id: "createMessage" });
+            textarea.maxLength = 250;
         };
 
-        this.createPostMessageButton = function () {
+        /**
+         * Creates the button which can be used to post the message.
+         * @param functionToCall
+         */
+        this.createPostMessageButton = function (functionToCall) {
             var article, button;
 
             article = document.getElementById("messagePostButtonArticle");
             button = db.createElement("button", article, { id: "postMessage" });
             button.appendChild(document.createTextNode("TOEVOEGEN"));
+            button.onclick = function () { functionToCall(); };
+        };
+
+        /**
+         * Fills the date select boxes with options.
+         */
+        this.fillDateSelectWithOptions = function () {
+            mesView.createDayOptions();
+            mesView.createMonthOptions();
+            mesView.createYearOptions();
+            mesView.updateFocus();
+            mesView.adjustWidthOfOptions();
+        };
+
+        /**
+         * Creates the day options.
+         */
+        this.createDayOptions = function () {
+            var select, option, i, x;
+            select = [document.getElementById("selectDateFrom0"), document.getElementById("selectDateTill0")];
+
+            for (x = 0; x < select.length; x++) {
+                for (i = 1; i <= 31; i++) {
+                    option = db.createElement("option", select[x]);
+                    option.value = i;
+                    option.text = i;
+                }
+            }
+        };
+
+        /**
+         * Creates the month options.
+         */
+        this.createMonthOptions = function () {
+            var select, option, i, x;
+            select = [document.getElementById("selectDateFrom1"), document.getElementById("selectDateTill1")];
+
+            for (x = 0; x < select.length; x++) {
+                for (i = 0; i < months.length; i++) {
+                    option = db.createElement("option", select[x]);
+                    option.value = months[i];
+                    option.text = months[i];
+                }
+            }
+        };
+
+        /**
+         * Creates the year options.
+         */
+        this.createYearOptions = function () {
+            var date, select, option, i, x;
+            select = [document.getElementById("selectDateFrom2"), document.getElementById("selectDateTill2")];
+            date = new Date();
+            for (x = 0; x < select.length; x++) {
+                for (i = date.getFullYear(); i <= date.getFullYear() + 1; i++) {
+                    option = db.createElement("option", select[x]);
+                    option.value = i;
+                    option.text = i;
+                }
+            }
+        };
+
+        /**
+         * Focuses the current select boxes on the current date.
+         */
+        this.updateFocus = function () {
+            var date, options, i, x;
+
+            date = new Date();
+            options = ["selectDateFrom", "selectDateTill"];
+
+            for (x = 0; x < 3; x++) {
+                for (i = 0; i < options.length; i++) {
+                    if (x === 0) {
+                        document.getElementById(options[i] + x).value = date.getDate();
+                    } else if (x === 1) {
+                        document.getElementById(options[i] + x).value = months[date.getMonth()];
+                    } else {
+                        document.getElementById(options[i] + x).value = date.getFullYear();
+                    }
+                }
+            }
+        };
+
+        this.adjustWidthOfOptions = function () {
+            var options, option, x, i, compWidth;
+            options = ["selectDateFrom", "selectDateTill"];
+
+            for (x = 0; x < 3; x++) {
+                for (i = 0; i < options.length; i++) {
+                    option = document.getElementById(options[i] + x);
+                    compWidth = window.getComputedStyle(option, null).width.replace(/[A-Za-z$\-]/g, "");
+                    option.style.width = compWidth * 1.183 + "px";
+                }
+            }
         };
     };
 }(Dashboard));

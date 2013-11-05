@@ -308,6 +308,8 @@ text {
 
 #messageOverlay select {
     margin-top:5px;
+    margin-right:6px;
+    padding-left:5px;
     height:37px;
     font-family:'Open Sans', sans-serif;
     color:#393939;
@@ -316,6 +318,8 @@ text {
 
 #messageOverlay textarea {
     margin-top:5px;
+    padding-top:5px;
+    padding-left:5px;
     font-family:'Open Sans', sans-serif;
     color:#393939;
     border:0;
@@ -350,11 +354,17 @@ text {
 }
 
 #messagePostTitleArticle {
+    font-size:15px;
     padding-top:35px;
 }
 
 #messagePostSelectNameArticle {
     padding-top:20px;
+    margin-left:-1px;
+}
+
+#messagePostSelectNameArticle p {
+    margin-left:2px;
 }
 
 #messagePostSelectDateArticle {

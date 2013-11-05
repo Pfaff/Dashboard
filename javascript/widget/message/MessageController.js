@@ -24,7 +24,7 @@
         this.activateMessageWidgetClickListeners = function () {
             $(".messageArticle").click(function () {
                 mesCon.buildOverlay();
-                mesView.createMessagePostFunctionality(["Jeffrey Pfaff", "Tom Kirchjunger", "Ties van de Ven"]);
+                mesView.createMessagePostFunctionality(["Jeffrey Pfaff", "Tom Kirchjunger", "Ties van de Ven"], mesCon.postMessage);
             });
 
             $("#messageTrashBin").click(function () {
@@ -48,6 +48,10 @@
             alert("Ik zou nu eigenlijk je melding moeten verwijderen maar zover ben ik helaas nog niet.");
             event.preventDefault();
             event.stopPropagation();
+        };
+
+        this.postMessage = function () {
+            alert("Work in progress, kallum.");
         };
     };
 }(Dashboard));
