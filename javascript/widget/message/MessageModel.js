@@ -7,6 +7,10 @@
         var mesMod;
         mesMod = this;
 
+        /**
+         * The messages and employees array.
+         * @type {Array}
+         */
         mesMod.messages = [];
         mesMod.employees = [];
 
@@ -24,7 +28,7 @@
         this.getMessages = function () {
             $.ajax({
                 url: db.url_Message,
-                data: { method: db.method_Message },
+                data: { method: db.method_MessageGet },
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
@@ -87,13 +91,18 @@
          */
         this.handleEmployeeData = function (data) {
             var i;
+            mesMod.employees = [];
 
             for (i = 0; i < data.count; i++) {
                 mesMod.employees.push(new db.Employee(data[i].displayname[0], data[i].mail[0]));
             }
         };
 
-        // http://www.gravatar.com/avatar/
+        /**
+         * Photo is being retrieved from gravatar by the given e-mail and added into the message object.
+         * @param email
+         * @param index
+         */
         this.getGravatarByEmail = function (email, index) {
             $.ajax({
                 url: db.url_Gravatar,
@@ -103,8 +112,20 @@
                 dataType: "json",
                 success: function (data) {
                     mesMod.messages[index].photo = "http://www.gravatar.com/avatar/" + data;
-                    console.log(mesMod.messages);
                 }
+            });
+        };
+
+        /**
+         * Removes the selected messages
+         */
+        this.removeMessage = function (id) {
+            $.ajax({
+                url: db.url_Message,
+                data: { method: db.method_MessageRemove,
+                        id: id },
+                type: "GET",
+                dataType: "json"
             });
         };
     };

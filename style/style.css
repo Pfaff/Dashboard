@@ -235,7 +235,7 @@ text {
     line-height:23px;
 }
 
-#message p {
+#messageText {
     height:auto;
     width:100%;
     position:relative;

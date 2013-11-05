@@ -13,8 +13,8 @@
          * Calls the main functions in order to make the message widget function on the dashboard.
          */
         this.main = function () {
-            mesView.main();
             mesMod.main();
+            mesView.main();
             mesCon.activateMessageWidgetClickListeners();
         };
 
@@ -22,9 +22,13 @@
          * Activates the click listeners.
          */
         this.activateMessageWidgetClickListeners = function () {
+            var employeeNames, i;
+
             $(".messageArticle").click(function () {
+                employeeNames = [];
                 mesCon.buildOverlay();
-                mesView.createMessagePostFunctionality(["Jeffrey Pfaff", "Tom Kirchjunger", "Ties van de Ven"], mesCon.postMessage);
+                for (i = 0; i < mesMod.employees.length; i++) { employeeNames.push(mesMod.employees[i].displayname); }
+                mesView.createMessagePostFunctionality(employeeNames.sort(), mesCon.postMessage);
             });
 
             $("#messageTrashBin").click(function () {
@@ -46,6 +50,7 @@
          */
         this.removeMessage = function () {
             alert("Ik zou nu eigenlijk je melding moeten verwijderen maar zover ben ik helaas nog niet.");
+            mesMod.removeMessage();
             event.preventDefault();
             event.stopPropagation();
         };

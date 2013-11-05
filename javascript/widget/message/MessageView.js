@@ -78,7 +78,7 @@
             article = document.getElementById("messageArticleEmployee");
             p = db.createElement("p", article, { id: "messageEmployee" });
 
-            p.appendChild(document.createTextNode("Jeffrey Pfaff"));
+            p.appendChild(document.createTextNode(" "));
         };
 
         /**
@@ -126,9 +126,9 @@
             article = document.getElementById("messageArticle");
             message = db.createElement("article", article, { id: "message" });
 
-            p = db.createElement("p", message, { id: "message" });
+            p = db.createElement("p", message, { id: "messageText" });
 
-            p.appendChild(document.createTextNode("Dit is een voorbeeld mededeling. Dit is een voorbeeld mededeling. Dit is een voorbeeld mededeling. Dit is een voorbeeld mededeling."));
+            p.appendChild(document.createTextNode(" "));
             mesView.calculateMarginForMessage();
         };
 
@@ -145,6 +145,21 @@
 
             p.style.marginTop = "-" + (height / 2) + "px";
         };
+
+        this.addMessageToWidget = function (messageObject) {
+            var photo, employee, message;
+            photo = document.getElementById("messageArticleEmployeePhoto");
+            employee = document.getElementById("messageEmployee");
+            message = document.getElementById("messageText");
+
+            photo.src = messageObject.photo;
+            employee.value = "hi";
+            message.data = "hi";
+        };
+
+
+
+
 
         /**
          * Creates the overlay in order to post the message.

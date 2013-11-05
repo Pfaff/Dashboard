@@ -6,7 +6,7 @@ require_once('../lib/ZabbixApi.class.php');
 require_once('../lib/RestServer.php');
 
 class Message {
-    public static function main() {
+    public static function getMessages() {
         $con = pg_connect("host=".CON_HOST." dbname=".CON_DBNAME." user=".CON_USER." password=".CON_PASSWORD."")
             or die ("Could not connect to server.");
 
@@ -16,6 +16,10 @@ class Message {
             or die("Cannot execute the query.");
 
         return pg_fetch_all($result);
+    }
+
+    public static function deleteMessage() {
+
     }
 }
 
