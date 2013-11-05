@@ -393,6 +393,9 @@
             }
         };
 
+        /**
+         * Adjusts the width of the options by enlarging it by 20% of their current width.
+         */
         this.adjustWidthOfOptions = function () {
             var options, option, x, i, compWidth;
             options = ["selectDateFrom", "selectDateTill"];
@@ -401,7 +404,7 @@
                 for (i = 0; i < options.length; i++) {
                     option = document.getElementById(options[i] + x);
                     compWidth = window.getComputedStyle(option, null).width.replace(/[A-Za-z$\-]/g, "");
-                    option.style.width = compWidth * 1.183 + "px";
+                    option.style.width = compWidth * 1.2 + "px";
                 }
             }
         };
