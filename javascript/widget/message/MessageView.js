@@ -66,7 +66,7 @@
         this.createPicture = function () {
             var article = document.getElementById("messageArticlePhoto");
 
-            db.createElement("img", article, { id: "messageArticleEmployeePhoto", src: "images/icon/employeeEmpty.png", alt: "Employee Photo" });
+            db.createElement("img", article, { id: "messageArticleEmployeePhoto", src: "images/employee/employee.png", alt: "Employee Photo" });
         };
 
         /**

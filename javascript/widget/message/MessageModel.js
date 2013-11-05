@@ -7,6 +7,7 @@
         var mesMod;
         mesMod = this;
 
+        mesMod.messages = [];
         mesMod.employees = [];
 
         /**
@@ -14,6 +15,55 @@
          */
         this.main = function () {
             mesMod.getEmployeeInfo();
+            mesMod.getMessages();
+        };
+
+        /**
+         * Gets the messages from the REST service.
+         */
+        this.getMessages = function () {
+            $.ajax({
+                url: db.url_Message,
+                data: { method: db.method_Message },
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    mesMod.handleMessageData(data);
+                }
+            });
+        };
+
+        /**
+         * Handles the message data; filling the messages array with message objects.
+         * @param data
+         */
+        this.handleMessageData = function (data) {
+            var i;
+
+            for (i = 0; i < data.length; i++) {
+                mesMod.messages.push(new db.Message(data[i].message_id, data[i].message, data[i].employee, 0, data[i].start_date, data[i].end_date));
+            }
+
+            mesMod.addPhotoToMessageObject();
+        };
+
+        /**
+         * Adds the photo's to the message objects.
+         *
+         * Message 0 is the default message; ('Click here to post a new message, bla bla'.)
+         */
+        this.addPhotoToMessageObject = function () {
+            var x, i, photoCode;
+
+            mesMod.messages[0].photo = "images/employee/employee.png";
+
+            for (x = 0; x < mesMod.messages.length; x++) {
+                for (i = 0; i < mesMod.employees.length; i++) {
+                    if (mesMod.messages[x].employee === mesMod.employees[i].displayname) {
+                        mesMod.getGravatarByEmail(mesMod.employees[i].mail, x);
+                    }
+                }
+            }
         };
 
         /**
@@ -43,8 +93,8 @@
             }
         };
 
-// http://www.gravatar.com/avatar/
-        this.getGravatarByEmail = function (email) {
+        // http://www.gravatar.com/avatar/
+        this.getGravatarByEmail = function (email, index) {
             $.ajax({
                 url: db.url_Gravatar,
                 data: { method: db.method_Gravatar,
@@ -52,7 +102,8 @@
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
-                    mesMod.handleEmployeeData(data);
+                    mesMod.messages[index].photo = "http://www.gravatar.com/avatar/" + data;
+                    console.log(mesMod.messages);
                 }
             });
         };

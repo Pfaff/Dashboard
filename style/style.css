@@ -198,6 +198,10 @@ text {
     color:#FFFFFF;
 }
 
+#message {
+    font-size:13px;
+}
+
 #messageSection {
     height:100%;
     width:573px;
@@ -290,9 +294,9 @@ text {
 }
 
 .messageQuote {
-    width:35px;
-    height:30px;
-    opacity:0.4;
+    width:28px;
+    height:25px;
+    opacity:0.3;
 }
 
 #messageArticleLeftQuote {
