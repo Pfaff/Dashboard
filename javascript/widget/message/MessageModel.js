@@ -148,8 +148,11 @@
             }
         };
 
-        this.postMessage = function () {
-            var name, dateFrom, dateTill, message;
+        /**
+         * Function to post the message, first collecting the required data for the insert statement, then sending it.
+         */
+        this.postMessage = function (functionToCallOnComplete) {
+            var name, dateFrom, dateTill, message, functionToCall;
 
             name = mesMod.getSelectedValue(document.getElementById("messagePostSelectName"));
             dateFrom = mesMod.orderDataToSendToBackEnd("selectDateFrom");
@@ -166,13 +169,24 @@
                 type: "GET",
                 dataType: "json"
             });
+
+            document.getElementById("overlay").onclick();
         };
 
+        /**
+         * Returns the option value of the given select box.
+         * @param select
+         * @returns {*}
+         */
         this.getSelectedValue = function (select) {
             return select.options[select.selectedIndex].text;
         };
 
-        //2013-11-08
+        /**
+         * Makes a string from the added date in the several select boxes for the back-end.
+         * @param id
+         * @returns {string}
+         */
         this.orderDataToSendToBackEnd = function (id) {
             var year, month, day;
             year = mesMod.getSelectedValue(document.getElementById(id + "2"));
@@ -182,6 +196,11 @@
             return year + "-" + month + "-" + day;
         };
 
+        /**
+         * Returns the number of the given month.
+         * @param month
+         * @returns {number}
+         */
         this.getMonthNumber = function (month) {
             var i, months;
             months = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"];
@@ -191,6 +210,8 @@
                     return (i + 1);
                 }
             }
+
+            return 1;
         };
     };
 }(Dashboard));

@@ -24,7 +24,7 @@ class Message {
 
         $query = "UPDATE message SET removed = true WHERE message_id = ". $_REQUEST['id'];
 
-        pg_query($con, $querasday) or die("Cannot execute the query.");
+        pg_query($con, $query) or die("Cannot execute the query.");
     }
 
     public static function postMessage() {
