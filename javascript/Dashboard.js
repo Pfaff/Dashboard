@@ -66,5 +66,8 @@ var Dashboard = {
     ua_GraphEpochDifference    :   3600,
     cl_GraphEpochDifference    :   600,
 
-    switchMessageInterval   :   2500
+    /**
+     * Time between the messages.
+     */
+    switchMessageInterval   :   10000
 };

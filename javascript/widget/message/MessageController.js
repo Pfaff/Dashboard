@@ -39,13 +39,24 @@
             });
         };
 
+        /**
+         * Starts the interval for updating / switchin between the messages.
+         * The timeout has been made so the user doesn't have to wait 10 seconds to see the first message.
+         */
         this.startUpdateMessageInterval = function () {
+            setTimeout(function () {
+                mesCon.defineMessageToShow();
+                mesView.addMessageToWidget(mesMod.messages[messageToShow]);
+            }, 2500);
             setInterval(function () {
                 mesCon.defineMessageToShow();
                 mesView.addMessageToWidget(mesMod.messages[messageToShow]);
             }, db.switchMessageInterval);
         };
 
+        /**
+         * Defines the message id which needs to be shown.
+         */
         this.defineMessageToShow = function () {
             var amountOfMessages = mesMod.messages.length;
 
@@ -71,8 +82,10 @@
          * Using prevent default and stop propagation to avoid the overlay to pop up.
          */
         this.removeMessage = function () {
-            alert("Ik zou nu eigenlijk je melding moeten verwijderen maar zover ben ik helaas nog niet.");
-            mesMod.removeMessage();
+            mesMod.removeRemovedMessageFromMessagesArray(document.getElementById("messageText").firstChild.data);
+            mesCon.defineMessageToShow();
+            mesView.addMessageToWidget(mesMod.messages[messageToShow]);
+            mesMod.removeMessage(messageToShow);
             event.preventDefault();
             event.stopPropagation();
         };

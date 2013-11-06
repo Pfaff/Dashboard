@@ -18,8 +18,14 @@ class Message {
         return pg_fetch_all($result);
     }
 
-    public static function deleteMessage() {
+    public static function removeMessage() {
+        $con = pg_connect("host=".CON_HOST." dbname=".CON_DBNAME." user=".CON_USER." password=".CON_PASSWORD."")
+            or die ("Could not connect to server.");
 
+        $query = "UPDATE message SET removed = true WHERE message_id = ". $_REQUEST['id'];
+
+        $result = pg_query($con, $query)
+            or die("Cannot execute the query.");
     }
 }
 

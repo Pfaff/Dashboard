@@ -128,5 +128,19 @@
                 dataType: "json"
             });
         };
+
+        /**
+         * Removes the removed message from the messages array to prevent it being shown again on the dashboard.
+         * @param message
+         */
+        this.removeRemovedMessageFromMessagesArray = function (message) {
+            var i;
+
+            for (i = 1; i < mesMod.messages.length; i++) {
+                if (mesMod.messages[i].message === message) {
+                    mesMod.messages.splice(i, 1);
+                }
+            }
+        };
     };
 }(Dashboard));
