@@ -1,5 +1,22 @@
 var Dashboard = {
     /**
+     * URL's to the locations of the information; including their desired methods.
+     */
+    url_ProjectInfo             :       '../dashboard/php/projectinfo/ProjectInfo.php',
+    method_ProjectInfo          :       'main',
+    url_UserAmountHistory       :       '../dashboard/php/projectinfo/UserAmountHistory.php',
+    method_UserAmountHistory    :       'main',
+    url_CpuLoadHistory          :       '../dashboard/php/projectinfo/CpuLoadHistory.php',
+    method_CpuLoadHistory       :       'main',
+    url_Message                 :       '../dashboard/php/message/Message.php',
+    method_MessageGet           :       'getMessages',
+    method_MessageRemove        :       'removeMessage',
+    url_EmployeeInfo            :       '../dashboard/php/message/Employee.php',
+    method_EmployeeInfo         :       'main',
+    url_Gravatar                :       '../dashboard/php/message/Gravatar.php',
+    method_Gravatar             :       'main',
+
+    /**
      * Defines the amount of SOM servers.
      */
     amountOfSOMServers      :   7,
@@ -49,20 +66,5 @@ var Dashboard = {
     ua_GraphEpochDifference    :   3600,
     cl_GraphEpochDifference    :   600,
 
-    /**
-     * URL's to the locations of the information; including their desired methods.
-     */
-    url_ProjectInfo             :       '../dashboard/php/projectinfo/ProjectInfo.php',
-    method_ProjectInfo          :       'main',
-    url_UserAmountHistory       :       '../dashboard/php/projectinfo/UserAmountHistory.php',
-    method_UserAmountHistory    :       'main',
-    url_CpuLoadHistory          :       '../dashboard/php/projectinfo/CpuLoadHistory.php',
-    method_CpuLoadHistory       :       'main',
-    url_Message                 :       '../dashboard/php/message/Message.php',
-    method_MessageGet           :       'getMessages',
-    method_MessageRemove        :       'removeMessage',
-    url_EmployeeInfo            :       '../dashboard/php/message/Employee.php',
-    method_EmployeeInfo         :       'main',
-    url_Gravatar                :       '../dashboard/php/message/Gravatar.php',
-    method_Gravatar             :       'main'
+    switchMessageInterval   :   2500
 };

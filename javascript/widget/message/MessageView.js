@@ -148,13 +148,16 @@
 
         this.addMessageToWidget = function (messageObject) {
             var photo, employee, message;
+
             photo = document.getElementById("messageArticleEmployeePhoto");
             employee = document.getElementById("messageEmployee");
             message = document.getElementById("messageText");
 
             photo.src = messageObject.photo;
-            employee.value = "hi";
-            message.data = "hi";
+            employee.firstChild.data = messageObject.employee;
+            message.firstChild.data = messageObject.message;
+
+            mesView.calculateMarginForMessage();
         };
 
 

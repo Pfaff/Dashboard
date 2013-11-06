@@ -4,10 +4,12 @@
 (function (db) {
     "use strict";
     db.MessageController = function MessageController() {
-        var mesCon, mesView, mesMod;
+        var mesCon, mesView, mesMod, messageToShow;
         mesCon = this;
         mesView = new db.MessageView();
         mesMod = new db.MessageModel();
+
+        messageToShow = 0;
 
         /**
          * Calls the main functions in order to make the message widget function on the dashboard.
@@ -16,6 +18,7 @@
             mesMod.main();
             mesView.main();
             mesCon.activateMessageWidgetClickListeners();
+            mesCon.startUpdateMessageInterval();
         };
 
         /**
@@ -34,6 +37,25 @@
             $("#messageTrashBin").click(function () {
                 mesCon.removeMessage();
             });
+        };
+
+        this.startUpdateMessageInterval = function () {
+            setInterval(function () {
+                mesCon.defineMessageToShow();
+                mesView.addMessageToWidget(mesMod.messages[messageToShow]);
+            }, db.switchMessageInterval);
+        };
+
+        this.defineMessageToShow = function () {
+            var amountOfMessages = mesMod.messages.length;
+
+            if (amountOfMessages > 0) {
+                if (messageToShow < (amountOfMessages - 1)) {
+                    messageToShow++;
+                } else {
+                    messageToShow = 1;
+                }
+            }
         };
 
         /**

@@ -19,7 +19,7 @@
          */
         this.main = function () {
             mesMod.getEmployeeInfo();
-            mesMod.getMessages();
+            setTimeout(function () { mesMod.getMessages(); }, 2000);
         };
 
         /**
@@ -57,7 +57,7 @@
          * Message 0 is the default message; ('Click here to post a new message, bla bla'.)
          */
         this.addPhotoToMessageObject = function () {
-            var x, i, photoCode;
+            var x, i;
 
             mesMod.messages[0].photo = "images/employee/employee.png";
 
