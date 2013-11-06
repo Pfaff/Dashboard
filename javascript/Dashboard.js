@@ -11,6 +11,7 @@ var Dashboard = {
     url_Message                 :       '../dashboard/php/message/Message.php',
     method_MessageGet           :       'getMessages',
     method_MessageRemove        :       'removeMessage',
+    method_MessagePost          :       'postMessage',
     url_EmployeeInfo            :       '../dashboard/php/message/Employee.php',
     method_EmployeeInfo         :       'main',
     url_Gravatar                :       '../dashboard/php/message/Gravatar.php',
@@ -69,5 +70,10 @@ var Dashboard = {
     /**
      * Time between the messages.
      */
-    switchMessageInterval   :   10000
+    switchMessageInterval   :   12500,
+
+    /**
+     * Time between getting the messages.
+     */
+    getMessagesInterval     :   12501
 };

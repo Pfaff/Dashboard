@@ -18,6 +18,7 @@
             mesMod.main();
             mesView.main();
             mesCon.activateMessageWidgetClickListeners();
+            mesCon.startGetMessagesInterval();
             mesCon.startUpdateMessageInterval();
         };
 
@@ -37,6 +38,15 @@
             $("#messageTrashBin").click(function () {
                 mesCon.removeMessage();
             });
+        };
+
+        /**
+         * Interval for retrieving the messages from the database.
+         */
+        this.startGetMessagesInterval = function () {
+            setInterval(function () {
+                mesMod.getMessages();
+            }, db.getMessagesInterval);
         };
 
         /**
@@ -82,16 +92,28 @@
          * Using prevent default and stop propagation to avoid the overlay to pop up.
          */
         this.removeMessage = function () {
-            mesMod.removeRemovedMessageFromMessagesArray(document.getElementById("messageText").firstChild.data);
+            mesMod.removeMessage(messageToShow);
             mesCon.defineMessageToShow();
             mesView.addMessageToWidget(mesMod.messages[messageToShow]);
-            mesMod.removeMessage(messageToShow);
             event.preventDefault();
             event.stopPropagation();
         };
 
         this.postMessage = function () {
-            alert("Work in progress, kallum.");
+            if (!mesCon.checkIfMessageFieldGotAValue()) {
+                mesMod.postMessage();
+            }
+        };
+
+        /**
+         * Checks if there is a message added.
+         * @returns {boolean}
+         */
+        this.checkIfMessageFieldGotAValue = function() {
+            var messageField, value;
+            messageField = document.getElementById("createMessage");
+            value = $.trim(messageField.value);
+            return (value.length === 0);
         };
     };
 }(Dashboard));

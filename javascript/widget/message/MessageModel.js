@@ -43,9 +43,10 @@
          */
         this.handleMessageData = function (data) {
             var i;
+            mesMod.messages = [];
 
             for (i = 0; i < data.length; i++) {
-                mesMod.messages.push(new db.Message(data[i].message_id, data[i].message, data[i].employee, 0, data[i].start_date, data[i].end_date));
+                mesMod.messages.push(new db.Message(data[i].message_id, data[i].message, data[i].employee, "images/employee/employee.png", data[i].start_date, data[i].end_date));
             }
 
             mesMod.addPhotoToMessageObject();
@@ -117,15 +118,19 @@
         };
 
         /**
-         * Removes the selected messages
+         * Removes the selected message, using the given id to get the id of the message in the database.
+         * @param id
          */
         this.removeMessage = function (id) {
             $.ajax({
                 url: db.url_Message,
                 data: { method: db.method_MessageRemove,
-                        id: id },
+                        id: mesMod.messages[id].id },
                 type: "GET",
-                dataType: "json"
+                dataType: "json",
+                success: function () {
+                    mesMod.removeRemovedMessageFromMessagesArray(document.getElementById("messageText").firstChild.data);
+                }
             });
         };
 
@@ -139,6 +144,51 @@
             for (i = 1; i < mesMod.messages.length; i++) {
                 if (mesMod.messages[i].message === message) {
                     mesMod.messages.splice(i, 1);
+                }
+            }
+        };
+
+        this.postMessage = function () {
+            var name, dateFrom, dateTill, message;
+
+            name = mesMod.getSelectedValue(document.getElementById("messagePostSelectName"));
+            dateFrom = mesMod.orderDataToSendToBackEnd("selectDateFrom");
+            dateTill = mesMod.orderDataToSendToBackEnd("selectDateTill");
+            message = document.getElementById("createMessage").value;
+
+            $.ajax({
+                url: db.url_Message,
+                data: { method: db.method_MessagePost,
+                        name: name,
+                        dateFrom : dateFrom,
+                        dateTill : dateTill,
+                        message : message },
+                type: "GET",
+                dataType: "json"
+            });
+        };
+
+        this.getSelectedValue = function (select) {
+            return select.options[select.selectedIndex].text;
+        };
+
+        //2013-11-08
+        this.orderDataToSendToBackEnd = function (id) {
+            var year, month, day;
+            year = mesMod.getSelectedValue(document.getElementById(id + "2"));
+            month = mesMod.getMonthNumber(mesMod.getSelectedValue(document.getElementById(id + "1")));
+            day = mesMod.getSelectedValue(document.getElementById(id + "0"));
+
+            return year + "-" + month + "-" + day;
+        };
+
+        this.getMonthNumber = function (month) {
+            var i, months;
+            months = ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "Oktober", "November", "December"];
+
+            for (i = 0; i < months.length; i++) {
+                if (months[i] === month) {
+                    return (i + 1);
                 }
             }
         };
