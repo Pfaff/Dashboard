@@ -70,12 +70,14 @@
         this.defineMessageToShow = function () {
             var amountOfMessages = mesMod.messages.length;
 
-            if (amountOfMessages > 0) {
+            if (amountOfMessages > 1) {
                 if (messageToShow < (amountOfMessages - 1)) {
                     messageToShow++;
                 } else {
                     messageToShow = 1;
                 }
+            } else {
+                messageToShow = 0;
             }
         };
 
