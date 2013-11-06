@@ -101,6 +101,9 @@
             event.stopPropagation();
         };
 
+        /**
+         * Starts the function to post the message if there is a message inserted in the field.
+         */
         this.postMessage = function () {
             if (!mesCon.checkIfMessageFieldGotAValue()) {
                 mesMod.postMessage();
@@ -111,7 +114,7 @@
          * Checks if there is a message added.
          * @returns {boolean}
          */
-        this.checkIfMessageFieldGotAValue = function() {
+        this.checkIfMessageFieldGotAValue = function () {
             var messageField, value;
             messageField = document.getElementById("createMessage");
             value = $.trim(messageField.value);

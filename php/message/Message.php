@@ -22,7 +22,9 @@ class Message {
         $con = pg_connect("host=".CON_HOST." dbname=".CON_DBNAME." user=".CON_USER." password=".CON_PASSWORD."")
             or die ("Could not connect to server.");
 
-        $query = "UPDATE message SET removed = true WHERE message_id = ". $_REQUEST['id'];
+        if($_REQUEST['id'] > 1) {
+            $query = "UPDATE message SET removed = true WHERE message_id = ". $_REQUEST['id'];
+        }
 
         pg_query($con, $query) or die("Cannot execute the query.");
     }
