@@ -14,6 +14,7 @@
             dashCon.buildView();
             dashCon.startProjectInfoController();
             dashCon.startMessageController();
+            dashCon.startDateTimeController();
         };
 
         /**
@@ -38,6 +39,14 @@
         this.startMessageController = function () {
             var mesCon = new db.MessageController();
             mesCon.main();
+        };
+
+        /**
+         * Starts the datetime controller.
+         */
+        this.startDateTimeController = function () {
+            var dtCon = new db.DateTimeController();
+            dtCon.main();
         };
     };
 }(Dashboard));

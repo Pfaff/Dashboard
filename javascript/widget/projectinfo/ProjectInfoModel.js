@@ -193,7 +193,9 @@
             var loadAverageAll, averageLoadAverage, i;
             loadAverageAll = piModel.pi.att.loadAverageAll;
             for (i = 0; i < loadAverageAll.length; i++) {
-                loadAverageAll[i] = loadAverageAll[i].replace(/,/g, '.');
+                if (loadAverageAll[i] !== undefined) {
+                    loadAverageAll[i] = loadAverageAll[i].replace(/,/g, '.');
+                }
             }
             averageLoadAverage = piModel.calculateSum(loadAverageAll) / loadAverageAll.length;
             piModel.pi.att.loadAverage = parseFloat(averageLoadAverage.toFixed(2));
