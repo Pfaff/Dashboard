@@ -124,7 +124,9 @@
             unit = " " + requestTimes[0].split(' ')[1];
 
             for (i = 0; i < requestTimes.length; i++) {
-                result = result + parseInt(requestTimes[i].split(' ')[0], 10);
+                if (requestTimes[i] !== undefined) {
+                    result = result + parseInt(requestTimes[i].split(' ')[0], 10);
+                }
             }
 
             Math.floor(result);
@@ -171,10 +173,12 @@
             piModel.pi.att.uptimeAll = [];
 
             for (i = 0; i < db.amountOfSOMServers; i++) {
-                dateString = tempUptimeArray[i].replace(/(\d\d)-(\d\d)/, "$2-$1");
-                dateString = dateString.replace(/-/g, '/');
-                serverStart = new Date(dateString);
-                piModel.pi.pushNewValueInGivenArray('uptimeAll', String(new Date().getHours() - serverStart.getHours()));
+                if (tempUptimeArray[i] !== undefined) {
+                    dateString = tempUptimeArray[i].replace(/(\d\d)-(\d\d)/, "$2-$1");
+                    dateString = dateString.replace(/-/g, '/');
+                    serverStart = new Date(dateString);
+                    piModel.pi.pushNewValueInGivenArray('uptimeAll', String(new Date().getHours() - serverStart.getHours()));
+                }
             }
 
             uptimeAll = piModel.pi.att.uptimeAll;

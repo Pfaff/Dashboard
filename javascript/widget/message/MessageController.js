@@ -57,7 +57,7 @@
             setTimeout(function () {
                 mesCon.defineMessageToShow();
                 mesView.addMessageToWidget(mesMod.messages[messageToShow]);
-            }, 2500);
+            }, 4500);
             setInterval(function () {
                 mesCon.defineMessageToShow();
                 mesView.addMessageToWidget(mesMod.messages[messageToShow]);
