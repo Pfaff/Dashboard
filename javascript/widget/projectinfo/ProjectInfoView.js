@@ -8,7 +8,7 @@
         piView = this;
 
         /**
-         * The chart with the user amounts and time.
+         * The chart on the project info view.
          * @type {null}
          */
         piView.chart = null;
@@ -137,9 +137,9 @@
                     }
                 },
                 legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom',
                     borderWidth: 0
                 },
                 title: {
@@ -227,13 +227,13 @@
             title.firstChild.data = newTitle;
         };
 
-        this.toggleLegendVisibility = function (visibility) {
-            var legends, i;
-            legends = document.getElementsByClassName('highcharts-legend');
-
-            for (i = 0; i < legends.length; i++) {
-                legends[i].style.visibility = visibility;
-            }
-        };
+//        this.toggleLegendVisibility = function (visibility) {
+//            var legends, i;
+//            legends = document.getElementsByClassName('highcharts-legend');
+//
+//            for (i = 0; i < legends.length; i++) {
+//                legends[i].style.visibility = visibility;
+//            }
+//        };
     };
 }(Dashboard));

@@ -4,9 +4,8 @@
  */
 (function (db) {
     "use strict";
-    db.MantisStats = function MantisStats(version, status, clock, value) {
+    db.MantisStats = function MantisStats(version, clock, value) {
         this.version = version;
-        this.status = status;
         this.clock = clock;
         this.value = value;
     };

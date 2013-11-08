@@ -146,7 +146,7 @@
             piView.removeGraph();
             piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
             piView.setGraphTitle('number of users');
-            piView.toggleLegendVisibility('hidden');
+            //$('#piContentArticle0 .highcharts-legend').toggle();
         };
 
         /**
@@ -157,7 +157,7 @@
             piView.removeGraph();
             piView.buildCpuLoadAverageGraph(piModel.cpuLoadTimes, piModel.cpuLoadValues, piController.startOverlayAndProjectHistoryController);
             piView.setGraphTitle('average cpu load');
-            piView.toggleLegendVisibility('visible');
+            //$('#piContentArticle0 .highcharts-legend').toggle();
         };
 
         /**
