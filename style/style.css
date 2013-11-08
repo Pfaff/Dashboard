@@ -2,6 +2,7 @@ body {
     background-color:#3c4045;
     font-family:'Open Sans', sans-serif;
     color:#FFFFFF;
+    overflow:hidden;
 }
 
 .title {
@@ -20,13 +21,13 @@ body {
 }
 
 .container {
-    width:609px;
+    width:610px;
     height:901px;
     display:inline-block;
+    margin-left:25px;
 }
 
 #container {
-    min-width:1827px;
     text-align:center;
 }
 
@@ -54,6 +55,19 @@ body {
     /*margin-top:68px;*/
     margin-top:30px;
     height:157px;
+}
+
+#containerRightSectionTop {
+    margin-top:30px;
+    height:130px;
+}
+
+#containerRightSectionMiddle {
+    /*height:px;*/
+}
+
+#containerRightSectionBottom {
+    /*height:px;*/
 }
 
 .piArticle {
@@ -396,4 +410,41 @@ text {
 #createMessage {
     width:94%;
     height:108px;
+}
+
+#datetimeSection {
+    height:100%;
+    width:574px;
+    font-size:12px;
+}
+
+#dateArticle {
+    width:274px;
+}
+
+#timeArticle {
+    width:274px;
+    margin-left:26px;
+}
+
+.datetimeArticle {
+    background-color:#946f50;
+    height:130px;
+    float:left;
+}
+
+.dateText {
+    display:inline-block;
+}
+
+#dateDayNumberText {
+    margin:32px 20px 0 20px;
+    font-size:60px;
+    font-family:"Open Sans Light", sans-serif;
+}
+
+#timeText {
+    margin:33px 0 0 0;
+    font-size:60px;
+    font-family:"Open Sans Light", sans-serif;
 }

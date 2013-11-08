@@ -14,6 +14,7 @@
             dashView.createDashboardContainers();
             dashView.createLeftContainerSections();
             dashView.createMiddleContainerSections();
+            dashView.createRightContainerSections();
         };
 
         /**
@@ -50,6 +51,17 @@
             db.createElement("section", containerMiddle, { id: "containerMiddleSectionTop", className: "containerSection" });
             db.createElement("section", containerMiddle, { id: "containerMiddleSectionMiddle", className: "containerSection" });
             db.createElement("section", containerMiddle, { id: "containerMiddleSectionBottom", className: "containerSection" });
+        };
+
+        /**
+         * Creates the sections in the right container.
+         */
+        this.createRightContainerSections = function () {
+            var containerMiddle = document.getElementById("containerRight");
+
+            db.createElement("section", containerMiddle, { id: "containerRightSectionTop", className: "containerSection" });
+            db.createElement("section", containerMiddle, { id: "containerRightSectionMiddle", className: "containerSection" });
+            db.createElement("section", containerMiddle, { id: "containerRightSectionBottom", className: "containerSection" });
         };
     };
 }(Dashboard));

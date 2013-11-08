@@ -70,10 +70,10 @@ var Dashboard = {
     /**
      * Time between the messages.
      */
-    switchMessageInterval   :   12500,
+    switchMessageInterval   :   10000,
 
     /**
      * Time between getting the messages.
      */
-    getMessagesInterval     :   12501
+    getMessagesInterval     :   10001
 };
