@@ -16,6 +16,7 @@
             dashCon.startMessageController();
             dashCon.startDateTimeController();
             dashCon.startNewsController();
+            dashCon.startMantisStatsController();
         };
 
         /**
@@ -56,6 +57,14 @@
         this.startNewsController = function () {
             var nCon = new db.NewsController();
             nCon.main();
+        };
+
+        /**
+         * Starts the mantis stats controller.
+         */
+        this.startMantisStatsController = function () {
+            var msCon = new db.MantisStatsController();
+            msCon.main();
         };
     };
 }(Dashboard));

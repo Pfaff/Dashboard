@@ -32,7 +32,7 @@
         this.startTimeUpdateInterval = function () {
             setInterval(function () {
                 dtCon.updateCurrentDateTimeInWidget();
-            }, 60000);
+            }, 20000);
         };
     };
 }(Dashboard));
