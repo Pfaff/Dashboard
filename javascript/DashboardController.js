@@ -15,6 +15,7 @@
             dashCon.startProjectInfoController();
             dashCon.startMessageController();
             dashCon.startDateTimeController();
+            dashCon.startNewsController();
         };
 
         /**
@@ -47,6 +48,14 @@
         this.startDateTimeController = function () {
             var dtCon = new db.DateTimeController();
             dtCon.main();
+        };
+
+        /**
+         * Starts the news controller.
+         */
+        this.startNewsController = function () {
+            var nCon = new db.NewsController();
+            nCon.main();
         };
     };
 }(Dashboard));
