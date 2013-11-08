@@ -44,11 +44,11 @@
 
             article = document.getElementById("dateArticle");
             p = db.createElement("p", article, { id: "dateDayText", className: "dateText" });
-            p.appendChild(document.createTextNode("vrijdag"));
+            p.appendChild(document.createTextNode(" "));
             p = db.createElement("span", article, { id: "dateDayNumberText", className: "dateText" });
-            p.appendChild(document.createTextNode("8"));
+            p.appendChild(document.createTextNode(" "));
             p = db.createElement("p", article, { id: "dateMonthText", className: "dateText" });
-            p.appendChild(document.createTextNode("november"));
+            p.appendChild(document.createTextNode(" "));
         };
 
         /**
@@ -59,7 +59,7 @@
 
             article = document.getElementById("timeArticle");
             p = db.createElement("p", article, { id: "timeText" });
-            p.appendChild(document.createTextNode("09:53"));
+            p.appendChild(document.createTextNode(" "));
         };
 
         /**
