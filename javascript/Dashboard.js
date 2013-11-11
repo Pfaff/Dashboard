@@ -16,6 +16,8 @@ var Dashboard = {
     method_EmployeeInfo         :       'main',
     url_Gravatar                :       '../dashboard/php/message/Gravatar.php',
     method_Gravatar             :       'main',
+    url_News                    :       '../dashboard/php/news/News.php',
+    method_News                 :       'main',
 
     /**
      * Defines the amount of SOM servers.

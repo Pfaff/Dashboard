@@ -12,7 +12,7 @@
         clocksMantisStats = [];
 
         this.main = function () {
-            msMod.getMantisStats();
+            //msMod.getMantisStats();
         };
 
         this.getMantisStats = function () {

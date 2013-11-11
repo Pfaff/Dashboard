@@ -1,8 +1,6 @@
 <?php
 
 require_once('../config/database.php');
-require_once('../lib/ZabbixApiAbstract.class.php');
-require_once('../lib/ZabbixApi.class.php');
 require_once('../lib/RestServer.php');
 
 class Message {
