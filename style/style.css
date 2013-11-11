@@ -432,9 +432,10 @@ text {
 }
 
 .datetimeArticle {
-    background-color:#946f50;
+    background-color:#cfced0;
     height:130px;
     float:left;
+    color:#404040;
 }
 
 .dateText {
@@ -483,4 +484,52 @@ text {
 
 #contentMantisStatsArticle svg {
     margin:40px 0 0 26px;
+}
+
+#newsSection {
+    height:374px;
+    width:572px;
+    margin-top:68px;
+}
+
+.newsArticle {
+    margin-top:18px;
+    height:79px;
+    width:572px;
+    background-color:#2d2c2c;
+}
+
+.newsArticle:first-child {
+    margin-top:0;
+}
+
+.articleInNewsArticle {
+    float:left;
+    height:100%;
+}
+
+.newsContentArticle {
+    width:494px;
+}
+
+.newsPhotoArticle {
+    width:78px;
+    background-color: #f9f9f9;
+}
+
+.newsContentArticleTitle {
+    height:18px;
+    width:100%;
+    text-align:left;
+    margin-left:8px;
+}
+
+.newsContentArticleContent {
+    height:61px;
+    width:100%;
+}
+
+.newsContent {
+    font-size:15px;
+    line-height:68px;
 }

@@ -75,5 +75,10 @@ var Dashboard = {
     /**
      * Time between getting the messages.
      */
-    getMessagesInterval     :   10001
+    getMessagesInterval     :   10001,
+
+    /**
+     * Amount of news articles in the news widget.
+     */
+    newsArticles    :   4
 };

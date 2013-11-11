@@ -50,7 +50,7 @@
 //            for (i = 0; mantisStats.length; i++) {
 //                if (mantisStats[i])
 //            }
-        }; // asdf
+        };
 
         this.fillArrayMantisStatsClocks = function () {
 
