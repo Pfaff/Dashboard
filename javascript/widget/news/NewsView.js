@@ -77,7 +77,7 @@
             for (i = 0; i < db.newsArticles; i++) {
                 article = document.getElementById("newsContentArticleTitle" + i);
                 p = db.createElement("p", article, { id: "newsContentArticleTitleText" + i, className: "title" });
-                p.appendChild(document.createTextNode("algemeen"));
+                p.appendChild(document.createTextNode(" "));
             }
         };
 
@@ -90,7 +90,7 @@
             for (i = 0; i < db.newsArticles; i++) {
                 article = document.getElementById("newsContentArticleContent" + i);
                 p = db.createElement("p", article, { id: "newsContentArticleContentText" + i, className: "newsContent" });
-                p.appendChild(document.createTextNode("Deze zin moet eigenlijk bestaan uit een actueel nieuws item."));
+                p.appendChild(document.createTextNode(" "));
             }
         };
 
@@ -102,10 +102,15 @@
 
             for (i = 0; i < db.newsArticles; i++) {
                 article = document.getElementById("newsPhotoArticle" + i);
-                db.createElement("img", article, { id: "newsPhotoArticlePhoto" + i, className: "newsPhoto", src: "images/news/nu.png", alt: "News photo" });
+                db.createElement("img", article, { id: "newsPhotoArticlePhoto" + i, className: "newsPhoto", src: "images/news/empty.png", alt: "News photo" });
             }
+        };
 
-            document.getElementById("newsPhotoArticlePhoto3").src = "images/news/tweakers.png";
+        this.updateNewsItem = function (index, title, category, photo, link) {
+            document.getElementById("newsContentArticleContentText" + index).firstChild.data = title;
+            document.getElementById("newsContentArticleTitleText" + index).firstChild.data = category;
+            document.getElementById("newsPhotoArticlePhoto" + index).src = photo;
+            document.getElementById("newsArticle" + index).href = link;
         };
     };
 }(Dashboard));

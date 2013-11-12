@@ -50,5 +50,57 @@
                                            data[i].photo));
             }
         };
+
+        /**
+         * Returns the news from a given category.
+         * @param category
+         * @returns {Array}
+         */
+        this.getNewsFromGivenCategory = function (category) {
+            var i, news;
+
+            news = [];
+
+            for (i = 0; i < nMod.news.length; i++) {
+                if (nMod.news[i].category === category) {
+                    news.push(nMod.news[i]);
+                }
+            }
+
+            return news;
+        };
+
+        /**
+         * Returns the news from a given site.
+         * @param site
+         * @returns {Array}
+         */
+        this.getNewsFromGivenSite = function (site) {
+            var i, news;
+
+            news = [];
+
+            for (i = 0; i < nMod.news.length; i++) {
+                if (nMod.news[i].site === site) {
+                    news.push(nMod.news[i]);
+                }
+            }
+
+            return news;
+        };
+
+        this.getNewsFromGivenSitePlusHideGivenCategory = function (site, category) {
+            var i, news;
+
+            news = [];
+
+            for (i = 0; i < nMod.news.length; i++) {
+                if (nMod.news[i].site === site && nMod.news[i].category !== category) {
+                    news.push(nMod.news[i]);
+                }
+            }
+
+            return news;
+        };
     };
 }(Dashboard));
