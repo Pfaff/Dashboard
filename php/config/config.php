@@ -88,7 +88,7 @@ define('DEFAULT_PHOTO_LOCATION', 'http://img600.imageshack.us/img600/9933/t2ah.p
 /**
  * Amount of news items to gather from each site.
  */
-define('MAX_NEWS_ARTICLES', 5);
+define('MAX_NEWS_ARTICLES', 3);
 
 /**
  * URLs of the news locations.

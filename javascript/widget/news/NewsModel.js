@@ -7,10 +7,22 @@
         var nMod;
         nMod = this;
 
+        /**
+         * Contains the news items.
+         * @type {Array}
+         */
+        nMod.news = [];
+
+        /**
+         * Calls the function to gather the news.
+         */
         this.main = function () {
             nMod.getNews();
         };
 
+        /**
+         * Gets the news from the back-end.
+         */
         this.getNews = function () {
             $.ajax({
                 url: db.url_News,
@@ -23,8 +35,20 @@
             });
         };
 
+        /**
+         * Handles the news data; making objects from it and pushing it in the desired array.
+         * @param data
+         */
         this.handleNewsItems = function (data) {
-            console.log(data);
+            var i;
+
+            for (i = 0; i < data.length; i++) {
+                nMod.news.push(new db.News(data[i].site,
+                                           data[i].category,
+                                           data[i].title,
+                                           data[i].link,
+                                           data[i].photo));
+            }
         };
     };
 }(Dashboard));
