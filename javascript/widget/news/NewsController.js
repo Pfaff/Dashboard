@@ -23,7 +23,7 @@
         this.main = function () {
             nMod.main();
             nView.main();
-            setTimeout(nCon.updateAllNews, 3000);
+            setTimeout(nCon.updateAllNews, 4000);
             setTimeout(nCon.startUpdateInterval, 8000);
             nCon.startGetNewNewsInterval();
         };

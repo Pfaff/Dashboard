@@ -87,7 +87,7 @@ var Dashboard = {
     /**
      * Interval for gathering new news.
      */
-    getNewNewsInterval      :      15000,
+    getNewNewsInterval      :      120000,
 
     /**
      * Interval between updating the news articles.

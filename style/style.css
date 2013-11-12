@@ -534,7 +534,8 @@ text {
 }
 
 .newsContent {
-    font-size:15px;
+    font-size:14px;
+    font-family:"Open Sans Light", sans-serif;
     line-height:68px;
 }
 
