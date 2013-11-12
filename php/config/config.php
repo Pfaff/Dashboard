@@ -84,3 +84,18 @@ define('LDAP_FILTER_GROUP', 'CN=topicusonderwijs,OU=TopicusGroups,OU=Topicus,DC=
  * Gravatar
  */
 define('DEFAULT_PHOTO_LOCATION', 'http://img600.imageshack.us/img600/9933/t2ah.png');
+
+/**
+ * Amount of news items to gather from each site.
+ */
+define('MAX_NEWS_ARTICLES', 5);
+
+/**
+ * URLs of the news locations.
+ */
+define('NEWS_NU_GENERAL', 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Algemeen');
+define('NEWS_NU_INTERNET', 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Internet');
+define('NEWS_NU_ECONOMY', 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Economie');
+define('NEWS_NU_SPORT', 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Sport');
+define('NEWS_NU_SCIENCE', 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Wetenschap');
+define('NEWS_TWEAKERS', 'http://feeds.feedburner.com/tweakers/nieuws');

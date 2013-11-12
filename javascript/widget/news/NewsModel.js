@@ -18,10 +18,13 @@
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
-//                    console.log(data[0].site[0]);
-                    console.log(data);
+                    nMod.handleNewsItems(data);
                 }
             });
+        };
+
+        this.handleNewsItems = function (data) {
+            console.log(data);
         };
     };
 }(Dashboard));

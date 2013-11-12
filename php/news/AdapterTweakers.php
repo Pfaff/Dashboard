@@ -1,13 +1,15 @@
 <?php
 
+require_once('../config/config.php');
+
 class AdapterTweakers {
 
-    public static function main() {
-        return self::buildDataToReturn(self::getNews());
+    public static function main($url) {
+        return self::buildDataToReturn(self::getNews($url));
     }
 
-    private static function getNews() {
-        $fileContent = file_get_contents('http://feeds.feedburner.com/tweakers/nieuws');
+    private static function getNews($url) {
+        $fileContent = file_get_contents($url);
         $fileContent = str_replace(array("\n", "\r", "\t"), '', $fileContent);
         $fileContent = trim(str_replace('"', "'", $fileContent));
 
@@ -19,13 +21,14 @@ class AdapterTweakers {
     private static function buildDataToReturn($content) {
         $dataToReturn = array();
 
-        for($i = 0; $i < count($content->item); $i++) {
+        for($i = 0; $i < MAX_NEWS_ARTICLES; $i++) {
             $item = $content->item[$i];
 
-            $row = array(   "site" => array(0 => "Tweakers"),
-                "category" => array(0 => "techniek"),
-                "title" => $item->title,
-                "photo" => $content[0]->image->url,
+            $row = array(   "site" => "Tweakers",
+                "category" => "techniek",
+                "title" => (string) $item->title,
+                "link" => (string) $item->link,
+                "photo" => (string) $content[0]->image->url,
             );
 
             array_push($dataToReturn, $row);

@@ -1,13 +1,15 @@
 <?php
 
+require_once('../config/config.php');
+
 class AdapterNu {
 
-    public static function main() {
-        return self::buildDataToReturn(self::getNews());
+    public static function main($url) {
+        return self::buildDataToReturn(self::getNews($url));
     }
 
-    private static function getNews() {
-        $fileContent = file_get_contents('http://www.nu.nl/feeds/rss/algemeen.rss');
+    private static function getNews($url) {
+        $fileContent = file_get_contents($url);
         $fileContent = str_replace(array("\n", "\r", "\t"), '', $fileContent);
         $fileContent = trim(str_replace('"', "'", $fileContent));
 
@@ -19,13 +21,14 @@ class AdapterNu {
     private static function buildDataToReturn($content) {
         $dataToReturn = array();
 
-        for($i = 0; $i < count($content->item); $i++) {
+        for($i = 0; $i < MAX_NEWS_ARTICLES; $i++) {
             $item = $content->item[$i];
 
             $row = array(   "site" => "Nu",
-                            "category" => $item->category,
-                            "title" => $item->title,
-                            "photo" => $item->enclosure->attributes()->url,
+                            "category" => (string) strtolower($item->category),
+                            "title" => (string) $item->title,
+                            "link" => (string) $item->link,
+                            "photo" => (string) $item->enclosure->attributes()->url,
             );
 
             array_push($dataToReturn, $row);
