@@ -42,6 +42,8 @@
         this.handleNewsItems = function (data) {
             var i;
 
+            nMod.news = [];
+
             for (i = 0; i < data.length; i++) {
                 nMod.news.push(new db.News(data[i].site,
                                            data[i].category,

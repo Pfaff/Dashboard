@@ -25,6 +25,7 @@
             nView.main();
             setTimeout(nCon.updateAllNews, 3000);
             setTimeout(nCon.startUpdateInterval, 8000);
+            nCon.startGetNewNewsInterval();
         };
 
         /**
@@ -33,9 +34,12 @@
         this.startUpdateInterval = function () {
             setInterval(function () {
                 nCon.updateAllNews();
-            }, 3000);
+            }, db.updateNewsArticlesInterval);
         };
 
+        /**
+         * Update all news articles.
+         */
         this.updateAllNews = function () {
             newsTop = nCon.updateNewsArticle(nMod.getNewsFromGivenCategory("algemeen"), newsTop, 0);
             newsMiddle = nCon.updateNewsArticle(nMod.getNewsFromGivenSitePlusHideGivenCategory("Nu", "algemeen"), newsMiddle, 1);
@@ -43,6 +47,13 @@
             newsBottom = nCon.updateNewsArticle(nMod.getNewsFromGivenSite("Tweakers"), newsBottom, 3);
         };
 
+        /**
+         * Updates a news article.
+         * @param filteredNews
+         * @param newsVar
+         * @param index
+         * @returns {number}
+         */
         this.updateNewsArticle = function (filteredNews, newsVar, index) {
             var news, item;
 
@@ -64,6 +75,12 @@
                 return newsVar + 1;
             }
             return 0;
+        };
+
+        this.startGetNewNewsInterval = function () {
+            setInterval(function () {
+                nMod.main();
+            }, db.getNewNewsInterval);
         };
     };
 }(Dashboard));

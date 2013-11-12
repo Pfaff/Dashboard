@@ -503,6 +503,10 @@ text {
     margin-top:0;
 }
 
+.newsArticle:hover {
+    cursor:pointer;
+}
+
 .articleInNewsArticle {
     float:left;
     height:100%;

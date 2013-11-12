@@ -82,5 +82,15 @@ var Dashboard = {
     /**
      * Amount of news articles in the news widget.
      */
-    newsArticles    :   4
+    newsArticles    :   4,
+
+    /**
+     * Interval for gathering new news.
+     */
+    getNewNewsInterval      :      15000,
+
+    /**
+     * Interval between updating the news articles.
+     */
+    updateNewsArticlesInterval      :       4000
 };

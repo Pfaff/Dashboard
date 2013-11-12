@@ -106,11 +106,19 @@
             }
         };
 
+        /**
+         * Updates a news article with the given information.
+         * @param index
+         * @param title
+         * @param category
+         * @param photo
+         * @param link
+         */
         this.updateNewsItem = function (index, title, category, photo, link) {
             document.getElementById("newsContentArticleContentText" + index).firstChild.data = title;
             document.getElementById("newsContentArticleTitleText" + index).firstChild.data = category;
             document.getElementById("newsPhotoArticlePhoto" + index).src = photo;
-            document.getElementById("newsArticle" + index).href = link;
+            document.getElementById("newsArticle" + index).onclick = function () { window.open(link); };
         };
     };
 }(Dashboard));
