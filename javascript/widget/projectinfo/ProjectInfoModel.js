@@ -182,7 +182,7 @@
             }
 
             uptimeAll = piModel.pi.att.uptimeAll;
-            piModel.pi.att.uptime = (piModel.calculateSum(uptimeAll) / uptimeAll.length) + " hours";
+            piModel.pi.att.uptime = parseFloat((piModel.calculateSum(uptimeAll) / uptimeAll.length).toFixed(1)) + " hours";
         };
 
         /**
