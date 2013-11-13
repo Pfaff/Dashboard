@@ -8,6 +8,7 @@
         msMod = this;
 
         mantisStats = [];
+        msMod.keys = [];
         msMod.valuesMantisStats = [];
         msMod.momentsMantisStats = [];
 
@@ -22,9 +23,11 @@
                 dataType: "json",
                 success: function (data) {
                     var key;
+                    msMod.keys = [];
 
                     for (key in data) {
                         if (data.hasOwnProperty(key)) {
+                            msMod.keys.push(key);
                             msMod.handleMantisStatsData(key, data[key]);
                         }
                     }
@@ -35,7 +38,8 @@
                         }
                     }
 
-                    //msMod.fillArrayMantisStatsMoments();
+                    msMod.fillArrayMantisStatsMoments();
+                    msMod.filterOnDesiredMantisStats();
                 }
             });
         };
@@ -45,8 +49,7 @@
 
             for (i = 0; i < objectLiteral.length; i++) {
                 date = new Date(0);
-                date.setUTCSeconds(objectLiteral[i].clock);
-                console.log(objectLiteral[i].clock + " - Epoch  :   Date - " + date);
+                date.setUTCSeconds(objectLiteral[i].clock / 1000);
                 mantisStats.push(new db.MantisStats(key, date, objectLiteral[i].value));
             }
         };
@@ -54,7 +57,6 @@
         this.fillArrayMantisStatsValues = function (key) {
             var i, values;
 
-            msMod.valuesMantisStats = [];
             values = [];
 
             for (i = 0; i < mantisStats.length; i++) {
@@ -74,12 +76,53 @@
                 day = mantisStats[i].dateTime.getDate() + 1;
                 month = mantisStats[i].dateTime.getMonth() + 1;
 
-                moment = day + "/" + month + "/" + mantisStats[i].dateTime.getYear();
+                moment = day + "/" + month;
 
                 msMod.momentsMantisStats.push(moment);
             }
+        };
 
-            console.log(msMod.momentsMantisStats);
+        this.filterOnDesiredMantisStats = function () {
+            msMod.filterDesiredMantisStatsValues();
+            msMod.filterDesiredMantisStatsMoments();
+        };
+
+        this.filterDesiredMantisStatsValues = function () {
+            var x, i, tempValuesMantisStats, tempArray, count;
+
+            tempValuesMantisStats = msMod.valuesMantisStats;
+            msMod.valuesMantisStats = [];
+
+            for (x = 0; x < tempValuesMantisStats.length; x++) {
+                tempArray = [];
+                count = 0;
+
+                for (i = tempValuesMantisStats[x].length - 1; i > 0; i -= 3) {
+                    tempArray.push(tempValuesMantisStats[x][i]);
+                    count++;
+
+                    if (count > 7) {
+                        msMod.valuesMantisStats.push(tempArray.reverse());
+                        break;
+                    }
+                }
+            }
+        };
+
+        this.filterDesiredMantisStatsMoments = function () {
+            var i, tempArray, count;
+
+            tempArray = [];
+            count = 0;
+
+            for (i = msMod.momentsMantisStats.length - 1; i > 0; i -= 3) {
+                if (count < 8) {
+                    tempArray.push(msMod.momentsMantisStats[i]);
+                    count++;
+                } else {
+                    msMod.momentsMantisStats = tempArray.reverse();
+                }
+            }
         };
     };
 }(Dashboard));

@@ -92,5 +92,5 @@ var Dashboard = {
     /**
      * Interval between updating the news articles.
      */
-    updateNewsArticlesInterval      :       4000
+    updateNewsArticlesInterval      :       5000
 };

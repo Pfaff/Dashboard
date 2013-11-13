@@ -6,7 +6,7 @@ body {
 }
 
 .title {
-    font-size:12px;
+    font-size:11px;
 }
 
 #overlay {
@@ -195,7 +195,11 @@ rect {
 }
 
 tspan {
-    color:#ffffff;
+    color:#FFFFFF;
+}
+
+.highcharts-tooltip rect {
+    fill: #efefef;
 }
 
 /*
@@ -207,7 +211,7 @@ tspan {
     display:none;
 }*/
 
-tspan[x='490'], tspan[x='515'] {
+tspan[x='490'], tspan[x='515'], tspan[x='484'] {
     visibility:hidden;
 }
 
@@ -478,8 +482,12 @@ text {
 }
 
 #mantisStatsGraph {
-    width:525px;
+    width:494px;
     height:250px;
+}
+
+#mantisStatsGraph .highcharts-container {
+    overflow:visible !important;
 }
 
 #contentMantisStatsArticle svg {

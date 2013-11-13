@@ -19,8 +19,6 @@
             msView.createTitleMantisStatsArticle();
             msView.createTitleMantisStatsText();
             msView.createMantisStatsGraphArticle();
-            msView.buildMantisStatsGraph();
-            document.getElementById("highcharts-0").style.height = 'auto';
         };
 
         this.createMantisStatsSection = function () {
@@ -46,7 +44,7 @@
 
             article = document.getElementById("titleMantisStatsArticle");
             p = db.createElement("p", article, { id: "titleMantisStats", className: "title" });
-            p.appendChild(document.createTextNode("mantis meldingen"));
+            p.appendChild(document.createTextNode("openstaande mantis meldingen"));
         };
 
         this.createMantisStatsGraphArticle = function () {
@@ -55,7 +53,7 @@
             db.createElement("article", article, { id: "mantisStatsGraph" });
         };
 
-        this.buildMantisStatsGraph = function (times, amounts) {
+        this.buildMantisStatsGraph = function (times, amounts, keys) {
             chart = $("#mantisStatsGraph").highcharts({
                 legend: {
                     layout: "horizontal",
@@ -68,7 +66,7 @@
                     x: -20
                 },
                 xAxis: {
-                    categories: ["08:00", "09:00", "10:00", "11:00", "12:00"]
+                    categories: times
                 },
                 yAxis: {
                     min: 0,
@@ -76,20 +74,21 @@
                         text: " "
                     }
                 },
-                series: [{
-                    name: "Bladiabla" + "    ",
-                    data: [100, 200, 300, 400, 500]
-                }, {
-                    name: "Bladiabla" + "    ",
-                    data: [500, 400, 300, 200, 100]
-                }, {
-                    name: "Bladiabla" + "    ",
-                    data: [0, 150, 0, 150, 0]
-                }, {
-                    name: "Bladiabla",
-                    data: [600, 200, 300, 0, 50]
-                }]
+                series: msView.createSeriesForMantisStatsGraph(amounts, keys)
             });
+        };
+
+        this.createSeriesForMantisStatsGraph = function (amounts, keys) {
+            var i, series, name, data;
+            series = [];
+
+            for (i = 0; i < amounts.length; i++) {
+                name = "V" + keys[i] + " ";
+                data = amounts[i];
+                series.push({"name" : name, "data" : data});
+            }
+
+            return series;
         };
     };
 }(Dashboard));
