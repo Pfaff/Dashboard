@@ -129,7 +129,7 @@
                 }
             }
 
-            Math.floor(result);
+            result = Math.floor(result / db.amountOfSOMServers);
             piModel.pi.att.requestTime = (result + unit).split('.').join("");
         };
 
