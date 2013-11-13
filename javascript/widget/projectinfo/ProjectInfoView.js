@@ -18,6 +18,8 @@
          */
         this.main = function () {
             piView.createProjectInfoArticles();
+            piView.createWidgetTitleArticle();
+            piView.createWidgetTitle();
             piView.createProjectInfoContentArticles();
             piView.createProjectInfoContent();
             piView.createProjectInfoTitlesArticles();
@@ -33,6 +35,18 @@
             for (i = 0; i < 5; i++) {
                 db.createElement("article", sectionTop, { id: "piArticle" + i, className: "piArticle" });
             }
+        };
+
+        this.createWidgetTitleArticle = function () {
+            var article = document.getElementById("piArticle0");
+            db.createElement("article", article, { id: "piWidgetTitleArticle" });
+        };
+
+        this.createWidgetTitle = function () {
+            var article, p;
+            article = document.getElementById("piWidgetTitleArticle");
+            p = db.createElement("p", article, { id: "piWidgetTitle", className: "widgetTitle" });
+            p.appendChild(document.createTextNode("SOM"));
         };
 
         /**
