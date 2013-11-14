@@ -4,13 +4,19 @@
 (function (db) {
     "use strict";
     db.MantisStatsModel = function MantisStatsModel() {
-        var msMod, mantisStats, valuesMantisStats, momentsMantisStats;
+        var msMod, mantisStats, valuesMantisStats, momentsMantisStats, dummyJsonData;
         msMod = this;
 
         mantisStats = [];
         msMod.keys = [];
         msMod.valuesMantisStats = [];
         msMod.momentsMantisStats = [];
+
+        dummyJsonData = [   {"version" : "4.2", "issuesOpen" : 6, "issuesClosed" : 34, "releaseDate" : "2013-11-14" },
+            {"version" : "4.3", "issuesOpen" : 35, "issuesClosed" : 10, "releaseDate" : "2013-11-29" },
+            {"version" : "4.4", "issuesOpen" : 30, "issuesClosed" : 3, "releaseDate" : "2013-12-14" },
+            {"version" : "4.5", "issuesOpen" : 6, "issuesClosed" : 0, "releaseDate" : "2013-12-29" },
+            {"version" : "4.6", "issuesOpen" : 0, "issuesClosed" : 0, "releaseDate" : "2014-01-14" }];
 
         this.main = function () {
             msMod.getMantisStats();

@@ -102,7 +102,7 @@ body {
 }
 
 #piWidgetTitleArticle {
-    width:100px;
+    width:100%;
     height:25px;
 }
 
@@ -204,34 +204,12 @@ body {
     margin-top:11px;
 }
 
-rect {
-    fill:none;
-}
-
 tspan {
     color:#FFFFFF;
 }
 
 .highcharts-tooltip rect {
     fill: #efefef;
-}
-
-/*
-#piContentArticle0 .highcharts-legend {
-    display:none;
-}
-
-.highcharts-legend rect {
-    display:none;
-}*/
-
-tspan[x='490'], tspan[x='515'], tspan[x='484'] {
-    visibility:hidden;
-}
-
-
-text {
-    color:#FFFFFF;
 }
 
 #message {
@@ -482,7 +460,7 @@ text {
 }
 
 #contentMantisStatsArticle {
-    height:308px;
+    height:290px;
     width:573px;
 }
 
@@ -495,17 +473,21 @@ text {
     margin-left:8px;
 }
 
-#mantisStatsGraph {
-    width:494px;
-    height:250px;
+#mantisStatsChart {
+    width:510px;
+    height:280px;
 }
 
-#mantisStatsGraph .highcharts-container {
+#mantisStatsChart .highcharts-container {
     overflow:visible !important;
 }
 
+#mantisStatsChart .highcharts-grid {
+    opacity:0.6;
+}
+
 #contentMantisStatsArticle svg {
-    margin:40px 0 0 26px;
+    margin:5px 0 0 26px;
 }
 
 #newsSection {
@@ -558,7 +540,7 @@ text {
 .newsContent {
     font-size:14px;
     font-family:"Open Sans Light", sans-serif;
-    line-height:68px;
+    line-height:75px;
 }
 
 .newsPhoto {

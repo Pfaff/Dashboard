@@ -146,6 +146,7 @@
         this.buildUserAmountsGraph = function (hours, amounts, functionToExecute) {
             piView.chart = $('#piContentArticle0').highcharts({
                 chart: {
+                    backgroundColor: null,
                     events: {
                         click: function () { functionToExecute(); }
                     }
@@ -169,6 +170,9 @@
                         text: ' '
                     }
                 },
+                credits: {
+                    enabled: false
+                },
                 series: [{
                     name: ' ',
                     data: amounts
@@ -185,6 +189,7 @@
         this.buildCpuLoadAverageGraph = function (times, amounts, functionToExecute) {
             piView.chart = $('#piContentArticle0').highcharts({
                 chart: {
+                    backgroundColor: null,
                     events: {
                         click: function () { functionToExecute(); }
                     }
@@ -207,6 +212,9 @@
                     title: {
                         text: ' '
                     }
+                },
+                credits: {
+                    enabled: false
                 },
                 series: [{
                     name: 'Som 1    ',

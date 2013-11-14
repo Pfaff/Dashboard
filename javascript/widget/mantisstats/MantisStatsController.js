@@ -10,9 +10,10 @@
         msMod = new db.MantisStatsModel();
 
         this.main = function () {
-            msMod.main();
+            //msMod.main();
             msView.main();
-            setTimeout(msCon.buildMantisStatsGraph, 2000);
+            console.log(dummyJsonData);
+            //setTimeout(msCon.buildMantisStatsGraph, 2000);
         };
 
         this.buildMantisStatsGraph = function () {
