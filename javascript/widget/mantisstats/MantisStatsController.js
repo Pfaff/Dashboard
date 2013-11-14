@@ -9,18 +9,31 @@
         msView = new db.MantisStatsView();
         msMod = new db.MantisStatsModel();
 
+        /**
+         * Starts the model and the view. Building the chart and starting it's update interval.
+         */
         this.main = function () {
-            //msMod.main();
+            msMod.main();
             msView.main();
-            console.log(dummyJsonData);
-            //setTimeout(msCon.buildMantisStatsGraph, 2000);
+            setTimeout(msCon.buildMantisStatsChart, 500);
+            msCon.startBuildMantisStatsChartInterval();
         };
 
-        this.buildMantisStatsGraph = function () {
-//            console.log(msMod.valuesMantisStats);
-//            console.log(msMod.momentsMantisStats);
+        /**
+         * Builds the chart with the data from the model.
+         */
+        this.buildMantisStatsChart = function () {
+            msView.buildMantisStatsChart(msMod.msCategories, msMod.msIssuesOpen, msMod.msIssuesClosed, msMod.msDaysLeft);
+        };
 
-            msView.buildMantisStatsGraph(msMod.momentsMantisStats, msMod.valuesMantisStats, msMod.keys);
+        /**
+         * Interval which calls the function to build the graph.
+         */
+        this.startBuildMantisStatsChartInterval = function () {
+            setInterval(function () {
+                //msMod.main();
+                msCon.buildMantisStatsChart();
+            }, db.updateMantisStatsChartInterval);
         };
     };
 }(Dashboard));

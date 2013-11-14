@@ -92,5 +92,10 @@ var Dashboard = {
     /**
      * Interval between updating the news articles.
      */
-    updateNewsArticlesInterval      :       5000
+    updateNewsArticlesInterval      :       5000,
+
+    /**
+     * Interval between updating the mantis stats chart.
+     */
+    updateMantisStatsChartInterval  :       60000
 };

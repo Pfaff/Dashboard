@@ -24,7 +24,6 @@
             msView.createTitleMantisStatsArticle();
             msView.createTitleMantisStatsText();
             msView.createMantisStatsChartArticle();
-            msView.buildMantisStatsChart();
         };
 
         /**
@@ -80,7 +79,7 @@
 
             article = document.getElementById("titleMantisStatsArticle");
             p = db.createElement("p", article, { id: "titleMantisStats", className: "title" });
-            p.appendChild(document.createTextNode("openstaande mantis meldingen"));
+            p.appendChild(document.createTextNode("mantis meldingen"));
         };
 
         /**
@@ -92,32 +91,14 @@
             db.createElement("article", article, { id: "mantisStatsChart" });
         };
 
-        this.buildMantisStatsGraph = function (times, amounts, keys) {
-            chart = $("#mantisStatsChart").highcharts({
-                legend: {
-                    layout: "horizontal",
-                    align: "center",
-                    verticalAlign: "bottom",
-                    borderWidth: 0
-                },
-                title: {
-                    text: " ",
-                    x: -20
-                },
-                xAxis: {
-                    categories: times
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: " "
-                    }
-                },
-                series: msView.createSeriesForMantisStatsChart(amounts, keys)
-            });
-        };
-
-        this.buildMantisStatsChart = function () {
+        /**
+         * Builds the bar chart.
+         * @param categories
+         * @param issuesOpen
+         * @param issuesClosed
+         * @param daysLeft
+         */
+        this.buildMantisStatsChart = function (categories, issuesOpen, issuesClosed, daysLeft) {
             chart = $(function () {
                 $('#mantisStatsChart').highcharts({
                     chart: {
@@ -128,7 +109,7 @@
                         text: null
                     },
                     xAxis: {
-                        categories: ['V4.6', 'V4.5', 'V4.4', 'V4.3', 'V4.2'],
+                        categories: categories,
                         title: {
                             text: null
                         }
@@ -147,14 +128,14 @@
                         layout: 'vertical',
                         align: 'right',
                         verticalAlign: 'top',
-                        x: -12,
-                        y: 160,
+                        x: -4,
+                        y: 32,
                         floating: true,
                         borderWidth: 1,
                         backgroundColor: '#FFFFFF',
-                        shadow: true,
                         itemStyle: {
-                            color: '#000000'
+                            color: '#000000',
+                            fontSize: '10px'
                         },
                         itemHoverStyle: {
                             color: '#a64c40'
@@ -168,7 +149,7 @@
                     },
                     series: [{
                         name: 'Open meldingen',
-                        data: [0, 6, 30, 35, 6],
+                        data: issuesOpen,
                         stacking: 'normal',
                         color: '#3b90f0',
                         borderWidth: 0,
@@ -181,13 +162,13 @@
                         }
                     }, {
                         name: 'Gesloten meldingen',
-                        data: [0, 0, 3, 10, 34],
+                        data: issuesClosed,
                         stacking: 'normal',
                         color: '#112843',
                         borderWidth: 0
                     }, {
-                        name: 'Aantal dagen over',
-                        data: [128, 98, 68, 38, 8],
+                        name: 'Dagen voor release',
+                        data: daysLeft,
                         color: '#2ca949',
                         borderWidth: 0,
                         dataLabels: {
@@ -200,19 +181,6 @@
                     }]
                 });
             });
-        };
-
-        this.createSeriesForMantisStatsChart = function (amounts, keys) {
-            var i, series, name, data;
-            series = [];
-
-            for (i = 0; i < amounts.length; i++) {
-                name = "V" + keys[i] + " ";
-                data = amounts[i];
-                series.push({"name" : name, "data" : data});
-            }
-
-            return series;
         };
     };
 }(Dashboard));
