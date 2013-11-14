@@ -26,7 +26,7 @@
          * Calls the function which collects the data from the back-end.
          */
         this.main = function () {
-            //msMod.getMantisStats();
+            //msMod.getMantisStats(); As soon as this function is uncommented, move the functions below to the success of getMantisStats.
             msMod.handleMantisStatsData(dummyJsonData);
             msMod.makeArraysForMantisStatsChart();
             msMod.mutateCategoriesArray();
