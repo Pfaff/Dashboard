@@ -8,12 +8,6 @@
         msView = this;
 
         /**
-         * The chart on the mantis stats widget.
-         * @type {null}
-         */
-        chart = null;
-
-        /**
          * Calls the functions which build the view of the widget together.
          */
         this.main = function () {
@@ -99,7 +93,7 @@
          * @param daysLeft
          */
         this.buildMantisStatsChart = function (categories, issuesOpen, issuesClosed, daysLeft) {
-            chart = $(function () {
+            $(function () {
                 $('#mantisStatsChart').highcharts({
                     chart: {
                         type: 'bar',
@@ -125,17 +119,14 @@
                         }
                     },
                     legend: {
-                        layout: 'vertical',
-                        align: 'right',
-                        verticalAlign: 'top',
-                        x: -4,
-                        y: 32,
-                        floating: true,
-                        borderWidth: 1,
-                        backgroundColor: '#FFFFFF',
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom',
+                        borderWidth: 0,
+                        backgroundColor: null,
                         itemStyle: {
-                            color: '#000000',
-                            fontSize: '10px'
+                            color: '#FFFFFF',
+                            fontSize: '11px'
                         },
                         itemHoverStyle: {
                             color: '#a64c40'
@@ -148,7 +139,13 @@
                         enabled: false
                     },
                     series: [{
-                        name: 'Open meldingen',
+                        name: 'Gesloten meldingen   ',
+                        data: issuesClosed,
+                        stacking: 'normal',
+                        color: '#0c324a',
+                        borderWidth: 0
+                    }, {
+                        name: 'Open meldingen   ',
                         data: issuesOpen,
                         stacking: 'normal',
                         color: '#3b90f0',
@@ -161,15 +158,9 @@
                             }
                         }
                     }, {
-                        name: 'Gesloten meldingen',
-                        data: issuesClosed,
-                        stacking: 'normal',
-                        color: '#112843',
-                        borderWidth: 0
-                    }, {
                         name: 'Dagen voor release',
                         data: daysLeft,
-                        color: '#2ca949',
+                        color: '#22b644',
                         borderWidth: 0,
                         dataLabels: {
                             enabled: true,

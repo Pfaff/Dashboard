@@ -17,6 +17,8 @@
             dashCon.startDateTimeController();
             dashCon.startNewsController();
             dashCon.startMantisStatsController();
+            dashCon.startAgendaController();
+            dashCon.startTrainController();
         };
 
         /**
@@ -65,6 +67,22 @@
         this.startMantisStatsController = function () {
             var msCon = new db.MantisStatsController();
             msCon.main();
+        };
+
+        /**
+         * Starts the agenda controller.
+         */
+        this.startAgendaController = function () {
+            var aCon = new db.AgendaController();
+            aCon.main();
+        };
+
+        /**
+         * Starts the train controller.
+         */
+        this.startTrainController = function () {
+            var tCon = new db.TrainController();
+            tCon.main();
         };
     };
 }(Dashboard));
