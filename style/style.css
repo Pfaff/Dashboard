@@ -599,6 +599,15 @@ tspan {
     position:absolute;
 }
 
+#monthVr {
+    height:10px;
+    width:2px;
+    background-color:#FFFFFF;
+    position:absolute;
+    margin-top:-1px;
+    border:0;
+}
+
 .agendaDot {
     float:left;
     height:15px;
@@ -642,5 +651,6 @@ tspan {
 #agendaDotMonth {
     font-size:12px;
     position:absolute;
-    margin-top:-12px;
+    margin-top:-14px;
+    width:14px;
 }

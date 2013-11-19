@@ -4,8 +4,14 @@
 (function (db) {
     "use strict";
     db.AgendaView = function AgendaView() {
-        var aView, days, months, prevHlDot;
+        var aView, date, days, months, prevHlDot;
         aView = this;
+
+        /**
+         * Date object.
+         * @type {Array}
+         */
+        date = new Date();
 
         /**
          * Days of the week.
@@ -35,7 +41,7 @@
             aView.createTimeLine();
             aView.createAgendaDots();
             aView.createTextBelowAgendaDots();
-//            setTimeout(function () { aView.highlightAgendaDot(3); }, 2000);
+            setTimeout(function () { aView.highlightAgendaDot(12); }, 1000);
 //            setTimeout(function () { aView.highlightAgendaDot(13); }, 6000);
         };
 
@@ -125,17 +131,19 @@
          * 86400 UTC seconds is one day.
          */
         this.createTextBelowAgendaDots = function () {
-            var article, date, i, p, prevDate;
+            var article, i, p, prevDate;
             article = document.getElementById("agendaArticleTop");
-            date = new Date();
-            prevDate = 32;
+            prevDate = 0;
 
             for (i = 0; i < 15; i++) {
                 p = db.createElement("p", article, { id: "agendaDotText" + i, className: "agendaDotText" });
                 p.appendChild(document.createTextNode(days[date.getDay()] + " " + date.getDate()));
 
-                if (prevDate < date.getDate()) {
+                if (prevDate > date.getDate()) {
                     aView.createMonthText();
+                    aView.createMonthVerticalRuler();
+                    aView.moveMonthTextInDesiredPosition(i);
+                    aView.moveMonthVerticalRulerInDesiredPosition(i);
                 }
 
                 prevDate = date.getDate();
@@ -143,13 +151,39 @@
             }
         };
 
+        /**
+         * Creates the text of the month.
+         */
         this.createMonthText = function () {
-            var article, date, p;
+            var article, p;
             article = document.getElementById("agendaArticleTop");
-            date = new Date();
 
             p = db.createElement("p", article, { id: "agendaDotMonth" });
             p.appendChild(document.createTextNode(months[date.getMonth()]));
+        };
+
+        this.createMonthVerticalRuler = function () {
+            var article = document.getElementById("agendaArticleTop");
+
+            db.createElement("hr", article, { id: "monthVr"});
+        };
+
+        /**
+         * Updates the text of the month in the right position.
+         * @param index
+         */
+        this.moveMonthTextInDesiredPosition = function (index) {
+            var p, margin;
+            p = document.getElementById("agendaDotMonth");
+            margin = 35 + ((index - 1) * 37);
+            p.style.marginLeft = margin + "px";
+        };
+
+        this.moveMonthVerticalRulerInDesiredPosition = function (index) {
+            var vr, margin;
+            vr = document.getElementById("monthVr");
+            margin = 35 + ((index - 1) * 37) + 10;
+            vr.style.marginLeft = margin + "px";
         };
     };
 }(Dashboard));
