@@ -23,7 +23,7 @@
          * Months of the year.
          * @type {Array}
          */
-        months = ["jan", "febi", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
+        months = ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"];
 
         /**
          * The index of the previous highlighted dot.
@@ -38,11 +38,11 @@
             aView.createAgendaSection();
             aView.createAgendaArticles();
             aView.createAgendaArticleBottomArticles();
+            aView.createTextInAgendaDateArticle();
+            aView.createTextInAgendaItemArticle();
             aView.createTimeLine();
             aView.createAgendaDots();
             aView.createTextBelowAgendaDots();
-//            setTimeout(function () { aView.highlightAgendaDot(3); }, 1000);
-//            setTimeout(function () { aView.highlightAgendaDot(13); }, 6000);
         };
 
         /**
@@ -72,6 +72,28 @@
 
             db.createElement("article", article, { id: "agendaDateArticle", className: "agendaArticleBottom" });
             db.createElement("article", article, { id: "agendaItemArticle", className: "agendaArticleBottom" });
+        };
+
+        this.createTextInAgendaDateArticle = function () {
+            var article, p;
+
+            article = document.getElementById("agendaDateArticle");
+            p = db.createElement("p", article, { id: "agendaDateArticleDate" });
+            p.appendChild(document.createTextNode(date.getDate()));
+
+            p = db.createElement("p", article, { id: "agendaDateArticleMonth" });
+            p.appendChild(document.createTextNode(months[date.getMonth()]));
+        };
+
+        this.createTextInAgendaItemArticle = function () {
+            var article, p;
+
+            article = document.getElementById("agendaItemArticle");
+            p = db.createElement("p", article, { id: "agendaItemArticleTitle" });
+            p.appendChild(document.createTextNode("SOM"));
+
+            p = db.createElement("p", article, { id: "agendaItemArticleContent" });
+            p.appendChild(document.createTextNode("Versie 4.2 naar productie"));
         };
 
         /**
@@ -155,11 +177,12 @@
          * Creates the text of the month.
          */
         this.createMonthText = function () {
-            var article, p;
+            var article, p, month;
             article = document.getElementById("agendaArticleTop");
 
             p = db.createElement("p", article, { id: "agendaDotMonth" });
-            p.appendChild(document.createTextNode(months[date.getMonth()]));
+            month = months[date.getMonth()].substring(0, 3);
+            p.appendChild(document.createTextNode(month));
         };
 
         /**
