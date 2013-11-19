@@ -2,22 +2,24 @@ var Dashboard = {
     /**
      * URL's to the locations of the information; including their desired methods.
      */
-    url_ProjectInfo             :       '../dashboard/php/projectinfo/ProjectInfo.php',
+    url_ProjectInfo             :       '../dashboard/php/widget/projectinfo/ProjectInfo.php',
     method_ProjectInfo          :       'main',
-    url_UserAmountHistory       :       '../dashboard/php/projectinfo/UserAmountHistory.php',
+    url_UserAmountHistory       :       '../dashboard/php/widget/projectinfo/UserAmountHistory.php',
     method_UserAmountHistory    :       'main',
-    url_CpuLoadHistory          :       '../dashboard/php/projectinfo/CpuLoadHistory.php',
+    url_CpuLoadHistory          :       '../dashboard/php/widget/projectinfo/CpuLoadHistory.php',
     method_CpuLoadHistory       :       'main',
-    url_Message                 :       '../dashboard/php/message/Message.php',
+    url_Message                 :       '../dashboard/php/widget/message/Message.php',
     method_MessageGet           :       'getMessages',
     method_MessageRemove        :       'removeMessage',
     method_MessagePost          :       'postMessage',
-    url_EmployeeInfo            :       '../dashboard/php/message/Employee.php',
+    url_EmployeeInfo            :       '../dashboard/php/widget/message/Employee.php',
     method_EmployeeInfo         :       'main',
-    url_Gravatar                :       '../dashboard/php/message/Gravatar.php',
+    url_Gravatar                :       '../dashboard/php/widget/message/Gravatar.php',
     method_Gravatar             :       'main',
-    url_News                    :       '../dashboard/php/news/News.php',
+    url_News                    :       '../dashboard/php/widget/news/News.php',
     method_News                 :       'main',
+    url_Agenda                  :       '../dashboard/php/widget/agenda/Agenda.php',
+    method_Agenda               :       'main',
 
     /**
      * Defines the amount of SOM servers.

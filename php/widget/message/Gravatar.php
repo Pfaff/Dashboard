@@ -1,7 +1,7 @@
 <?php
 
-require_once('../config/config.php');
-require_once('../lib/RestServer.php');
+require_once('../../config/config.php');
+require_once('../../lib/RestServer.php');
 
 class Gravatar {
 

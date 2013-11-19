@@ -41,7 +41,7 @@
             aView.createTimeLine();
             aView.createAgendaDots();
             aView.createTextBelowAgendaDots();
-            setTimeout(function () { aView.highlightAgendaDot(12); }, 1000);
+//            setTimeout(function () { aView.highlightAgendaDot(3); }, 1000);
 //            setTimeout(function () { aView.highlightAgendaDot(13); }, 6000);
         };
 
@@ -162,6 +162,9 @@
             p.appendChild(document.createTextNode(months[date.getMonth()]));
         };
 
+        /**
+         * Creates the vertical ruler for below the month.
+         */
         this.createMonthVerticalRuler = function () {
             var article = document.getElementById("agendaArticleTop");
 
@@ -179,11 +182,17 @@
             p.style.marginLeft = margin + "px";
         };
 
+        /**
+         * Updates the vertical ruler for the month in the right position.
+         * @param index
+         */
         this.moveMonthVerticalRulerInDesiredPosition = function (index) {
             var vr, margin;
             vr = document.getElementById("monthVr");
             margin = 35 + ((index - 1) * 37) + 10;
             vr.style.marginLeft = margin + "px";
         };
+
+
     };
 }(Dashboard));

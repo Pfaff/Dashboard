@@ -1,8 +1,8 @@
 <?php
 
-require_once('../config/config.php');
-require_once("../lib/RestServer.php");
-require_once('../lib/simple_html_dom.php');
+require_once('../../config/config.php');
+require_once("../../lib/RestServer.php");
+require_once('../../lib/simple_html_dom.php');
 
 class ProjectInfo {
 

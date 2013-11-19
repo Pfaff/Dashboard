@@ -1,7 +1,7 @@
 <?php
 
-require_once('../config/database.php');
-require_once('../lib/RestServer.php');
+require_once('../../config/database.php');
+require_once('../../lib/RestServer.php');
 
 class Message {
     public static function getMessages() {

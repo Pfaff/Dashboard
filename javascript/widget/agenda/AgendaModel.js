@@ -8,7 +8,19 @@
         aMod = this;
 
         this.main = function () {
+            aMod.getAgendaItems();
+        };
 
+        this.getAgendaItems = function () {
+            $.ajax({
+                url: db.url_Agenda,
+                data: { method: db.method_Agenda },
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                }
+            });
         };
     };
 }(Dashboard));
