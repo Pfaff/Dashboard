@@ -26,11 +26,7 @@
          * Calls the function which collects the data from the back-end.
          */
         this.main = function () {
-            //msMod.getMantisStats(); As soon as this function is uncommented, move the functions below to the success of getMantisStats.
-            msMod.handleMantisStatsData(dummyJsonData);
-            msMod.makeArraysForMantisStatsChart();
-            msMod.mutateCategoriesArray();
-            msMod.mutateDaysLeftArray();
+            msMod.getMantisStats();
         };
 
         /**
@@ -38,11 +34,17 @@
          */
         this.getMantisStats = function () {
             $.ajax({
-                url: "http://192.168.55.174:8082/service/open_issues/",
+                //url: "http://192.168.55.63:8082/service/issue_stats",
+                url: "../dashboard/php/widget/mantisstats/MantisStatsProxy.php",
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
-
+                    console.log(data);
+                    data.sort(function (a, b) {return a.version - b.version; });
+                    msMod.handleMantisStatsData(data);
+                    msMod.makeArraysForMantisStatsChart();
+                    msMod.mutateCategoriesArray();
+                    msMod.mutateDaysLeftArray();
                 }
             });
         };

@@ -8,7 +8,7 @@
         aMod = this;
 
         this.main = function () {
-            aMod.getAgendaItems();
+            //aMod.getAgendaItems();
         };
 
         this.getAgendaItems = function () {
