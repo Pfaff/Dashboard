@@ -99,3 +99,8 @@ define('NEWS_NU_ECONOMY', 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Economie')
 define('NEWS_NU_SPORT', 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Sport');
 define('NEWS_NU_SCIENCE', 'http://www.nu.nl/deeplink_rss2/index.jsp?r=Wetenschap');
 define('NEWS_TWEAKERS', 'http://feeds.feedburner.com/tweakers/nieuws');
+
+/**
+ * URL of Mantis Stats service.
+ */
+define('MANTISSTATS_LOCATION', 'http://192.168.55.63:8082/service/issue_stats');

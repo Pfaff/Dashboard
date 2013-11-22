@@ -17,6 +17,10 @@
         msMod.msIssuesClosed = [];
         msMod.msDaysLeft = [];
 
+        /**
+         * Dummy data in case the REST service isn't working; test purposes.
+         * @type {Array}
+         */
         dummyJsonData = [   {"version" : "4.2", "issuesOpen" : 6, "issuesClosed" : 34, "releaseDate" : "2013-11-18" },
             {"version" : "4.3", "issuesOpen" : 23, "issuesClosed" : 10, "releaseDate" : "2013-11-29" },
             {"version" : "4.4", "issuesOpen" : 25, "issuesClosed" : 3, "releaseDate" : "2013-12-18" },
@@ -34,12 +38,10 @@
          */
         this.getMantisStats = function () {
             $.ajax({
-                //url: "http://192.168.55.63:8082/service/issue_stats",
-                url: "../dashboard/php/widget/mantisstats/MantisStatsProxy.php",
+                url: db.url_Mantis,
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
                     data.sort(function (a, b) {return a.version - b.version; });
                     msMod.handleMantisStatsData(data);
                     msMod.makeArraysForMantisStatsChart();

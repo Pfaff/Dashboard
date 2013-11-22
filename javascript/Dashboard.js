@@ -20,6 +20,7 @@ var Dashboard = {
     method_News                 :       'main',
     url_Agenda                  :       '../dashboard/php/widget/agenda/Agenda.php',
     method_Agenda               :       'main',
+    url_Mantis                  :       '../dashboard/php/widget/mantisstats/MantisStatsProxy.php',
 
     /**
      * Defines the amount of SOM servers.
