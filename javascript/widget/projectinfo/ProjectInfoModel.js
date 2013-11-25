@@ -53,7 +53,7 @@
         this.main = function () {
             piModel.getCpuLoadHistory();
             piModel.getUserAmountHistory();
-            piModel.getProjectInformation();
+            //piModel.getProjectInformation();
         };
 
         /**
