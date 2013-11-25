@@ -36,25 +36,25 @@ var Dashboard = {
      * Interval used to update the content.
      * 1.000 = 1 second.
      */
-    updateContentInterval   :   3000,
-
-    /**
-     * Interval used to update the graph.
-     * 1.000 = 1 second.
-     */
-    updateGraphInterval     :   25000,
-
-    /**
-     * Interval used to update switching between the graphs.
-     * 1.000 = 1 second.
-     */
-    graphSwitchInterval     :   25000,
+    projectInfoUpdateContentInterval   :   30000,
 
     /**
      * Interval used to update switching between the blocks.
      * 1.000 = 1 second.
      */
-    blockSwitchInterval     :   15000,
+    projectInfoBlockSwitchInterval     :   15000,
+
+    /**
+     * Interval used to update the graph.
+     * 1.000 = 1 second.
+     */
+    projectInfoUpdateGraphInterval     :   25000,
+
+    /**
+     * Interval used to update switching between the graphs.
+     * 1.000 = 1 second.
+     */
+    projectInfoGraphSwitchInterval     :   25000,
 
     /**
      * Defines those who are on the same server.

@@ -103,6 +103,7 @@
 
         /**
          * Fine-tunes the days left array.
+         * DaysLeft +1 because the releaseDate is a day able to use as well.
          */
         this.mutateDaysLeftArray = function () {
             var i, date, releaseDate, daysLeft, oneDay;
@@ -113,7 +114,7 @@
                 date = new Date();
                 releaseDate = new Date(msMod.msDaysLeft[i]);
                 daysLeft = Math.round(Math.abs((date.getTime() - releaseDate.getTime()) / oneDay));
-                msMod.msDaysLeft[i] = daysLeft;
+                msMod.msDaysLeft[i] = daysLeft + 1;
             }
         };
     };

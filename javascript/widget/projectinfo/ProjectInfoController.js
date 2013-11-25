@@ -44,7 +44,7 @@
             piController.startProjectInfoView();
             piController.startProjectInfoModel();
             piController.startTimeOutsForContentAndGraph();
-            piController.startUpdateContent();
+            //piController.startUpdateContent();
             piController.startUpdateGraph();
             piController.setTimerForBlockSwitch();
             piController.setTimerForGraphSwitch();
@@ -104,10 +104,10 @@
          * It's being used for the build after loading the page, so it doesn't have to wait on the first interval.
          */
         this.startTimeOutsForContentAndGraph = function () {
-            setTimeout(function () {
-                piController.updateBlock(blockContent[blockToUse], blockTitle[blockToUse]);
-                piModel.getProjectInformation();
-            }, 2000);
+//            setTimeout(function () {
+//                piController.updateBlock(blockContent[blockToUse], blockTitle[blockToUse]);
+//                piModel.getProjectInformation();
+//            }, 2000);
 
             setTimeout(function () {
                 piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
@@ -122,7 +122,7 @@
             setInterval(function () {
                 piController.updateBlock(blockContent[blockToUse], blockTitle[blockToUse]);
                 piModel.getProjectInformation();
-            }, db.updateContentInterval);
+            }, db.projectInfoUpdateContentInterval);
         };
 
         /**
@@ -135,7 +135,7 @@
                 } else {
                     piController.startBuildCpuLoadAverageGraph();
                 }
-            }, db.updateGraphInterval);
+            }, db.projectInfoUpdateGraphInterval);
         };
 
         /**
@@ -193,7 +193,7 @@
                 } else {
                     blockToUse++;
                 }
-            }, db.blockSwitchInterval);
+            }, db.projectInfoBlockSwitchInterval);
         };
 
         /**
@@ -206,7 +206,7 @@
                 } else {
                     graphToUse++;
                 }
-            }, db.graphSwitchInterval);
+            }, db.projectInfoGraphSwitchInterval);
         };
     };
 }(Dashboard));

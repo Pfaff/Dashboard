@@ -8,7 +8,7 @@
         aMod = this;
 
         this.main = function () {
-            //aMod.getAgendaItems();
+            aMod.getAgendaItems();
         };
 
         this.getAgendaItems = function () {
@@ -18,7 +18,9 @@
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
-                    console.log(data);
+                    //console.log(data);
+                    var date = new Date(data[0].date);
+                    //console.log(date);
                 }
             });
         };

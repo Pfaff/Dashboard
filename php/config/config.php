@@ -103,5 +103,4 @@ define('NEWS_TWEAKERS', 'http://feeds.feedburner.com/tweakers/nieuws');
 /**
  * URL of Mantis Stats service.
  */
-//define('MANTISSTATS_LOCATION', 'http://192.168.55.63:8082/service/issue_stats');
 define('MANTISSTATS_LOCATION', 'http://192.168.55.134:8080/service/issue_stats');

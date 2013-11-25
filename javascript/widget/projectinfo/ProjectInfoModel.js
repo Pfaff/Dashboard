@@ -60,6 +60,7 @@
          * The AJAX call which gathers the information.
          */
         this.getProjectInformation = function () {
+            console.log(new Date());
             $.ajax({
                 url: db.url_ProjectInfo,
                 data: { method: db.method_ProjectInfo },
