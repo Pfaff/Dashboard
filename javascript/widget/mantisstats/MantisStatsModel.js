@@ -58,6 +58,8 @@
         this.handleMantisStatsData = function (data) {
             var i;
 
+            mantisStats = [];
+
             for (i = 0; i < data.length; i++) {
                 mantisStats.push(new db.MantisStats(data[i].version, data[i].issuesOpen, data[i].issuesClosed, data[i].releaseDate));
             }

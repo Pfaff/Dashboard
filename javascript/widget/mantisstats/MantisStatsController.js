@@ -31,7 +31,7 @@
          */
         this.startBuildMantisStatsChartInterval = function () {
             setInterval(function () {
-                //msMod.main();
+                msMod.main();
                 msCon.buildMantisStatsChart();
             }, db.updateMantisStatsChartInterval);
         };

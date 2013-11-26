@@ -121,9 +121,9 @@
          * Adds an event on the agenda dot by the given index.
          * @param index
          */
-        this.addEventOnAgendaDot = function (index) {
+        this.addItemOnAgendaDot = function (index) {
             var dot = document.getElementById("agendaDot" + index);
-            dot.className = "agendaDot agendaDotEmpty";
+            dot.className = "agendaDot agendaDotEvent";
         };
 
         /**
@@ -146,6 +146,26 @@
             dot.className = "agendaDot agendaDotFocus agendaDotEvent";
             p = document.getElementById("agendaDotText" + index);
             p.style.visibility = "hidden";
+        };
+
+        this.updateAgendaFocusDate = function (index) {
+            var dateTextEl, monthTextEl, date;
+            dateTextEl = document.getElementById("agendaDateArticleDate");
+            monthTextEl = document.getElementById("agendaDateArticleMonth");
+            date = new Date();
+            date.setDate(date.getDate() + index);
+
+            dateTextEl.firstChild.data = date.getDate();
+            monthTextEl.firstChild.data = months[date.getMonth()];
+        };
+
+        this.updateAgendaFocusText = function (title, content) {
+            var titleEl, contentEl;
+            titleEl = document.getElementById("agendaItemArticleTitle");
+            contentEl = document.getElementById("agendaItemArticleContent");
+
+            titleEl.firstChild.data = title;
+            contentEl.firstChild.data = content;
         };
 
         /**

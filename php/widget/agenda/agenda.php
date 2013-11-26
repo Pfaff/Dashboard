@@ -1,16 +1,23 @@
 <?php
 
 require_once('../../lib/RestServer.php');
+require_once('../../config/config.php');
 
 class Agenda {
 
     public static function main() {
-        $dataToReturn = array();
+        $data = array();
+        $projects = ["Topicus", "Alluris", "Dashboard", "EduArte", "Iris+", "ParnasSys", "ParnasSys Ouders", "ParnasSys Supportportaal", "Passepartout", "Reportal", "SOM", "SOM Portaal", "SOMtoday", "TrmVerwijzer", "ZIEN!"];
+        $agendaLocations = unserialize(AGENDA_LOCATIONS);
 
-        $dataToReturn = self::buildDataToReturn($dataToReturn, "SOM", self::getAgendaItems("https://www.google.com/calendar/feeds/0nl64fq988e5ac8lo6t255e01o%40group.calendar.google.com/private-f8e2aa32b5e162b8c70f2ad3bca0dd8c/basic"));
-        //$dataToReturn = self::buildDataToReturn($dataToReturn, "SOM", self::getAgendaItems("https://www.google.com/calendar/feeds/mr5t4iqhiu81dh0cdq040cruc4%40group.calendar.google.com/private-ac4baac1a7cfab33824e2b02261b7b81/basic"));
+        for($i = 0; $i < count($projects); $i++) {
+            $projectToGet = $projects[$i];
+            $agendaItems = self::getAgendaItems($agendaLocations[$projectToGet]);
+            $agendaItems = self::removeIrrelevantRows(self::buildDataArray($projectToGet, $agendaItems));
+            $data = self::addAgendaItemsToData($data, $agendaItems);
+        }
 
-        return $dataToReturn;
+        return $data;
     }
 
     private static function getAgendaItems($url) {
@@ -20,8 +27,8 @@ class Agenda {
         return $xmlContent;
     }
 
-    private static function buildDataToReturn($array, $agendaName, $content) {
-        $dataToReturn = array();
+    private static function buildDataArray($agendaName, $content) {
+        $data = array();
 
         for($i = 0; $i < count($content->entry); $i++) {
             $item = $content->entry[$i];
@@ -31,10 +38,10 @@ class Agenda {
                             "date" => self::calculateDate((string) $item->summary)
             );
 
-            array_push($dataToReturn, $row);
+            array_push($data, $row);
         }
 
-        return $dataToReturn;
+        return $data;
     }
 
     private static function calculateDate($content) {
@@ -46,12 +53,41 @@ class Agenda {
         $months = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
 
         for($i = 0; $i < count($months); $i++) {
-            if($month === $months[$i]) {
-                return $i;
+            if($month == $months[$i]) {
+                return $i + 1;
             }
         }
 
         return $month;
+    }
+
+    private static function removeIrrelevantRows($content) {
+        $data = array();
+
+        $dateToday = date('Y-m-d');
+        $parts = explode('-', $dateToday);
+        $dateIn14Days = date('Y-m-d', mktime(0, 0, 0, $parts[1], $parts[2] + 14, $parts[0]));
+
+        for($i = 0; $i < count($content); $i++) {
+            $dateToCheck = date($content[$i]['date']);
+
+            if(strtotime($dateToCheck) >= strtotime($dateToday) && strtotime($dateToCheck) <= strtotime($dateIn14Days)) {
+                array_push($data, $content[$i]);
+            }
+        }
+
+//        return date($content[21]['date']) >= $dateToday;
+//        return [strtotime(date($content[21]['date'])), strtotime($dateIn14Days)];
+//        return strtotime(date($content[21]['date'])) <= strtotime($dateIn14Days);
+        return $data;
+    }
+
+    private static function addAgendaItemsToData($data, $agendaItems) {
+        for($i = 0; $i < count($agendaItems); $i++) {
+            array_push($data, $agendaItems[$i]);
+        }
+
+        return $data;
     }
 }
 
