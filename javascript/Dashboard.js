@@ -100,5 +100,5 @@ var Dashboard = {
     /**
      * Interval between updating the mantis stats chart.
      */
-    updateMantisStatsChartInterval  :       3000
+    updateMantisStatsChartInterval  :       60000
 };
