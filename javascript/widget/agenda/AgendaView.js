@@ -79,10 +79,10 @@
 
             article = document.getElementById("agendaDateArticle");
             p = db.createElement("p", article, { id: "agendaDateArticleDate" });
-            p.appendChild(document.createTextNode(date.getDate()));
+            p.appendChild(document.createTextNode(" "));
 
             p = db.createElement("p", article, { id: "agendaDateArticleMonth" });
-            p.appendChild(document.createTextNode(months[date.getMonth()]));
+            p.appendChild(document.createTextNode(" "));
         };
 
         this.createTextInAgendaItemArticle = function () {
@@ -90,10 +90,10 @@
 
             article = document.getElementById("agendaItemArticle");
             p = db.createElement("p", article, { id: "agendaItemArticleTitle" });
-            p.appendChild(document.createTextNode("SOM"));
+            p.appendChild(document.createTextNode(" "));
 
             p = db.createElement("p", article, { id: "agendaItemArticleContent" });
-            p.appendChild(document.createTextNode("Versie 4.2 naar productie"));
+            p.appendChild(document.createTextNode(" "));
         };
 
         /**

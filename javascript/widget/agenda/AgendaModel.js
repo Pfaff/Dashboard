@@ -29,11 +29,11 @@
         this.handleAgendaItems = function (data) {
             var i;
 
+            aMod.agendaItems = [];
+
             for (i = 0; i < data.length; i++) {
                 aMod.agendaItems.push(new db.Agenda(data[i].agenda, data[i].date, data[i].title));
             }
-
-            console.log(aMod.agendaItems);
         };
     };
 }(Dashboard));

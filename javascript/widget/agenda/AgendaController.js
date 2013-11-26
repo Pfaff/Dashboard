@@ -4,12 +4,14 @@
 (function (db) {
     "use strict";
     db.AgendaController = function AgendaController() {
-        var aCon, aView, aMod, agendaEventsIndexes;
+        var aCon, aView, aMod, currentAgendaDotItem, agendaDotIndex, currentAgendaDotIndex;
         aCon = this;
         aView = new db.AgendaView();
         aMod = new db.AgendaModel();
 
-        agendaEventsIndexes = [];
+        currentAgendaDotItem = 0;
+        currentAgendaDotIndex = 0;
+        agendaDotIndex = [];
 
         this.main = function () {
             aMod.main(function () { aCon.completeAgenda(); });
@@ -17,8 +19,10 @@
         };
 
         this.completeAgenda = function () {
+            currentAgendaDotItem = aMod.agendaItems.length - 1;
             aCon.updateAgendaViewWithEvents();
-            aCon.startAgendaDotFocus();
+            aCon.updateAgendaDotAndItemText(agendaDotIndex[aMod.agendaItems.length - 1], currentAgendaDotItem);
+            aCon.switchAgendaItemInterval();
         };
 
         this.updateAgendaViewWithEvents = function () {
@@ -28,16 +32,30 @@
             for (i = 0; i < aMod.agendaItems.length; i++) {
                 agendaItemDate = new Date(aMod.agendaItems[i].date);
                 diffDays = Math.round(Math.abs((currentDate.getTime() - agendaItemDate.getTime()) / (24 * 60 * 60 * 1000)));
-                aView.addItemOnAgendaDot(diffDays);
-                agendaEventsIndexes.push(diffDays);
+                aView.addItemOnAgendaDot(diffDays + 1);
+                agendaDotIndex.push(diffDays + 1);
             }
         };
 
-        this.startAgendaDotFocus = function () {
-            var index = agendaEventsIndexes[agendaEventsIndexes.length - 1];
-            aView.highlightAgendaDot(index);
-            aView.updateAgendaFocusDate(index);
-            aView.updateAgendaFocusText(aMod.agendaItems[index].agenda, aMod.agendaItems[index].title);
+        this.updateAgendaDotAndItemText = function (agendaDotIndex, agendaItemIndex) {
+            aView.highlightAgendaDot(agendaDotIndex);
+            aView.updateAgendaFocusDate(agendaDotIndex);
+            aView.updateAgendaFocusText(aMod.agendaItems[agendaItemIndex].agenda, aMod.agendaItems[agendaItemIndex].title);
+        };
+
+        this.switchAgendaItemInterval = function () {
+            setInterval(function () {
+                aCon.updateAgendaDotIndex();
+                aCon.updateAgendaDotAndItemText(agendaDotIndex[aMod.agendaItems.length - 1], currentAgendaDotItem);
+            }, 2500);
+        };
+
+        this.updateCurrentAgendaDotItem = function () {
+
+        };
+
+        this.updateAgendaDotIndex = function () {
+
         };
     };
 }(Dashboard));

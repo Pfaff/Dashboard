@@ -15,7 +15,7 @@
         this.main = function () {
             msMod.main();
             msView.main();
-            setTimeout(msCon.buildMantisStatsChart, 500);
+            setTimeout(msCon.buildMantisStatsChart, 1500);
             msCon.startBuildMantisStatsChartInterval();
         };
 
