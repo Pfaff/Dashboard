@@ -33,6 +33,7 @@
         this.main = function () {
             aMod.main(function () { aCon.completeAgenda(); });
             aView.main();
+            aCon.startGetNewAgendaItemsInterval();
         };
 
         /**
@@ -80,8 +81,9 @@
             setInterval(function () {
                 aCon.updateAgendaDotIndex();
                 aCon.updateCurrentAgendaDotItem();
+                aCon.updateAgendaViewWithItems();
                 aCon.updateAgendaDotAndItemText(agendaDotIndex[currentAgendaDotIndex], currentAgendaDotItem);
-            }, 2500);
+            }, db.switchAgendaItemInterval);
         };
 
         /**
@@ -104,6 +106,12 @@
             } else {
                 currentAgendaDotIndex = 0;
             }
+        };
+
+        this.startGetNewAgendaItemsInterval = function () {
+            setInterval(function () {
+                aMod.getAgendaItems();
+            }, db.getNewAgendaItemsInterval);
         };
     };
 }(Dashboard));

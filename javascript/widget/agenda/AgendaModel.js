@@ -20,8 +20,12 @@
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
+                    console.log(data);
                     aMod.handleAgendaItems(data);
-                    functionToCall();
+
+                    if (functionToCall) {
+                        functionToCall();
+                    }
                 }
             });
         };
