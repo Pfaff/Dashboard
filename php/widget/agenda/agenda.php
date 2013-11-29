@@ -20,6 +20,7 @@ class Agenda {
         $client = self::authenticate();
         $service = new Zend_Gdata_Calendar($client);
         $calIds = self::getCalendarIds($service);
+
         for($i = 0; $i < count($calIds); $i++) {
             $query = self::buildQueryForGetEvents($service, $calIds[$i]);
             $calEvents = self::getEvents($service, $query);
@@ -40,9 +41,7 @@ class Agenda {
         $pass = GOOGLE_PASS;
         $service = Zend_Gdata_Calendar::AUTH_SERVICE_NAME;
 
-        $client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
-
-        return $client;
+        return Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
     }
 
     /**
@@ -87,6 +86,12 @@ class Agenda {
         return $query;
     }
 
+    /**
+     * Gets the event by the given service and query.
+     * @param $service
+     * @param $query
+     * @return array|null
+     */
     private static function getEvents($service, $query) {
         try {
             $eventFeed = $service->getCalendarEventFeed($query);

@@ -43,7 +43,6 @@
                 dataType: "json",
                 success: function (data) {
                     data.sort(function (a, b) {return a.version - b.version; });
-                    console.log(data);
                     msMod.handleMantisStatsData(data);
                     msMod.makeArraysForMantisStatsChart();
                     msMod.mutateCategoriesArray();
