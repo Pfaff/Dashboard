@@ -95,7 +95,7 @@ var Dashboard = {
     /**
      * Interval for getting new agenda items.
      */
-    getNewAgendaItemsInterval   :       60000,   // TO-DO: RAISE THIS ONCE THE AGENDA WIDGET IS DONE.
+    getNewAgendaItemsInterval   :       1800000,  // 30 Minutes
 
     /**
      * Interval for switching between the agenda items.

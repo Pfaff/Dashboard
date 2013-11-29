@@ -25,7 +25,7 @@
          * Current agenda dot index contains the value of which current days difference is being used from the agendaDotIndex array.
          * @type {number}
          */
-        currentAgendaDotIndex = 0;
+        currentAgendaDotIndex = -1;
 
         /**
          * Calls the main functions of the agenda controller.
@@ -48,17 +48,14 @@
 
         /**
          * Updates all dots which should have an item on them; background color white.
-         * Days difference is being calculated for the same reason explained at the agendaDotIndex array.
          */
         this.updateAgendaViewWithItems = function () {
-            var i, currentDate, diffDays, agendaItemDate;
-            currentDate = new Date();
+            var i, daysLeft;
 
             for (i = 0; i < aMod.agendaItems.length; i++) {
-                agendaItemDate = new Date(aMod.agendaItems[i].date);
-                diffDays = Math.round(Math.abs((currentDate.getTime() - agendaItemDate.getTime()) / (24 * 60 * 60 * 1000)));
-                aView.addItemOnAgendaDot(diffDays);
-                agendaDotIndex.push(diffDays);
+                daysLeft = aMod.agendaItems[i].daysLeft;
+                aView.addItemOnAgendaDot(daysLeft);
+                agendaDotIndex.push(daysLeft);
             }
         };
 

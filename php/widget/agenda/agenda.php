@@ -1,93 +1,116 @@
 <?php
 
+require_once 'C:/xampp/php/zend/library/Zend/Loader.php';
+Zend_Loader::loadClass('Zend_Gdata');
+Zend_Loader::loadClass('Zend_Gdata_AuthSub');
+Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
+Zend_Loader::loadClass('Zend_Gdata_Calendar');
 require_once('../../lib/RestServer.php');
 require_once('../../config/config.php');
 
 class Agenda {
 
+    /**
+     * Calls the functions to return the events of all calendars in a specific time period.
+     * @return array
+     */
     public static function main() {
-        $data = array();
-        $projects = ["Topicus", "Alluris", "Dashboard", "EduArte", "Iris+", "ParnasSys", "ParnasSys Ouders", "ParnasSys Supportportaal", "Passepartout", "Reportal", "SOM", "SOM Portaal", "SOMtoday", "TrmVerwijzer", "ZIEN!"];
-        $agendaLocations = unserialize(AGENDA_LOCATIONS);
+        $events = array();
 
-        for($i = 0; $i < count($projects); $i++) {
-            $projectToGet = $projects[$i];
-            $agendaItems = self::getAgendaItems($agendaLocations[$projectToGet]);
-            $agendaItems = self::removeIrrelevantRows(self::buildDataArray($projectToGet, $agendaItems));
-            $data = self::addAgendaItemsToData($data, $agendaItems);
-        }
-
-        return $data;
-    }
-
-    private static function getAgendaItems($url) {
-        $fileContent = file_get_contents($url);
-        $xmlContent = simplexml_load_string($fileContent);
-
-        return $xmlContent;
-    }
-
-    private static function buildDataArray($agendaName, $content) {
-        $data = array();
-
-        for($i = 0; $i < count($content->entry); $i++) {
-            $item = $content->entry[$i];
-
-            $row = array(   "title" => (string) $item->title,
-                            "agenda" => $agendaName,
-                            "date" => self::calculateDate((string) $item->summary)
-            );
-
-            array_push($data, $row);
-        }
-
-        return $data;
-    }
-
-    private static function calculateDate($content) {
-        $datePieces = explode(" ", $content);
-        return substr($datePieces[4], 0, 4) . '-' . self::getMonth($datePieces[3]) . '-' . substr($datePieces[2], 0, -1);
-    }
-
-    private static function getMonth($month) {
-        $months = ["jan", "feb", "mrt", "apr", "mei", "jun", "jul", "aug", "sep", "okt", "nov", "dec"];
-
-        for($i = 0; $i < count($months); $i++) {
-            if($month == $months[$i]) {
-                return $i + 1;
+        $client = self::authenticate();
+        $service = new Zend_Gdata_Calendar($client);
+        $calIds = self::getCalendarIds($service);
+        for($i = 0; $i < count($calIds); $i++) {
+            $query = self::buildQueryForGetEvents($service, $calIds[$i]);
+            $calEvents = self::getEvents($service, $query);
+            for($x = 0; $x < count($calEvents); $x++) {
+                array_push($events, $calEvents[$x]);
             }
         }
 
-        return $month;
+        return $events;
     }
 
-    private static function removeIrrelevantRows($content) {
-        $data = array();
+    /**
+     * Used to authenticate with Google.
+     * @return mixed
+     */
+    private static function authenticate() {
+        $user = GOOGLE_USER;
+        $pass = GOOGLE_PASS;
+        $service = Zend_Gdata_Calendar::AUTH_SERVICE_NAME;
 
-        $dateToday = date('Y-m-d');
-        $parts = explode('-', $dateToday);
-        $dateIn14Days = date('Y-m-d', mktime(0, 0, 0, $parts[1], $parts[2] + 14, $parts[0]));
+        $client = Zend_Gdata_ClientLogin::getHttpClient($user, $pass, $service);
 
-        for($i = 0; $i < count($content); $i++) {
-            $dateToCheck = date($content[$i]['date']);
+        return $client;
+    }
 
-            if(strtotime($dateToCheck) >= strtotime($dateToday) && strtotime($dateToCheck) <= strtotime($dateIn14Days)) {
-                array_push($data, $content[$i]);
+    /**
+     * Gets the ID's of all calendars.
+     * @param $service
+     * @return array|null
+     */
+    private static function getCalendarIds($service) {
+        try {
+            $calFeed = $service->getCalendarListFeed();
+
+            $calIds = array();
+            foreach ($calFeed as $calendar) {
+                $calenderId = (string) $calendar->id;
+                array_push($calIds, str_replace("http://www.google.com/calendar/feeds/default/", "", $calenderId));
             }
-        }
 
-//        return date($content[21]['date']) >= $dateToday;
-//        return [strtotime(date($content[21]['date'])), strtotime($dateIn14Days)];
-//        return strtotime(date($content[21]['date'])) <= strtotime($dateIn14Days);
-        return $data;
+            return $calIds;
+
+        } catch (Zend_Gdata_App_Exception $e) { echo "Error: " . $e->getMessage(); }
+
+        return null;
     }
 
-    private static function addAgendaItemsToData($data, $agendaItems) {
-        for($i = 0; $i < count($agendaItems); $i++) {
-            array_push($data, $agendaItems[$i]);
+    /**
+     * Builds the query for the event-getter.
+     * StartMin is inclusive, StartMax is exclusive.
+     * @param $service
+     * @param $calId
+     * @return mixed
+     */
+    private static function buildQueryForGetEvents($service, $calId) {
+        $currentDate = date('Y-m-d');
+        $query = $service->newEventQuery();
+        $query->setUser($calId);
+        $query->setVisibility('private');
+        $query->setProjection('full');
+        $query->setOrderby('starttime');
+        $query->setStartMin($currentDate);
+        $query->setStartMax(date('Y-m-d', strtotime($currentDate. ' + 15 days')));
+
+        return $query;
+    }
+
+    private static function getEvents($service, $query) {
+        try {
+            $eventFeed = $service->getCalendarEventFeed($query);
+            $events = array();
+
+            foreach ($eventFeed as $event) {
+                $title = $event->title->text;
+                $agenda = $event->who[0]->valueString;
+                $date = substr($event->when[0]->startTime, 0, 10);
+
+                    $row = array(   "title" => $title,
+                                    "agenda" => $agenda,
+                                    "date" => ($date . ' 23:59:00')
+                    );
+
+                    array_push($events, $row);
+            }
+
+            return $events;
+        } catch (Zend_Gdata_App_Exception $e) {
+            echo "Error: " . $e->getMessage();
         }
 
-        return $data;
+        return null;
     }
 }
 

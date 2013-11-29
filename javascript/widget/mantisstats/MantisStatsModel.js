@@ -43,6 +43,7 @@
                 dataType: "json",
                 success: function (data) {
                     data.sort(function (a, b) {return a.version - b.version; });
+                    console.log(data);
                     msMod.handleMantisStatsData(data);
                     msMod.makeArraysForMantisStatsChart();
                     msMod.mutateCategoriesArray();
@@ -116,7 +117,7 @@
                 date = new Date();
                 releaseDate = new Date(msMod.msDaysLeft[i]);
                 daysLeft = Math.round(Math.abs((date.getTime() - releaseDate.getTime()) / oneDay));
-                msMod.msDaysLeft[i] = daysLeft + 1;
+                msMod.msDaysLeft[i] = daysLeft; // +1
             }
         };
     };

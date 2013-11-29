@@ -60,14 +60,15 @@
          * The AJAX call which gathers the information.
          */
         this.getProjectInformation = function () {
-            console.log(new Date());
             $.ajax({
-                url: db.url_ProjectInfo,
-                data: { method: db.method_ProjectInfo },
+//                url: db.url_ProjectInfo,
+//                data: { method: db.method_ProjectInfo },
+                url: '../dashboard/php/widget/projectinfo/ProjectInfoData.php',
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    piModel.fillProjectInfoObject(data);
+                    console.log(data);
+                    //piModel.fillProjectInfoObject(data);
                 }
             });
         };
