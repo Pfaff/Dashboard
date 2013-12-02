@@ -53,7 +53,7 @@
         this.main = function () {
             piModel.getCpuLoadHistory();
             piModel.getUserAmountHistory();
-            //piModel.getProjectInformation();
+            piModel.getProjectInformation();
         };
 
         /**
@@ -64,6 +64,7 @@
 //                url: db.url_ProjectInfo,
 //                data: { method: db.method_ProjectInfo },
                 url: '../dashboard/php/widget/projectinfo/ProjectInfoData.php',
+                data: { method: 'main' },
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {

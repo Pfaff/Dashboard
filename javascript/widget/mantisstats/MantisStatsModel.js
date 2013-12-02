@@ -61,7 +61,7 @@
             mantisStats = [];
 
             for (i = 0; i < data.length; i++) {
-                mantisStats.push(new db.MantisStats(data[i].version, data[i].issuesOpen, data[i].issuesClosed, data[i].releaseDate));
+                mantisStats.push(new db.MantisStats(data[i].version, data[i].issuesOpen, data[i].issuesClosed, data[i].releaseDate)); // + " 23:59:00"
             }
         };
 
@@ -115,7 +115,7 @@
             for (i = 0; i < msMod.msDaysLeft.length; i++) {
                 date = new Date();
                 releaseDate = new Date(msMod.msDaysLeft[i]);
-                daysLeft = Math.round(Math.abs((date.getTime() - releaseDate.getTime()) / oneDay));
+                daysLeft = Math.floor(Math.abs((date.getTime() - releaseDate.getTime()) / oneDay));
                 msMod.msDaysLeft[i] = daysLeft; // +1
             }
         };
