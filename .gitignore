@@ -1,2 +1,2 @@
-php\config\config.php
-.idea\
+./php/config/config.php
+.idea/
