@@ -15,6 +15,7 @@
         msMod.msCategories = [];
         msMod.msIssuesOpen = [];
         msMod.msIssuesClosed = [];
+        msMod.msIssuesResolved = [];
         msMod.msDaysLeft = [];
 
         /**
@@ -61,8 +62,10 @@
             mantisStats = [];
 
             for (i = 0; i < data.length; i++) {
-                mantisStats.push(new db.MantisStats(data[i].version, data[i].issuesOpen, data[i].issuesClosed, data[i].releaseDate)); // + " 23:59:00"
+                mantisStats.push(new db.MantisStats(data[i].version, data[i].issuesOpen, data[i].issuesClosed, data[i].issuesResolved, data[i].releaseDate)); // + " 23:59:00"
             }
+
+            console.log(mantisStats);
         };
 
         /**
@@ -72,6 +75,7 @@
             msMod.msCategories = msMod.fillArrayWithFilteredData("version");
             msMod.msIssuesOpen = msMod.fillArrayWithFilteredData("issuesOpen");
             msMod.msIssuesClosed = msMod.fillArrayWithFilteredData("issuesClosed");
+            msMod.msIssuesResolved = msMod.fillArrayWithFilteredData("issuesResolved");
             msMod.msDaysLeft = msMod.fillArrayWithFilteredData("releaseDate");
         };
 

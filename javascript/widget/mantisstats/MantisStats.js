@@ -4,10 +4,11 @@
  */
 (function (db) {
     "use strict";
-    db.MantisStats = function MantisStats(version, issuesOpen, issuesClosed, releaseDate) {
+    db.MantisStats = function MantisStats(version, issuesOpen, issuesClosed, issuesResolved, releaseDate) {
         this.version = version;
         this.issuesOpen = issuesOpen;
         this.issuesClosed = issuesClosed;
+        this.issuesResolved = issuesResolved;
         this.releaseDate = releaseDate;
     };
 }(Dashboard));
