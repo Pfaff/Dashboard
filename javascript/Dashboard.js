@@ -36,13 +36,18 @@ var Dashboard = {
      * Interval used to update the content.
      * 1.000 = 1 second.
      */
-    projectInfoUpdateContentInterval   :   30000,
+    projectInfoUpdateContentInterval   :   8000,
 
     /**
      * Interval used to update switching between the blocks.
      * 1.000 = 1 second.
      */
-    projectInfoBlockSwitchInterval     :   15000,
+    projectInfoBlockSwitchInterval     :   8000,
+
+    /**
+     * Defines the amount of seconds to wait before trying to get new project information.
+     */
+    getNewProjectInfo   :   40000,
 
     /**
      * Interval used to update the graph.

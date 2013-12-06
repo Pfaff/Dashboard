@@ -51,7 +51,7 @@ class CPULoadHistory {
         $host = $api->hostGet( array(
             'output' => 'extend',
             'selectScreenItems' => 'extend',
-            'search' => array('name' => CL_GRAPHHOST_SOM_START.$i.CL_GRAPHHOST_SOM_END)
+            'search' => array('name' => ATVO_SOM_START.$i.ATVO_SOM_END)
         ));
         $hostid = $host[0]->hostid;
     }

@@ -68,8 +68,7 @@
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data);
-                    //piModel.fillProjectInfoObject(data);
+                    piModel.fillProjectInfoObject(data);
                 }
             });
         };
@@ -151,7 +150,7 @@
             var capacityMaxAll, capacityMax;
             capacityMaxAll = piModel.pi.att.capacityMaxAll;
             capacityMax = piModel.calculateSum(capacityMaxAll);
-            piModel.pi.att.capacityMax = capacityMax + " GB";
+            piModel.pi.att.capacityMax = parseFloat(capacityMax).toFixed(2) + " GB";
         };
 
         /**
@@ -161,7 +160,7 @@
             var capacityInUseAll, capacityInUse;
             capacityInUseAll = piModel.pi.att.capacityInUseAll;
             capacityInUse = piModel.calculateSum(capacityInUseAll);
-            piModel.pi.att.capacityInUse = capacityInUse + " GB";
+            piModel.pi.att.capacityInUse = parseFloat(capacityInUse).toFixed(2) + " GB";
         };
 
         /**

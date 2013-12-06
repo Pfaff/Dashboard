@@ -55,7 +55,7 @@ class UserAmountHistory {
         global $api, $hostid;
         $host = $api->hostGet( array(
             'output' => 'extend',
-            'filter' => array('host' => UA_GRAPHHOST_SOM_START.$i.UA_GRAPHHOST_SOM_END)
+            'filter' => array('host' => ZABBIXHOST_SOM_START.$i.ZABBIXHOST_SOM_END)
         ));
         $hostid = $host[0]->hostid;
     }

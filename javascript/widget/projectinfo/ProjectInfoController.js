@@ -104,10 +104,12 @@
          * It's being used for the build after loading the page, so it doesn't have to wait on the first interval.
          */
         this.startTimeOutsForContentAndGraph = function () {
-//            setTimeout(function () {
-//                piController.updateBlock(blockContent[blockToUse], blockTitle[blockToUse]);
-//                piModel.getProjectInformation();
-//            }, 2000);
+            setTimeout(function () {
+                piController.updateBlock(blockContent[blockToUse], blockTitle[blockToUse]);
+                piModel.getProjectInformation();
+                piController.startUpdateContent();
+                piController.getNewProjectInformationInterval();
+            }, 40000);
 
             setTimeout(function () {
                 piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
@@ -121,8 +123,13 @@
         this.startUpdateContent = function () {
             setInterval(function () {
                 piController.updateBlock(blockContent[blockToUse], blockTitle[blockToUse]);
-                piModel.getProjectInformation();
             }, db.projectInfoUpdateContentInterval);
+        };
+
+        this.getNewProjectInformationInterval = function () {
+            setInterval(function () {
+                piModel.getProjectInformation();
+            }, db.getNewProjectInfo);
         };
 
         /**
