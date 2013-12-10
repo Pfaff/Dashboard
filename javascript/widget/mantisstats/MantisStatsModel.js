@@ -64,8 +64,6 @@
             for (i = 0; i < data.length; i++) {
                 mantisStats.push(new db.MantisStats(data[i].version, data[i].issuesOpen, data[i].issuesClosed, data[i].issuesResolved, data[i].releaseDate)); // + " 23:59:00"
             }
-
-            console.log(mantisStats);
         };
 
         /**

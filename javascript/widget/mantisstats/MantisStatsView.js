@@ -148,7 +148,7 @@
                         name: 'Gesloten         ',
                         data: issuesClosed,
                         stacking: 'normal',
-                        color: '#0c324a',
+                        color: '#154a85',
                         borderWidth: 0
                     }, {
                         name: 'Open         ',
