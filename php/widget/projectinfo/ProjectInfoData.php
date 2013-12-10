@@ -45,6 +45,14 @@ class ProjectInfoData {
         return new ZabbixApi(ZABBIX_API_URL, ZABBIX_USER, ZABBIX_PASS);
     }
 
+    /**
+     * Gets the host id.
+     * @param $api
+     * @param $somHostId
+     * @param $hostStart
+     * @param $hostEnd
+     * @return mixed
+     */
     private static function getHostId($api, $somHostId, $hostStart, $hostEnd) {
         global $host;
         $host = $api->hostGet( array(
@@ -54,6 +62,13 @@ class ProjectInfoData {
         return $host[0]->hostid;
     }
 
+    /**
+     * Gets the item id.
+     * @param $api
+     * @param $hostid
+     * @param $search
+     * @return mixed
+     */
     private static function getItemId($api, $hostid, $search) {
         $item = $api->itemGet(array(
             'output' => 'extend',
@@ -63,6 +78,13 @@ class ProjectInfoData {
         return $item[0]->itemid;
     }
 
+    /**
+     * Gets the desired history.
+     * @param $api
+     * @param $history
+     * @param $itemid
+     * @return mixed
+     */
     private static function getHistory($api, $history, $itemid) {
         $history = $api->historyGet(array(
             'output' => 'extend',
@@ -75,6 +97,12 @@ class ProjectInfoData {
         return $history[0]->value;
     }
 
+    /**
+     * Pushes each row of an array into a given array to avoid having a object containing arrays being pushed in.
+     * @param $pushInArray
+     * @param $array
+     * @return mixed
+     */
     private static function pushEachRowOfGivenArrayInGivenArray($pushInArray, $array) {
         for($i = 0; $i < count($array); $i++) {
             array_push($pushInArray, $array[$i]);
@@ -83,6 +111,11 @@ class ProjectInfoData {
         return $pushInArray;
     }
 
+    /**
+     * Creates a single object from an object filled with arrays.
+     * @param $array
+     * @return array
+     */
     private static function createOneObjectFromArrayFilledWithObjects($array) {
         $arrayToReturn = array();
 
@@ -93,6 +126,11 @@ class ProjectInfoData {
         return $arrayToReturn;
     }
 
+    /**
+     * Calculates and returns the uptime in the desired format.
+     * @param $time
+     * @return string
+     */
     private static function calcUptime($time) {
         $t = round($time);
         $time = new DateTime();
@@ -100,22 +138,47 @@ class ProjectInfoData {
         return $mTime->format('d-m-Y H:i ');
     }
 
+    /**
+     * Calculates given bytes to amount of GB.
+     * @param $bytes
+     * @return string
+     */
     private static function calcBytesToGB($bytes) {
         return round($bytes/(1024*1024*1024), 2, PHP_ROUND_HALF_UP) . "G";
     }
 
+    /**
+     * Calculates the given seconds to ms.
+     * @param $seconds
+     * @return string
+     */
     private static function calcSecondsToMS($seconds) {
         return round($seconds * 1000, 0, PHP_ROUND_HALF_UP) . " ms.";
     }
 
+    /**
+     * Calculates the results in seconds to minutes.
+     * @param $result
+     * @return float
+     */
     private static function calcResultInSecondsToMinutes($result) {
         return round($result * 60, 0, PHP_ROUND_HALF_UP);
     }
 
+    /**
+     * Calculates the load average.
+     * @param $loadPerCore
+     * @return string
+     */
     private static function calcLoadAverage($loadPerCore) {
         return (string) round($loadPerCore * 16, 2, PHP_ROUND_HALF_UP);
     }
 
+    /**
+     * Updates the history to return in its desired format.
+     * @param $historyToReturn
+     * @return mixed
+     */
     private static function updateHistoryToReturnDataToDesiredFormat($historyToReturn) {
         for($i = 1; $i <= AMOUNT_SOM_SERVERS; $i++) {
             $key = "Starttijd";
@@ -140,6 +203,11 @@ class ProjectInfoData {
         return $historyToReturn;
     }
 
+    /**
+     * Gets the additional data from atvo1, 2, 3 and 4.
+     * @param $api
+     * @return mixed
+     */
     private static function getAdditionalDataFromAtvos($api) {
         $history = array();
         $searchFor = ["Load average", "CPU's"];
@@ -159,6 +227,11 @@ class ProjectInfoData {
         return self::splitAtvoInfoToServers($history);
     }
 
+    /**
+     * Adds the 5 6 and 7 value received from atvo 1, 2, 3 and 4.
+     * @param $history
+     * @return mixed
+     */
     private static function splitAtvoInfoToServers($history) {
         array_push($history, array("Load average7" => $history[2]["Load average2"]));
         array_push($history, array("CPU's7" => $history[3]["CPU's2"]));

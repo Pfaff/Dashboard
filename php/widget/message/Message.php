@@ -4,6 +4,10 @@ require_once('../../config/database.php');
 require_once('../../lib/RestServer.php');
 
 class Message {
+    /**
+     * Gets the messages from the postgresql database.
+     * @return array
+     */
     public static function getMessages() {
         $con = pg_connect("host=".CON_HOST." dbname=".CON_DBNAME." user=".CON_USER." password=".CON_PASSWORD."")
             or die ("Could not connect to server.");
@@ -16,6 +20,9 @@ class Message {
         return pg_fetch_all($result);
     }
 
+    /**
+     * Removes the message from the database.
+     */
     public static function removeMessage() {
         $con = pg_connect("host=".CON_HOST." dbname=".CON_DBNAME." user=".CON_USER." password=".CON_PASSWORD."")
             or die ("Could not connect to server.");
@@ -27,6 +34,9 @@ class Message {
         pg_query($con, $query) or die("Cannot execute the query.");
     }
 
+    /**
+     * Posts a new message in the database.
+     */
     public static function postMessage() {
         $con = pg_connect("host=".CON_HOST." dbname=".CON_DBNAME." user=".CON_USER." password=".CON_PASSWORD."")
             or die ("Could not connect to server.");

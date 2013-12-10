@@ -5,6 +5,10 @@ require_once('../../lib/RestServer.php');
 
 class Employee {
 
+    /**
+     * Gets the employees from the ldap.
+     * @return array|null
+     */
     public static function main() {
         $ldap = ldap_connect(LDAP_LOCATION) or die("Could not connect to LDAP server.");
         $info = null;

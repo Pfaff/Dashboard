@@ -3,11 +3,20 @@
 require_once('../../config/config.php');
 
 class AdapterNu {
-
+    /**
+     * Builds the data retrieved from the given url.
+     * @param $url
+     * @return array
+     */
     public static function main($url) {
         return self::buildDataToReturn(self::getNews($url));
     }
 
+    /**
+     * Retrieves the news from the given url.
+     * @param $url
+     * @return SimpleXMLElement[]
+     */
     private static function getNews($url) {
         $fileContent = file_get_contents($url);
         $fileContent = str_replace(array("\n", "\r", "\t"), '', $fileContent);
@@ -18,6 +27,11 @@ class AdapterNu {
         return $xmlContent->channel;
     }
 
+    /**
+     * Builds an array in a desired format from the retrieved content.
+     * @param $content
+     * @return array
+     */
     private static function buildDataToReturn($content) {
         $dataToReturn = array();
 
