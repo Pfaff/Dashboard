@@ -122,6 +122,7 @@
          * @param index
          */
         this.addItemOnAgendaDot = function (index) {
+            console.log(index);
             var dot = document.getElementById("agendaDot" + index);
             dot.className = "agendaDot agendaDotEvent";
         };
