@@ -17,15 +17,15 @@
         /**
          * Main function of the message model, calls the desired functions.
          */
-        this.main = function () {
+        this.main = function (functionToCall) {
             mesMod.getEmployeeInfo();
-            setTimeout(function () { mesMod.getMessages(); }, 2000);
+            setTimeout(function () { mesMod.getMessages(functionToCall); }, 2000);
         };
 
         /**
          * Gets the messages from the REST service.
          */
-        this.getMessages = function () {
+        this.getMessages = function (functionToCall) {
             $.ajax({
                 url: db.url_Message,
                 data: { method: db.method_MessageGet },
@@ -33,6 +33,10 @@
                 dataType: "json",
                 success: function (data) {
                     mesMod.handleMessageData(data);
+
+                    if (functionToCall) {
+                        functionToCall();
+                    }
                 }
             });
         };

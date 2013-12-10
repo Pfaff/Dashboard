@@ -42,8 +42,8 @@
          */
         this.main = function () {
             piController.startProjectInfoView();
-            piController.startProjectInfoModel();
-            piController.startTimeOutsForContentAndGraph();
+            piController.startProjectInfoModel(piController.buildProjectInfoBlock, piController.buildUserAmountsGraph);
+            //piController.startTimeOutsForContentAndGraph();
             //piController.startUpdateContent();
             piController.startUpdateGraph();
             piController.setTimerForBlockSwitch();
@@ -61,8 +61,8 @@
         /**
          * Starts the project info model.
          */
-        this.startProjectInfoModel = function () {
-            piModel.main();
+        this.startProjectInfoModel = function (functionToCallForProjectInfo, functionToCallForUserGraph) {
+            piModel.main(functionToCallForProjectInfo, functionToCallForUserGraph);
         };
 
         /**
@@ -97,6 +97,17 @@
         this.startProjectHistoryController = function () {
             var phController = new db.ProjectHistoryController();
             phController.main();
+        };
+
+        this.buildProjectInfoBlock = function () {
+            piController.updateBlock(blockContent[blockToUse], blockTitle[blockToUse]);
+            piModel.getProjectInformation();
+            piController.startUpdateContent();
+            piController.getNewProjectInformationInterval();
+        };
+
+        this.buildUserAmountsGraph = function () {
+            piView.buildUserAmountsGraph(piModel.userAmountsGraphHours, piModel.userAmountsGraphAmounts, piController.startOverlayAndProjectHistoryController);
         };
 
         /**

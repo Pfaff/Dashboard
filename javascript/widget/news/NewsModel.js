@@ -16,14 +16,14 @@
         /**
          * Calls the function to gather the news.
          */
-        this.main = function () {
-            nMod.getNews();
+        this.main = function (functionToCall) {
+            nMod.getNews(functionToCall);
         };
 
         /**
          * Gets the news from the back-end.
          */
-        this.getNews = function () {
+        this.getNews = function (functionToCall) {
             $.ajax({
                 url: db.url_News,
                 data: { method: db.method_News },
@@ -31,6 +31,10 @@
                 dataType: "json",
                 success: function (data) {
                     nMod.handleNewsItems(data);
+
+                    if (functionToCall) {
+                        functionToCall();
+                    }
                 }
             });
         };

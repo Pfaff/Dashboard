@@ -21,10 +21,10 @@
          * Calls the functions to make the news widget work.
          */
         this.main = function () {
-            nMod.main();
+            nMod.main(nCon.startNews);
             nView.main();
-            setTimeout(nCon.updateAllNews, 4000);
-            setTimeout(nCon.startUpdateInterval, 8000);
+//            setTimeout(nCon.updateAllNews, 4000);
+//            setTimeout(nCon.startUpdateInterval, 8000);
             nCon.startGetNewNewsInterval();
         };
 
@@ -35,6 +35,11 @@
             setInterval(function () {
                 nCon.updateAllNews();
             }, db.updateNewsArticlesInterval);
+        };
+
+        this.startNews = function () {
+            nCon.startUpdateInterval();
+            nCon.updateAllNews();
         };
 
         /**

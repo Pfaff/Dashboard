@@ -50,16 +50,16 @@
         /**
          * Gathers the information for the project info widget.
          */
-        this.main = function () {
+        this.main = function (functionToCallForProjectInfo, functionToCallForUserGraph) {
             piModel.getCpuLoadHistory();
-            piModel.getUserAmountHistory();
-            piModel.getProjectInformation();
+            piModel.getUserAmountHistory(functionToCallForUserGraph);
+            piModel.getProjectInformation(functionToCallForProjectInfo);
         };
 
         /**
          * The AJAX call which gathers the information.
          */
-        this.getProjectInformation = function () {
+        this.getProjectInformation = function (functionToCall) {
             $.ajax({
 //                url: db.url_ProjectInfo,
 //                data: { method: db.method_ProjectInfo },
@@ -69,6 +69,9 @@
                 dataType: 'json',
                 success: function (data) {
                     piModel.fillProjectInfoObject(data);
+                    if (functionToCall) {
+                        functionToCall();
+                    }
                 }
             });
         };
@@ -240,7 +243,7 @@
         /**
          * Collects the user amount history information from the given REST service.
          */
-        this.getUserAmountHistory = function () {
+        this.getUserAmountHistory = function (functionToCall) {
             $.ajax({
                 url: db.url_UserAmountHistory,
                 data: { method: db.method_UserAmountHistory,
@@ -249,6 +252,9 @@
                 dataType: 'json',
                 success: function (data) {
                     piModel.fillUserAmountArray(data);
+                    if (functionToCall) {
+                        functionToCall();
+                    }
                 }
             });
         };

@@ -15,11 +15,11 @@
          * Calls the main functions in order to make the message widget function on the dashboard.
          */
         this.main = function () {
-            mesMod.main();
+            mesMod.main(mesCon.startMessageWidget);
             mesView.main();
             mesCon.activateMessageWidgetClickListeners();
-            mesCon.startGetMessagesInterval();
-            mesCon.startUpdateMessageInterval();
+//            mesCon.startGetMessagesInterval();
+//            mesCon.startUpdateMessageInterval();
         };
 
         /**
@@ -47,6 +47,12 @@
             setInterval(function () {
                 mesMod.getMessages();
             }, db.getMessagesInterval);
+        };
+
+        this.startMessageWidget = function () {
+            mesCon.defineMessageToShow();
+            mesView.addMessageToWidget(mesMod.messages[messageToShow]);
+            mesCon.startUpdateMessageInterval();
         };
 
         /**

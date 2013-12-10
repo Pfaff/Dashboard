@@ -13,10 +13,10 @@
          * Starts the model and the view. Building the chart and starting it's update interval.
          */
         this.main = function () {
-            msMod.main();
+            msMod.main(msCon.buildMantisStatsChart);
             msView.main();
-            setTimeout(msCon.buildMantisStatsChart, 1500);
-            msCon.startBuildMantisStatsChartInterval();
+//            setTimeout(msCon.buildMantisStatsChart, 1500);
+//            msCon.startBuildMantisStatsChartInterval();
         };
 
         /**
@@ -24,6 +24,7 @@
          */
         this.buildMantisStatsChart = function () {
             msView.buildMantisStatsChart(msMod.msCategories, msMod.msIssuesOpen, msMod.msIssuesClosed, msMod.msIssuesResolved, msMod.msDaysLeft);
+            msCon.startBuildMantisStatsChartInterval();
         };
 
         /**

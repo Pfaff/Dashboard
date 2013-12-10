@@ -236,7 +236,9 @@
          * Removes the graph.
          */
         this.removeGraph = function () {
-            piView.chart.empty();
+            if (piView.chart) {
+                piView.chart.empty();
+            }
         };
 
         /**

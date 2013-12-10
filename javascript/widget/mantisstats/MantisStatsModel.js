@@ -30,14 +30,14 @@
         /**
          * Calls the function which collects the data from the back-end.
          */
-        this.main = function () {
-            msMod.getMantisStats();
+        this.main = function (functionToCall) {
+            msMod.getMantisStats(functionToCall);
         };
 
         /**
          * Function which collects the data from the back-end.
          */
-        this.getMantisStats = function () {
+        this.getMantisStats = function (functionToCall) {
             $.ajax({
                 url: db.url_Mantis,
                 type: "GET",
@@ -48,6 +48,10 @@
                     msMod.makeArraysForMantisStatsChart();
                     msMod.mutateCategoriesArray();
                     msMod.mutateDaysLeftArray();
+
+                    if (functionToCall) {
+                        functionToCall();
+                    }
                 }
             });
         };
