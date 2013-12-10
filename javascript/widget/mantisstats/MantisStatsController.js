@@ -23,7 +23,7 @@
          * Builds the chart with the data from the model.
          */
         this.buildMantisStatsChart = function () {
-            msView.buildMantisStatsChart(msMod.msCategories, msMod.msIssuesOpen, msMod.msIssuesClosed, msMod.msDaysLeft);
+            msView.buildMantisStatsChart(msMod.msCategories, msMod.msIssuesOpen, msMod.msIssuesClosed, msMod.msIssuesResolved, msMod.msDaysLeft);
         };
 
         /**

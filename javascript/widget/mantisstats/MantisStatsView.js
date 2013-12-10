@@ -4,7 +4,7 @@
 (function (db) {
     "use strict";
     db.MantisStatsView = function MantisStatsView() {
-        var msView, chart;
+        var msView;
         msView = this;
 
         /**
@@ -92,7 +92,7 @@
          * @param issuesClosed
          * @param daysLeft
          */
-        this.buildMantisStatsChart = function (categories, issuesOpen, issuesClosed, daysLeft) {
+        this.buildMantisStatsChart = function (categories, issuesOpen, issuesClosed, issuesResolved, daysLeft) {
             $(function () {
                 $('#mantisStatsChart').highcharts({
                     chart: {
@@ -139,13 +139,19 @@
                         enabled: false
                     },
                     series: [{
-                        name: 'Gesloten meldingen   ',
+                        name: 'Opgelost         ',
+                        data: issuesResolved,
+                        stacking: 'normal',
+                        color: '#042133',
+                        borderWidth: 0
+                    }, {
+                        name: 'Gesloten         ',
                         data: issuesClosed,
                         stacking: 'normal',
                         color: '#0c324a',
                         borderWidth: 0
                     }, {
-                        name: 'Open meldingen   ',
+                        name: 'Open         ',
                         data: issuesOpen,
                         stacking: 'normal',
                         color: '#3b90f0',
