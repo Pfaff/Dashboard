@@ -32,8 +32,6 @@
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
-                    console.log("Data:");
-                    console.log(data);
                     mesMod.handleMessageData(data);
 
                     if (functionToCall) {
