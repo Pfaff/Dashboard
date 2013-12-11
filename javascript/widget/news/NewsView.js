@@ -133,6 +133,8 @@
 
                 if (length > 65) {
                     item.style.fontSize = "12px";
+                } else {
+                    item.style.fontSize = "14px";
                 }
             }
         };
