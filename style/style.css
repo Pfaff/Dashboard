@@ -209,10 +209,6 @@ tspan {
     color:#FFFFFF;
 }
 
-.highcharts-tooltip rect {
-    fill: #efefef;
-}
-
 #message {
     font-size:15px;
 }
