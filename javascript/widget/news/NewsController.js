@@ -37,6 +37,9 @@
             }, db.updateNewsArticlesInterval);
         };
 
+        /**
+         * Starts the functions to build the widget after the news is collected.
+         */
         this.startNews = function () {
             nCon.startUpdateInterval();
             nCon.updateAllNews();
@@ -50,6 +53,7 @@
             newsMiddle = nCon.updateNewsArticle(nMod.getNewsFromGivenSitePlusHideGivenCategory("Nu", "algemeen"), newsMiddle, 1);
             newsMiddle = nCon.updateNewsArticle(nMod.getNewsFromGivenSitePlusHideGivenCategory("Nu", "algemeen"), newsMiddle, 2);
             newsBottom = nCon.updateNewsArticle(nMod.getNewsFromGivenSite("Tweakers"), newsBottom, 3);
+            nView.setTextSizeForEachNewsItem();
         };
 
         /**
@@ -82,6 +86,9 @@
             return 0;
         };
 
+        /**
+         * Starts the interval to get new news.
+         */
         this.startGetNewNewsInterval = function () {
             setInterval(function () {
                 nMod.main();

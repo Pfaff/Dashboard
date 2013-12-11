@@ -120,5 +120,18 @@
             document.getElementById("newsPhotoArticlePhoto" + index).src = photo;
             document.getElementById("newsArticle" + index).onclick = function () { window.open(link); };
         };
+
+        this.setTextSizeForEachNewsItem = function () {
+            var i, item, length;
+
+            for (i = 0; i < db.newsArticles; i++) {
+                item = document.getElementById("newsContentArticleContentText" + i);
+                length = item.firstChild.data.length;
+
+                if (length > 65) {
+                    item.style.fontSize = "12px";
+                }
+            }
+        };
     };
 }(Dashboard));
