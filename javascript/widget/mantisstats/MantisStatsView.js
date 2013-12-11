@@ -151,18 +151,18 @@
                         enabled: false
                     },
                     series: [{
-                        name: 'Opgelost         ',
-                        data: issuesResolved,
-                        stacking: 'normal',
-                        color: '#042133',
-                        borderWidth: 0
-                    }, {
                         name: 'Gesloten         ',
                         data: issuesClosed,
                         stacking: 'normal',
+                        color: '#042133',
+                        borderWidth: 0
+                    },  {
+                        name: 'Opgelost         ',
+                        data: issuesResolved,
+                        stacking: 'normal',
                         color: '#154a85',
                         borderWidth: 0
-                    }, {
+                    },  {
                         name: 'Open         ',
                         data: issuesOpen,
                         stacking: 'normal',
