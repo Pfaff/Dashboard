@@ -97,7 +97,11 @@
                 $('#mantisStatsChart').highcharts({
                     chart: {
                         type: 'bar',
-                        backgroundColor: null
+                        backgroundColor: null,
+                        style: {
+                            fontFamily: 'monospace',
+                            color: "#FFF"
+                        }
                     },
                     title: {
                         text: null
@@ -106,6 +110,11 @@
                         categories: categories,
                         title: {
                             text: null
+                        },
+                        labels: {
+                            style: {
+                                color: '#FFFFFF'
+                            }
                         }
                     },
                     yAxis: {
@@ -115,7 +124,10 @@
                             align: 'high'
                         },
                         labels: {
-                            overflow: 'visible'
+                            overflow: 'visible',
+                            style: {
+                                color: '#FFFFFF'
+                            }
                         }
                     },
                     legend: {

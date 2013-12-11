@@ -162,12 +162,22 @@
                     x: -20
                 },
                 xAxis: {
-                    categories: hours
+                    categories: hours,
+                    labels: {
+                        style: {
+                            color: '#FFFFFF'
+                        }
+                    }
                 },
                 yAxis: {
                     min: 0,
                     title: {
                         text: ' '
+                    },
+                    labels: {
+                        style: {
+                            color: '#FFFFFF'
+                        }
                     }
                 },
                 credits: {
@@ -175,7 +185,8 @@
                 },
                 series: [{
                     name: ' ',
-                    data: amounts
+                    data: amounts,
+                    color: '#FFFFFF'
                 }]
             });
         };
@@ -192,25 +203,42 @@
                     backgroundColor: null,
                     events: {
                         click: function () { functionToExecute(); }
+                    },
+                    style: {
+                        color: "#FFFFFF"
                     }
                 },
                 legend: {
                     layout: 'horizontal',
                     align: 'center',
                     verticalAlign: 'bottom',
-                    borderWidth: 0
+                    borderWidth: 0,
+                    itemStyle: {
+                        color: '#FFFFFF',
+                        fontSize: '11px'
+                    }
                 },
                 title: {
                     text: ' ',
                     x: -20
                 },
                 xAxis: {
-                    categories: times
+                    categories: times,
+                    labels: {
+                        style: {
+                            color: '#FFFFFF'
+                        }
+                    }
                 },
                 yAxis: {
                     min: 0,
                     title: {
                         text: ' '
+                    },
+                    labels: {
+                        style: {
+                            color: '#FFFFFF'
+                        }
                     }
                 },
                 credits: {
@@ -218,16 +246,20 @@
                 },
                 series: [{
                     name: 'Som 1    ',
-                    data: amounts[1]
+                    data: amounts[1],
+                    color: '#b27bcf'
                 }, {
                     name: 'Som 2 + 7    ',
-                    data: amounts[2]
+                    data: amounts[2],
+                    color: '#0bde91'
                 }, {
                     name: 'Som 3 + 5    ',
-                    data: amounts[3]
+                    data: amounts[3],
+                    color: '#ffc37c'
                 }, {
                     name: 'Som 4 + 6',
-                    data: amounts[4]
+                    data: amounts[4],
+                    color: '#b36e63'
                 }]
             });
         };
