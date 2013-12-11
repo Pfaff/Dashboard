@@ -94,7 +94,7 @@
             for (i = 0; i < db.amountOfMantisVersionsToShow; i++) {
                 array.push(mantisStats[i][filter]);
             }
-            console.log(array);
+
             return array.reverse();
         };
 
