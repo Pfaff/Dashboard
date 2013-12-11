@@ -32,6 +32,7 @@ class Message {
         }
 
         pg_query($con, $query) or die("Cannot execute the query.");
+        return true;
     }
 
     /**
@@ -45,6 +46,7 @@ class Message {
                   VALUES ('". $_REQUEST['message'] ."','". $_REQUEST['name'] ."','". $_REQUEST['dateFrom'] ."','". $_REQUEST['dateTill'] ."', false)";
 
         pg_query($con, $query) or die("Cannot execute the query.");
+        return true;
     }
 }
 

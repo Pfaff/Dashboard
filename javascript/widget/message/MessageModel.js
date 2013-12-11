@@ -131,7 +131,10 @@
                 data: { method: db.method_MessageRemove,
                         id: mesMod.messages[id].id },
                 type: "GET",
-                dataType: "json"
+                dataType: "json",
+                success: function () {
+                    mesMod.getMessages();
+                }
             });
 
             mesMod.removeRemovedMessageFromMessagesArray(document.getElementById("messageText").firstChild.data);
@@ -170,12 +173,13 @@
                         dateTill : dateTill,
                         message : message },
                 type: "GET",
-                dataType: "json"
+                dataType: "json",
+                success: function () {
+                    mesMod.getMessages();
+                }
             });
 
             mesMod.messages.push(new db.Message(null, message, name, "images/employee/employee.png", dateFrom, dateTill));
-
-            mesMod.getMessages();
 
             document.getElementById("overlay").onclick();
         };

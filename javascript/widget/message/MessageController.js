@@ -52,6 +52,7 @@
         this.startMessageWidget = function () {
             mesCon.defineMessageToShow();
             mesView.addMessageToWidget(mesMod.messages[messageToShow]);
+            mesCon.startGetMessagesInterval();
             mesCon.startUpdateMessageInterval();
         };
 
@@ -60,10 +61,10 @@
          * The timeout has been made so the user doesn't have to wait 10 seconds to see the first message.
          */
         this.startUpdateMessageInterval = function () {
-            setTimeout(function () {
-                mesCon.defineMessageToShow();
-                mesView.addMessageToWidget(mesMod.messages[messageToShow]);
-            }, 4500);
+//            setTimeout(function () {
+//                mesCon.defineMessageToShow();
+//                mesView.addMessageToWidget(mesMod.messages[messageToShow]);
+//            }, 4500);
             setInterval(function () {
                 mesCon.defineMessageToShow();
                 mesView.addMessageToWidget(mesMod.messages[messageToShow]);
@@ -114,7 +115,6 @@
             if (!mesCon.checkIfMessageFieldGotAValue()) {
                 mesMod.postMessage();
                 mesView.addMessageToWidget(mesMod.messages[mesMod.messages.length - 1]);
-                mesMod.getMessages();
             }
         };
 
