@@ -121,6 +121,9 @@
             document.getElementById("newsArticle" + index).onclick = function () { window.open(link); };
         };
 
+        /**
+         * Sets the fontsize of a news headline depending on the length of the content.
+         */
         this.setTextSizeForEachNewsItem = function () {
             var i, item, length;
 
