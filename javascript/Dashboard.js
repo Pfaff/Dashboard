@@ -115,5 +115,10 @@ var Dashboard = {
     /**
      * Interval between updating the mantis stats chart.
      */
-    updateMantisStatsChartInterval  :       60000
+    updateMantisStatsChartInterval  :       60000,
+
+    /**
+     * The amount of different issues in the graph.
+     */
+    amountOfMantisVersionsToShow    :       4
 };
