@@ -97,11 +97,7 @@
                 $('#mantisStatsChart').highcharts({
                     chart: {
                         type: 'bar',
-                        backgroundColor: null,
-                        style: {
-                            fontFamily: 'monospace',
-                            color: "#FFF"
-                        }
+                        backgroundColor: null
                     },
                     title: {
                         text: null
