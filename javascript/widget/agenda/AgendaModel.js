@@ -73,9 +73,7 @@
             currentDate = new Date();
 
             for (i = 0; i < aMod.agendaItems.length; i++) {
-                console.log(aMod.agendaItems[i].date);
-                agendaItemDate = new Date(aMod.agendaItems[i].date);
-                console.log(agendaItemDate);
+                agendaItemDate = new Date(aMod.agendaItems[i].date.replace(" ", "T"));
                 diffDays = Math.floor(Math.abs((currentDate.getTime() - agendaItemDate.getTime()) / (24 * 60 * 60 * 1000)));
                 aMod.agendaItems[i].daysLeft = diffDays;
             }

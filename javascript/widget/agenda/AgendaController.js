@@ -52,11 +52,15 @@
         this.updateAgendaViewWithItems = function () {
             var i, daysLeft;
 
+            agendaDotIndex = [];
+
             for (i = 0; i < aMod.agendaItems.length; i++) {
                 daysLeft = aMod.agendaItems[i].daysLeft;
                 aView.addItemOnAgendaDot(daysLeft);
                 agendaDotIndex.push(daysLeft);
             }
+
+            agendaDotIndex.sort(function (a, b) { return a - b; });
         };
 
         /**
