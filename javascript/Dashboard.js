@@ -80,12 +80,12 @@ var Dashboard = {
     /**
      * Time between the messages.
      */
-    switchMessageInterval   :   7500,
+    switchMessageInterval   :   6500,
 
     /**
      * Time between getting the messages.
      */
-    getMessagesInterval     :   3000,
+    getMessagesInterval     :   60000,
 
     /**
      * Amount of news articles in the news widget.

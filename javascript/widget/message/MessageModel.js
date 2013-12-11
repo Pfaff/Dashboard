@@ -32,6 +32,8 @@
                 type: "GET",
                 dataType: "json",
                 success: function (data) {
+                    console.log("Data:");
+                    console.log(data);
                     mesMod.handleMessageData(data);
 
                     if (functionToCall) {
@@ -131,11 +133,10 @@
                 data: { method: db.method_MessageRemove,
                         id: mesMod.messages[id].id },
                 type: "GET",
-                dataType: "json",
-                success: function () {
-                    mesMod.removeRemovedMessageFromMessagesArray(document.getElementById("messageText").firstChild.data);
-                }
+                dataType: "json"
             });
+
+            mesMod.removeRemovedMessageFromMessagesArray(document.getElementById("messageText").firstChild.data);
         };
 
         /**
@@ -155,7 +156,7 @@
         /**
          * Function to post the message, first collecting the required data for the insert statement, then sending it.
          */
-        this.postMessage = function (functionToCallOnComplete) {
+        this.postMessage = function () {
             var name, dateFrom, dateTill, message, functionToCall;
 
             name = mesMod.getSelectedValue(document.getElementById("messagePostSelectName"));
@@ -173,6 +174,10 @@
                 type: "GET",
                 dataType: "json"
             });
+
+            mesMod.messages.push(new db.Message(null, message, name, "images/employee/employee.png", dateFrom, dateTill));
+
+            mesMod.getMessages();
 
             document.getElementById("overlay").onclick();
         };

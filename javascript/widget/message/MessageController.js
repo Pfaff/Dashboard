@@ -74,6 +74,8 @@
          * Defines the message id which needs to be shown.
          */
         this.defineMessageToShow = function () {
+            console.log(mesMod.messages);
+
             var amountOfMessages = mesMod.messages.length;
 
             if (amountOfMessages > 1) {
@@ -85,6 +87,8 @@
             } else {
                 messageToShow = 0;
             }
+
+            console.log("Amount: " + amountOfMessages + " - " + "toShow: " + messageToShow);
         };
 
         /**
@@ -113,6 +117,8 @@
         this.postMessage = function () {
             if (!mesCon.checkIfMessageFieldGotAValue()) {
                 mesMod.postMessage();
+                mesView.addMessageToWidget(mesMod.messages[mesMod.messages.length - 1]);
+                mesMod.getMessages();
             }
         };
 
