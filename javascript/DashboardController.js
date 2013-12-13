@@ -19,6 +19,7 @@
             dashCon.startMantisStatsController();
             dashCon.startAgendaController();
             dashCon.startTrainController();
+            dashCon.startComicController();
         };
 
         /**
@@ -83,6 +84,11 @@
         this.startTrainController = function () {
             var tCon = new db.TrainController();
             tCon.main();
+        };
+
+        this.startComicController = function () {
+            var comCon = new db.ComicController();
+            comCon.main();
         };
     };
 }(Dashboard));

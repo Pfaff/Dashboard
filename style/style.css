@@ -41,11 +41,15 @@ body {
 }
 
 #containerLeftSectionTop {
-    height:490px;
+    /*height:490px;*/
+    /*height:455px;*/
+    height:429px;
+    margin-top:30px;
 }
 
 #containerLeftSectionBottom {
-    height:411px;
+    height:342px;
+    margin-top:68px;
 }
 
 #containerMiddleSectionTop {
@@ -78,6 +82,11 @@ body {
     height:199px;
 }
 
+#projectInfoSection {
+    height:100%;
+    width:574px;
+}
+
 .piArticle {
     float:left;
     background-color:#2d92a5;
@@ -92,7 +101,11 @@ body {
 .piArticle:first-child {
     width:574px;
     height:307px;
-    margin-top:30px;
+    margin-top:0;
+    margin-right:0;
+}
+
+.piArticle:nth-of-type(5) {
     margin-right:0;
 }
 
@@ -674,4 +687,29 @@ tspan {
 #agendaItemArticleContent {
     font-size:18px;
     margin-top:14px;
+}
+
+#comicSection {
+    height:342px;
+    width:573px;
+    background-color:#4a4f58;
+    position:absolute;
+}
+
+#comicContentArticle {
+    height:310px;
+    width:100%;
+}
+
+#comicArticle {
+    width:100%;
+    height:300px;
+    margin-top:12px;
+}
+
+#comicTitleArticle {
+    height:16px;
+    width:100%;
+    text-align:left;
+    margin-left:8px;
 }

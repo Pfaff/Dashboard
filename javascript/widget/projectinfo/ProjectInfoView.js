@@ -17,6 +17,7 @@
          * Calls the functions to build the project info view.
          */
         this.main = function () {
+            piView.createProjectInfoSection();
             piView.createProjectInfoArticles();
             piView.createWidgetTitleArticle();
             piView.createWidgetTitle();
@@ -26,12 +27,17 @@
             piView.createProjectInfoTitles();
         };
 
+        this.createProjectInfoSection = function () {
+            var section = document.getElementById("containerLeftSectionTop");
+            db.createElement("section", section, { id: "projectInfoSection" });
+        };
+
         /**
          * Creates the articles for the project info in the sections.
          */
         this.createProjectInfoArticles = function () {
             var sectionTop, i;
-            sectionTop = document.getElementById("containerLeftSectionTop");
+            sectionTop = document.getElementById("projectInfoSection");
             for (i = 0; i < 5; i++) {
                 db.createElement("article", sectionTop, { id: "piArticle" + i, className: "piArticle" });
             }
